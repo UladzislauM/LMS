@@ -1,1 +1,9 @@
-
+spring:
+  config:
+    activate:
+      on-profile: development
+---
+spring:
+  config:
+    activate:
+      on-profile: production
