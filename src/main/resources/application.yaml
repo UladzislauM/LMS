@@ -11,6 +11,14 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+server:
+  port: 8080
+  error:
+    path: /error
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 10240
 ---
 spring:
   config:
