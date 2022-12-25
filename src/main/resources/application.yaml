@@ -21,6 +21,11 @@ server:
     min-response-size: 10240
 ---
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .html
   config:
     activate:
       on-profile: production
+
