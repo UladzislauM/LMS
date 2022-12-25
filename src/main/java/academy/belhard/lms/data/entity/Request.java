@@ -26,16 +26,6 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private StatusReq statusReq;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Request request = (Request) o;
-        return Objects.equals(id, request.id) && Objects.equals(course, request.course) && Objects.equals(user, request.user) && statusReq == request.statusReq;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, course, user, statusReq);
-    }
+    @Column(name = "is_deleted")
+    private boolean deleted;
 }
