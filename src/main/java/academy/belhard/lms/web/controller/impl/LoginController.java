@@ -1,6 +1,6 @@
 package academy.belhard.lms.web.controller.impl;
 
-import academy.belhard.lms.service.RequestService;
+import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.UserDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-    private final RequestService requestService;
+    private final UserService userService;
 
     @GetMapping("/login")
     public String loginForm(HttpServletRequest request, HttpSession session) {
