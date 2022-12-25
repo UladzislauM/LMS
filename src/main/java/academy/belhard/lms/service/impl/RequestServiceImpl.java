@@ -4,6 +4,7 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.repository.impl.RequestRep;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
+import academy.belhard.lms.service.exception.AppException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRep requestRep;
     private final ObjectMapperR mapper;
 
-    public void validate(Request request) {
+    public void validate(Request request) {//fixMe
 
         throw new RuntimeException("... is not valid, ...");
 
@@ -46,16 +47,26 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void delete(Long id) {
-
+        if (!requestRep.delete(id)) {
+            throw new AppException("Failed delete request"); //fixMe
+        }
     }
 
     @Override
     public RequestDto create(RequestDto requestDto) {
-        return null;
+        Request request = mapper.toRequest(requestDto);
+        if (request == null) {
+            throw new NotFoundException("Failed create request");
+        }
+        return mapper.toRequestDto((requestRep.create(request)));
     }
 
     @Override
     public RequestDto update(RequestDto requestDto) {
-        return null;
+        Request request = mapper.toRequest(requestDto);
+        if (request == null) {
+            throw new NotFoundException("Failed update request");
+        }
+        return mapper.toRequestDto((requestRep.update(request)));
     }
 }
