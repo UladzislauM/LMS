@@ -38,16 +38,19 @@ public class Course {
     @JoinColumn(name = "trainer")
     private User trainer;
 
+    @OneToOne(mappedBy = "course")
+    private Request request;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return Objects.equals(id, course.id) && Objects.equals(lessons, course.lessons) && Objects.equals(title, course.title) && Objects.equals(description, course.description) && Objects.equals(price, course.price) && Objects.equals(start_date, course.start_date) && Objects.equals(trainer, course.trainer);
+        return Objects.equals(id, course.id) && Objects.equals(lessons, course.lessons) && Objects.equals(title, course.title) && Objects.equals(description, course.description) && Objects.equals(price, course.price) && Objects.equals(start_date, course.start_date) && Objects.equals(trainer, course.trainer) && Objects.equals(request, course.request);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lessons, title, description, price, start_date, trainer);
+        return Objects.hash(id, lessons, title, description, price, start_date, trainer, request);
     }
 }
