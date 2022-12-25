@@ -28,4 +28,17 @@ public class Request {
 
     @Column(name = "is_deleted")
     private boolean deleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Request request = (Request) o;
+        return deleted == request.deleted && Objects.equals(id, request.id) && Objects.equals(course, request.course) && Objects.equals(user, request.user) && statusReq == request.statusReq;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, course, user, statusReq, deleted);
+    }
 }
