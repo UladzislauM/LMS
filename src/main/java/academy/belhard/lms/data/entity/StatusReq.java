@@ -1,5 +1,10 @@
 package academy.belhard.lms.data.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum StatusReq {
     IN_PROCESSING,
     ASSEMBLED,
