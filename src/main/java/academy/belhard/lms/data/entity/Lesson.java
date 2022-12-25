@@ -14,9 +14,14 @@ public class Lesson {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "title")
+    @Column(name = "title")
     private String title;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH})
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @Override
     public boolean equals(Object o) {

@@ -17,7 +17,7 @@ public class Course {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "title", cascade = {CascadeType.PERSIST,
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.PERSIST,
             CascadeType.MERGE,
             CascadeType.REFRESH})
     private List<Lesson> lessons;
