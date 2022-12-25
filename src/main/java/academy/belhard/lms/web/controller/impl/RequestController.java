@@ -16,6 +16,6 @@ public class RequestController {
     @GetMapping("/request_find")
     public String findRequests(Model model) {
         model.addAttribute("requests", requestService.findAll());
-        return "requests";
+        return "request";
     }
 }
