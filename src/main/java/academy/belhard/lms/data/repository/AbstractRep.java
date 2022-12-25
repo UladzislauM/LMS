@@ -1,4 +1,4 @@
-package academy.belhard.lms.data.repository.impl;
+package academy.belhard.lms.data.repository;
 
 import org.springframework.stereotype.Component;
 
