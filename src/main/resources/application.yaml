@@ -23,7 +23,7 @@ server:
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/jsp/
+      prefix: /WEB-INF/html/
       suffix: .html
   config:
     activate:
