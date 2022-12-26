@@ -17,6 +17,7 @@ public class RequestRepImpl implements RequestRep {
 
     private static final String GET_ALL = """
             FROM Request
+            WHERE deleted = false
             """;
 
     public static final String DELETE_BOOK = """
