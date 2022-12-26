@@ -18,7 +18,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginForm(HttpServletRequest request, HttpSession session) {
         session.setAttribute("refer", request.getHeader("referer"));
-        return "login_form";
+        return "/login_form";
     }
 
     @PostMapping("/login")
