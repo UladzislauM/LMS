@@ -1,11 +1,12 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.service.EncryptionService;
+import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+@Component
 public class EncryptionServiceImpl implements EncryptionService {
     @Override
     public String digest(String input) {
