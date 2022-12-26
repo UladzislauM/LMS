@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Request</title>
+</head>
+<body>
+<H1>Requests</H1>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>courses</th>
+        <th>users</th>
+        <th>status</th>
+    </tr>
+    <tr th:each="request : ${requests}">
+        <td th:text="${request.id}"></td>
+        <td th:text="${request.course}"></td>
+        <td th:text="${request.user}"></td>
+        <td th:text="${request.status}"></td>
+    </tr>
+</table>
+
+<p th:each="user : ${users}">
+    <a th:text="${user.email}">User</a>
+</p>
+
+</body>
+</html>
