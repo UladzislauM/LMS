@@ -15,11 +15,11 @@ public class Request {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "courses_id")
     private Course course;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "users_id")
     private User user;
 
     @Column(name = "status")

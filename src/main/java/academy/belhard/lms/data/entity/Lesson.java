@@ -20,7 +20,7 @@ public class Lesson {
     @ManyToOne(cascade = {CascadeType.PERSIST,
             CascadeType.MERGE,
             CascadeType.REFRESH})
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "courses_id")
     private Course course;
 
     @Override
