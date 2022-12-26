@@ -1,5 +1,6 @@
 package academy.belhard.lms.servise.impl;
 
+import academy.belhard.lms.dto.UserDto;
 import academy.belhard.lms.dto.UserDtoForSaving;
 import academy.belhard.lms.mapper.UserMapper;
 import academy.belhard.lms.model.Role;
@@ -7,9 +8,12 @@ import academy.belhard.lms.model.User;
 import academy.belhard.lms.repository.UserRepository;
 import academy.belhard.lms.servise.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,7 +35,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    public List<UserDto> findAllUsers() {
+        List<User> projects = userRepository.findAll();
+        return projects.stream()
+                .map(userMapper::userToUserDto)
+                .collect(Collectors.toList());
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return null;
+//    }
 }
