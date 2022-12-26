@@ -1,5 +1,6 @@
 package academy.belhard.lms.data.repository.impl;
 
+import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.UserRep;
 import jakarta.persistence.EntityManager;
@@ -18,6 +19,10 @@ public class UserRepImpl implements UserRep {
             FROM User u
             WHERE u.email = :login AND u.password = :password
             """;
+    private static final String GET_ALL = """
+            FROM User
+            WHERE is_active = true
+            """;
     @PersistenceContext
     private EntityManager entityManager;
     @Override
@@ -27,7 +32,12 @@ public class UserRepImpl implements UserRep {
 
     @Override
     public List<User> findAll() {
-        return null;
+        List<User> users = entityManager.createQuery(GET_ALL, User.class)
+                .getResultList();
+        if (users == null) {
+            return null;
+        }
+        return users;
     }
 
     @Override
