@@ -22,13 +22,13 @@ VALUES ('course_test_1', 'description_test_1', 111, '2000-01-01', 'test_name_1')
 	('course_test_6', 'description_test_6', 113, '2000-01-06', 'test_name_6');
 
 INSERT INTO requests (courses_id, users_id, status) 
-VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'), 'STUDENT'),
-((SELECT id FROM courses WHERE title = 'course_test_2'), (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev'), 'TRAINER'),
-((SELECT id FROM courses WHERE title = 'course_test_3'), (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova'), 'STUDENT'),
-((SELECT id FROM courses WHERE title = 'course_test_4'), (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov'), 'STUDENT'),
-((SELECT id FROM courses WHERE title = 'course_test_5'), (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric'), 'STUDENT'),
-((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE name = 'Nazar' AND last_name ='Vahtongov'), 'STUDENT'),
-((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE name = 'Tatyana' AND last_name ='Minikova'), 'MANAGER');
+VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_2'), (SELECT id FROM users WHERE name = 'Uladzislau' AND last_name ='Solovev'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_3'), (SELECT id FROM users WHERE name = 'Lana' AND last_name ='Dimidova'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_4'), (SELECT id FROM users WHERE name = 'Andrey' AND last_name ='Aksenov'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_5'), (SELECT id FROM users WHERE name = 'Haliana' AND last_name ='Sidoric'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE name = 'Nazar' AND last_name ='Vahtongov'), 'IN_PROCESSING'),
+((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE name = 'Tatyana' AND last_name ='Minikova'), 'IN_PROCESSING');
 
 INSERT INTO lessons (courses_id, title) 
 VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), 'test_lesson_title_1'),
