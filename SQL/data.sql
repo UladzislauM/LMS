@@ -6,20 +6,20 @@ VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM',
 =======
 INSERT INTO users(name, last_name, email, password, role) 
 VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', 'STUDENT'),
-    ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', 'STUDENT'),
+    ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', 'TRAINER'),
     ('Haliana', 'Sidoric', 'galina_sid@gmail.com', 'sid93LL', 'STUDENT'),
     ('Lana', 'Dimidova', 'dlana@mail.ru', 'vfAz1234', 'MANAGER'),
     ('Andrey', 'Aksenov', 'AKsin@Gmail.com','12345678OOp', 'STUDENT'),
-    ('Nazar', 'Vahtongov', 'vagan@mail.ru', '333eeeddfd', 'STUDENT'),
+    ('Nazar', 'Vahtongov', 'vagan@mail.ru', '333eeeddfd', 'TRAINER'),
     ('Tatyana', 'Minikova', 'tMin@tut.by', 'trewrg', 'STUDENT');
     
 INSERT INTO courses (title, description, price, start_date, trainer) 
-VALUES ('course_test_1', 'description_test_1', 111, '2000-01-01', 'test_name_1'),
-	('course_test_2', 'description_test_2', 121, '2000-01-02', 'test_name_2'),
-	('course_test_3', 'description_test_3', 112, '2000-01-03', 'test_name_3'),
-	('course_test_4', 'description_test_4', 211, '2000-01-04', 'test_name_4'),
-	('course_test_5', 'description_test_5', 131, '2000-01-05', 'test_name_5'),
-	('course_test_6', 'description_test_6', 113, '2000-01-06', 'test_name_6');
+VALUES ('course_test_1', 'description_test_1', 111, '2000-01-01', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Uladzislau')),
+	('course_test_2', 'description_test_2', 121, '2000-01-02', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Uladzislau')),
+	('course_test_3', 'description_test_3', 112, '2000-01-03', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Uladzislau')),
+	('course_test_4', 'description_test_4', 211, '2000-01-04', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Uladzislau')),
+	('course_test_5', 'description_test_5', 131, '2000-01-05', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Nazar')),
+	('course_test_6', 'description_test_6', 113, '2000-01-06', (SELECT id FROM users WHERE role = 'TRAINER' AND name = 'Nazar'));
 
 INSERT INTO requests (courses_id, users_id, status) 
 VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), (SELECT id FROM users WHERE name = 'Yauheni' AND last_name ='Hlaholeu'), 'IN_PROCESSING'),

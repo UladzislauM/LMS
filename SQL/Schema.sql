@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS courses(
  description		CHARACTER VARYING (200),
  price				DECIMAL(10,2),
  start_date			DATE NOT null,
- trainer			CHARACTER VARYING (60) NOT NULL
+ trainer			BIGINT REFERENCES users(id)
  );
 
 CREATE TABLE IF NOT EXISTS requests(
