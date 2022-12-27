@@ -34,7 +34,9 @@ public class Course {
     @Column(name = "start_date")
     private LocalDate start_date;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REFRESH})
     @JoinColumn(name = "trainer")
     private User trainer;
 
