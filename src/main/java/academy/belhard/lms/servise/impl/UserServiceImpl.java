@@ -2,6 +2,7 @@ package academy.belhard.lms.servise.impl;
 
 import academy.belhard.lms.dto.UserDto;
 import academy.belhard.lms.dto.UserDtoForSaving;
+import academy.belhard.lms.dto.UserDtoForUpdating;
 import academy.belhard.lms.mapper.UserMapper;
 import academy.belhard.lms.model.Role;
 import academy.belhard.lms.model.User;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(UserDtoForSaving userDtoForSaving) {
         User user = userMapper.userDtoForSavingToUser(userDtoForSaving);
         user.setRole(Role.valueOf("STUDENT"));
+        user.setActive(true);
         return userRepository.save(user);
     }
 
@@ -44,10 +47,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, UserDto userDto) {
+    public User updateUser(Long id, UserDtoForUpdating userDtoForUpdating) {
         User oldUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User не найден"));
-        userDto.setId(id);
-        User user = userMapper.userDtoToUser(userDto);
+        User user = userMapper.userDtoForUpdatingToUser(userDtoForUpdating);
+        user.setId(id);
+        user.setActive(oldUser.isActive());
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User не найден"));
+        user.setActive(false);
         return userRepository.save(user);
     }
 

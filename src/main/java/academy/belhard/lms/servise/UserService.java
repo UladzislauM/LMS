@@ -2,6 +2,7 @@ package academy.belhard.lms.servise;
 
 import academy.belhard.lms.dto.UserDto;
 import academy.belhard.lms.dto.UserDtoForSaving;
+import academy.belhard.lms.dto.UserDtoForUpdating;
 import academy.belhard.lms.model.User;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface UserService {     //extends UserDetailsService
 
     List<UserDto> findAllUsers();
 
-    User updateUser(Long id, UserDto userDto);
+    User updateUser(Long id, UserDtoForUpdating userDtoForUpdating);
+
+    User deleteUser(Long id);
 }

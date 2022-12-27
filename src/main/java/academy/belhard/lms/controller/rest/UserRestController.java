@@ -2,6 +2,7 @@ package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.dto.UserDto;
 import academy.belhard.lms.dto.UserDtoForSaving;
+import academy.belhard.lms.dto.UserDtoForUpdating;
 import academy.belhard.lms.model.User;
 import academy.belhard.lms.servise.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,12 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
-        return userService.updateUser(id, userDto);
+    public User updateUser(@PathVariable Long id, @RequestBody UserDtoForUpdating userDtoForUpdating) {
+        return userService.updateUser(id, userDtoForUpdating);
+    }
+
+    @GetMapping("/delete/{id}")
+    public User deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
     }
 }
