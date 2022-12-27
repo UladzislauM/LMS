@@ -41,8 +41,9 @@ public class UserRepImpl implements UserRep {
     }
 
     @Override
-    public User create(User entity) {
-        return null;
+    public User create(User user) {
+        entityManager.persist(user);
+        return user;
     }
 
     @Override

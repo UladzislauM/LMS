@@ -26,7 +26,25 @@
 
 <p th:each="user : ${users}">
     <a th:text="${user.email}">User</a>
+    <a th:text="${user.name}">User_name</a>
+    <a th:text="${user.last_name}">User</a>
 </p>
+
+<form align="left" action="/user/create" method="post">
+    <details>
+        <summary>Create New User</summary>
+        <p>Write Parameters:</p>
+        <input type="hidden" name="is_active" value="true" />
+        <p><input type="text" name="name" placeholder="write Name">
+        <p><input type="text" name="last_name" placeholder="write Last_Name">
+        <p><input type="email" name="email" placeholder="write Email">
+        <p><input type="text" name="password" placeholder="write Password">
+        <p><input type="radio" name="role" value="STUDENT">STUDENT
+            <input type="radio" name="role" value="MANAGER">MANAGER
+            <input type="radio" name="role" value="TRAINER">TRAINER
+        <p><input type="submit" name="submit" value="Create User" /></p>
+    </details>
+</form>
 
 </body>
 </html>
