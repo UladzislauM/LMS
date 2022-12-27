@@ -11,4 +11,6 @@ public interface UserService {     //extends UserDetailsService
     User createUser(UserDtoForSaving userDtoForSaving);
 
     List<UserDto> findAllUsers();
+
+    User updateUser(Long id, UserDto userDto);
 }

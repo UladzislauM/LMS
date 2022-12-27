@@ -10,4 +10,6 @@ public abstract class UserMapper {
     public abstract User userDtoForSavingToUser(UserDtoForSaving userDtoForSaving);
 
     public abstract UserDto userToUserDto(User user);
+
+    public abstract User userDtoToUser(UserDto userDto);
 }

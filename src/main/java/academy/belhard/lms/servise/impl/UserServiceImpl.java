@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,14 @@ public class UserServiceImpl implements UserService {
         return projects.stream()
                 .map(userMapper::userToUserDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public User updateUser(Long id, UserDto userDto) {
+        User oldUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User не найден"));
+        userDto.setId(id);
+        User user = userMapper.userDtoToUser(userDto);
+        return userRepository.save(user);
     }
 
 //    @Override
