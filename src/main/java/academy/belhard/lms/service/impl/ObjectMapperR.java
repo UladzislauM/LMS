@@ -38,7 +38,7 @@ public class ObjectMapperR {
         user.setRole(userDTO.getRole());
         user.setIs_active(userDTO.getIs_active());
         user.setRequest(userDTO.getRequest());
-        user.setCourse_list(userDTO.getCourse_list());
+        user.setCourses(userDTO.getCourse_list());
         return user;
     }
 
@@ -52,7 +52,7 @@ public class ObjectMapperR {
         userDTO.setRole(user.getRole());
         userDTO.setIs_active(user.getIs_active());
         userDTO.setRequest(user.getRequest());
-        userDTO.setCourse_list(user.getCourse_list());
+        userDTO.setCourse_list(user.getCourses());
         return userDTO;
     }
 }
