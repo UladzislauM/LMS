@@ -5,13 +5,13 @@ VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM',
        ('sidor@gmail.com', 'klkjjk', 'Sidor', 'Sidorov', 'Sidorovich', 'INSTAGRAM', '#Sidor');
 =======
 INSERT INTO users(name, last_name, email, password, role) 
-VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', 'ADMIN'),
-    ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', 'USER'),
-    ('Haliana', 'Sidoric', 'galina_sid@gmail.com', 'sid93LL', 'USER'),
+VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', 'STUDENT'),
+    ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', 'STUDENT'),
+    ('Haliana', 'Sidoric', 'galina_sid@gmail.com', 'sid93LL', 'STUDENT'),
     ('Lana', 'Dimidova', 'dlana@mail.ru', 'vfAz1234', 'MANAGER'),
-    ('Andrey', 'Aksenov', 'AKsin@Gmail.com','12345678OOp', 'USER'),
-    ('Nazar', 'Vahtongov', 'vagan@mail.ru', '333eeeddfd', 'USER'),
-    ('Tatyana', 'Minikova', 'tMin@tut.by', 'trewrg', 'USER');
+    ('Andrey', 'Aksenov', 'AKsin@Gmail.com','12345678OOp', 'STUDENT'),
+    ('Nazar', 'Vahtongov', 'vagan@mail.ru', '333eeeddfd', 'STUDENT'),
+    ('Tatyana', 'Minikova', 'tMin@tut.by', 'trewrg', 'STUDENT');
     
 INSERT INTO courses (title, description, price, start_date, trainer) 
 VALUES ('course_test_1', 'description_test_1', 111, '2000-01-01', 'test_name_1'),
