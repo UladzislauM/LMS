@@ -6,7 +6,6 @@ import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import academy.belhard.lms.service.impl.ObjectMapperR;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RequestControllerREST {
     private final RequestService requestService;
-    private final CourseService courseService;
     private final ObjectMapperR mapper;
 
     @PostMapping("/create")
