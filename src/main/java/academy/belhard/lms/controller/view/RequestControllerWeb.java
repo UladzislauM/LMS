@@ -1,4 +1,4 @@
-package academy.belhard.lms.controller.web;
+package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
