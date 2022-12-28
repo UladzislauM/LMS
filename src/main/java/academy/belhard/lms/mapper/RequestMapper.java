@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public abstract class RequestMapper {
-    public abstract Request toRequest (RequestDto requestDto);
-    public abstract RequestDto toRequestDto (Request request);
+    public abstract Request toRequest(RequestDto requestDto);
+
+    public abstract RequestDto toRequestDto(Request request);
 }
