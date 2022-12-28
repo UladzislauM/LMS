@@ -1,4 +1,4 @@
-package academy.belhard.lms.service.dto.data.entity;
+package academy.belhard.lms.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

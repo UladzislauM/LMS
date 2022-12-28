@@ -1,7 +1,7 @@
-package academy.belhard.lms.service.dto.data.repository.impl;
+package academy.belhard.lms.data.repository.impl;
 
-import academy.belhard.lms.service.dto.data.entity.Request;
-import academy.belhard.lms.service.dto.data.repository.RequestRep;
+import academy.belhard.lms.data.entity.Request;
+import academy.belhard.lms.data.repository.RequestRep;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

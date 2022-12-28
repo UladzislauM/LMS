@@ -1,6 +1,6 @@
-package academy.belhard.lms.service.dto.data.repository;
+package academy.belhard.lms.data.repository;
 
-import academy.belhard.lms.service.dto.data.entity.Request;
+import academy.belhard.lms.data.entity.Request;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
