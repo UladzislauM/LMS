@@ -1,4 +1,4 @@
-package academy.belhard.lms.mapper;
+package academy.belhard.lms.service.mapper;
 
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.service.dto.RequestDto;

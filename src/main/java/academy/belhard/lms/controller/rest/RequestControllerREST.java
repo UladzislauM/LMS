@@ -1,7 +1,7 @@
 package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.mapper.RequestMapper;
+import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
