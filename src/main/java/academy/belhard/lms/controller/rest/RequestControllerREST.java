@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/request")
+@RequestMapping("/api/v1.0/request")
 @RequiredArgsConstructor
 public class RequestControllerREST {
     private final RequestService requestService;
