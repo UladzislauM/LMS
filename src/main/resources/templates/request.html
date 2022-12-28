@@ -21,8 +21,6 @@
         <form align="left" th:action="@{/request/request_update/__${request.id}__}" method="post"
               th:object="${request}">
             <td th:text="${request.id}"></td>
-            <td th:text="${request.course.title}"></td>
-            <td th:text="${request.user.last_name}"></td>
             <td th:text="${request.statusReq}"></td>
 <!--            <span th:each="request : ${requests}">-->
 <!--            <p><input type="radio" name="${request.course.title}" value="${request.course.id" }>-->
