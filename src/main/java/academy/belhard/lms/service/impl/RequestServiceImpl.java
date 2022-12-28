@@ -4,7 +4,6 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.repository.RequestRep;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
-import academy.belhard.lms.service.exception.AppException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDto> findAll() {
+    public List<RequestDto> getAll() {
         List<Request> requests = requestRep.findAll();
         if (requests == null) {
             throw new NotFoundException("FindAll: Requests is not exist..."); //fixMe
@@ -34,7 +33,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestDto findById(Long id) {
+    public RequestDto getById(Long id) {
         Request request = requestRep.findById(id).orElseThrow(() -> {
             throw new NotFoundException("Request with id: " + id + " wasn't found");
         });
@@ -46,27 +45,25 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (!requestRep.delete(id)) {
-            throw new AppException("Failed delete request"); //fixMe
-        }
+    public void deleteRequest(RequestDto requestDto) {
+        requestRep.delete(mapper.toRequest(requestDto));
     }
 
     @Override
-    public RequestDto create(RequestDto requestDto) {
+    public RequestDto createRequest(RequestDto requestDto) {
         Request request = mapper.toRequest(requestDto);
         if (request == null) {
             throw new NotFoundException("Failed create request");
         }
-        return mapper.toRequestDto((requestRep.create(request)));
+        return mapper.toRequestDto((requestRep.save(request)));
     }
 
     @Override
-    public RequestDto update(RequestDto requestDto) {
+    public RequestDto updateRequest(RequestDto requestDto) {
         Request request = mapper.toRequest(requestDto);
         if (request == null) {
             throw new NotFoundException("Failed update request");
         }
-        return mapper.toRequestDto((requestRep.update(request)));
+        return mapper.toRequestDto((requestRep.save(request)));
     }
 }

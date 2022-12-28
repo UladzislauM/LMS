@@ -19,12 +19,12 @@ public class RequestControllerREST {
 
     @PostMapping("/create")
     public Request create(@RequestBody RequestDto requestDto) {
-        return mapper.toRequest(requestService.create(requestDto));
+        return mapper.toRequest(requestService.createRequest(requestDto));
     }
 
     @GetMapping("/find_all")
     public List<Request> findRequests() {
-        List<RequestDto> requestsDto = requestService.findAll();
+        List<RequestDto> requestsDto = requestService.getAll();
         return requestsDto.stream()
                 .map(mapper::toRequest)
                 .collect(Collectors.toList());
@@ -32,18 +32,18 @@ public class RequestControllerREST {
 
     @GetMapping("/find_by_id/{id}")
     public Request findRequestById(@PathVariable Long id) {
-        return mapper.toRequest(requestService.findById(id));
+        return mapper.toRequest(requestService.getById(id));
     }
 
 
     @PutMapping("/update/{id}")
-    public Request updateRequest(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        return mapper.toRequest(requestService.update(requestDto));
+    public Request updateRequest(@RequestBody RequestDto requestDto) {
+        return mapper.toRequest(requestService.updateRequest(requestDto));
     }
 
     @GetMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        requestService.delete(id);
+    public void deleteUser(@RequestBody RequestDto requestDto) {
+        requestService.deleteRequest(requestDto);
     }
 }
 

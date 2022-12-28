@@ -17,25 +17,25 @@ public class RequestControllerWeb {
 
     @GetMapping("/request_find")
     public String findRequests(Model model) {
-        model.addAttribute("requests", requestService.findAll());
+        model.addAttribute("requests", requestService.getAll());
         return "request";
     }
 
     @GetMapping("/request_find_by_id/{id}")
     public String findRequestById(@PathVariable Long id, Model model) {
-        model.addAttribute("request", requestService.findById(id));
+        model.addAttribute("request", requestService.getById(id));
         return "request_by_id";
     }
 
     @PostMapping("/create")
     public String createRequest(@ModelAttribute RequestDto requestDto) {
-        requestService.create(requestDto);
+        requestService.createRequest(requestDto);
         return "redirect:/request/request_find";
     }
 
     @PostMapping("/request_update/{id}")
     public String editRequest(@ModelAttribute("request") RequestDto requestDto) {
-        requestService.update(requestDto);
+        requestService.updateRequest(requestDto);
         return "redirect:/request/request_find";
     }
 

@@ -6,13 +6,13 @@ import java.util.List;
 
 @Component
 public interface AbstractService<D> {
-    List<D> findAll();
+    List<D> getAll();
 
-    D findById(Long id);
+    D getById(Long id);
 
-    void delete(Long id);
+    void deleteRequest(D d);
 
-    D create(D d);
+    D createRequest(D d);
 
-    D update(D d);
+    D updateRequest(D d);
 }
