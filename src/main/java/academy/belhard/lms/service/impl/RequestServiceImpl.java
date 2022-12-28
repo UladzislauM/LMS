@@ -1,7 +1,7 @@
 package academy.belhard.lms.service.impl;
 
-import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.repository.RequestRep;
+import academy.belhard.lms.service.dto.data.entity.Request;
+import academy.belhard.lms.service.dto.data.repository.RequestRep;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import academy.belhard.lms.service.exception.AppException;

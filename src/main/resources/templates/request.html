@@ -16,33 +16,34 @@
         <th>users</th>
         <th>status</th>
     </tr>
+
     <tr th:each="request : ${requests}">
-        <td th:text="${request.id}"></td>
-        <td th:text="${request.course}"></td>
-        <td th:text="${request.user}"></td>
-        <td th:text="${request.status}"></td>
+        <form align="left" th:action="@{/request/request_update/__${request.id}__}" method="post"
+              th:object="${request}">
+            <td th:text="${request.id}"></td>
+            <td th:text="${request.course.title}"></td>
+            <td th:text="${request.user.last_name}"></td>
+            <td th:text="${request.statusReq}"></td>
+<!--            <span th:each="request : ${requests}">-->
+<!--            <p><input type="radio" name="${request.course.title}" value="${request.course.id" }>-->
+<!--                <a th:text="${request.course.title}"> title</a>-->
+<!--            </p>-->
+<!--        </span>            -->
+            <!--                <input type="hidden" name="user" th:value="${request.user.id}"/>-->
+            <!--            <td><input type="text" name="statusReq" th:placeholder="${request.statusReq}"></td>-->
+            <!--                <td> <input type="submit" name="submit" value="Update request"/></td>-->
+        </form>
     </tr>
+
 </table>
 
-<p th:each="user : ${users}">
-    <a th:text="${user.email}">User</a>
-    <a th:text="${user.name}">User_name</a>
-    <a th:text="${user.last_name}">User</a>
-</p>
-
-<form align="left" action="/user/create" method="post">
+<form align="left" action="/request/create" method="post">
     <details>
-        <summary>Create New User</summary>
+        <summary>Create New Request</summary>
         <p>Write Parameters:</p>
-        <input type="hidden" name="is_active" value="true" />
-        <p><input type="text" name="name" placeholder="write Name">
-        <p><input type="text" name="last_name" placeholder="write Last_Name">
-        <p><input type="email" name="email" placeholder="write Email">
-        <p><input type="text" name="password" placeholder="write Password">
-        <p><input type="radio" name="role" value="STUDENT">STUDENT
-            <input type="radio" name="role" value="MANAGER">MANAGER
-            <input type="radio" name="role" value="TRAINER">TRAINER
-        <p><input type="submit" name="submit" value="Create User" /></p>
+        <input type="hidden" name="statusReq" value="IN_PROCESSING"/>
+
+        <p><input type="submit" name="submit" value="Create request"/></p>
     </details>
 </form>
 

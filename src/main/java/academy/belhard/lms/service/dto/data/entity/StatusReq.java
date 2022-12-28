@@ -1,4 +1,4 @@
-package academy.belhard.lms.data.entity;
+package academy.belhard.lms.service.dto.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

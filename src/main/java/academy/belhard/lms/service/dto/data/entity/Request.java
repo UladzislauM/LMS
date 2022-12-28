@@ -1,4 +1,4 @@
-package academy.belhard.lms.data.entity;
+package academy.belhard.lms.service.dto.data.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,14 +14,6 @@ public class Request {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "courses_id")
-    private Course course;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
-    private User user;
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusReq statusReq;
@@ -34,11 +26,11 @@ public class Request {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Request request = (Request) o;
-        return deleted == request.deleted && Objects.equals(id, request.id) && Objects.equals(course, request.course) && Objects.equals(user, request.user) && statusReq == request.statusReq;
+        return deleted == request.deleted && Objects.equals(id, request.id) && statusReq == request.statusReq;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, course, user, statusReq, deleted);
+        return Objects.hash(id, statusReq, deleted);
     }
 }

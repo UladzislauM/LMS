@@ -1,4 +1,4 @@
-package academy.belhard.lms.web.controller.impl;
+package academy.belhard.lms.controller.web;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

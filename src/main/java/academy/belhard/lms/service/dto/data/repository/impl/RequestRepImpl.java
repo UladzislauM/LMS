@@ -1,7 +1,7 @@
-package academy.belhard.lms.data.repository.impl;
+package academy.belhard.lms.service.dto.data.repository.impl;
 
-import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.repository.RequestRep;
+import academy.belhard.lms.service.dto.data.entity.Request;
+import academy.belhard.lms.service.dto.data.repository.RequestRep;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Transactional
 public class RequestRepImpl implements RequestRep {
 
-    private static final String GET_ALL = """
+    private static final String FIND_ALL = """
             FROM Request
             WHERE deleted = false
             """;
@@ -24,6 +24,11 @@ public class RequestRepImpl implements RequestRep {
             UPDATE Request
             SET deleted = true
             WHERE id = :id
+            """;
+
+    private static final String FIND_COURSE = """
+            FROM Request
+            WHERE Course = :id
             """;
 
     @PersistenceContext
@@ -36,7 +41,7 @@ public class RequestRepImpl implements RequestRep {
 
     @Override
     public List<Request> findAll() {
-        List<Request> requests = entityManager.createQuery(GET_ALL, Request.class)
+        List<Request> requests = entityManager.createQuery(FIND_ALL, Request.class)
                 .getResultList();
         if (requests == null) {
             return null;
@@ -61,5 +66,11 @@ public class RequestRepImpl implements RequestRep {
         Query query = entityManager.createQuery(DELETE_BOOK);
         query.setParameter("id", id);
         return query.executeUpdate() == 1;
+    }
+
+    @Override
+    public Optional<Request> findByCourseId(Long id) {
+        return Optional.ofNullable(entityManager.createQuery(FIND_COURSE, Request.class)
+                .setParameter("id", id).getSingleResult());
     }
 }
