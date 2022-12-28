@@ -13,6 +13,8 @@ public interface UserService {     //extends UserDetailsService
 
     List<UserDto> findAllUsers();
 
+    UserDto findUserById(Long id);
+
     User updateUser(Long id, UserDtoForUpdating userDtoForUpdating);
 
     User deleteUser(Long id);

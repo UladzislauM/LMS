@@ -32,6 +32,11 @@ public class UserRestController {
         return userService.findAllUsers();
     }
 
+    @GetMapping("/{id}")
+    public UserDto findUserById(@PathVariable Long id) {
+        return userService.findUserById(id);
+    }
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody UserDtoForUpdating userDtoForUpdating) {
         return userService.updateUser(id, userDtoForUpdating);

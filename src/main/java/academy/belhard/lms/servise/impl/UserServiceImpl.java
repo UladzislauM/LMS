@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto findUserById(Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User не найден"));
+        return userMapper.userToUserDto(user);
+    }
+
+    @Override
     public User updateUser(Long id, UserDtoForUpdating userDtoForUpdating) {
         User oldUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User не найден"));
         User user = userMapper.userDtoForUpdatingToUser(userDtoForUpdating);
