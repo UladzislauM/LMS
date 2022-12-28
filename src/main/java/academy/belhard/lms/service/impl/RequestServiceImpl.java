@@ -47,7 +47,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void deleteRequest(RequestDto requestDto) {
-        requestRep.delete(mapper.toRequest(requestDto));
+        requestDto.setDeleted(true);
     }
 
     @Override
@@ -61,6 +61,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestDto updateRequest(RequestDto requestDto) {
+        Request oldRequest = requestRep.findById(requestDto.getId()).orElseThrow(() -> {
+            throw new NotFoundException("Request with id: " + requestDto.getId() + " wasn't found");
+        });
         Request request = mapper.toRequest(requestDto);
         if (request == null) {
             throw new NotFoundException("Failed update request");
