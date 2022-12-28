@@ -1,8 +1,8 @@
 package academy.belhard.lms.controller.web;
 
+import academy.belhard.lms.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
-import academy.belhard.lms.service.impl.ObjectMapperR;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RequestControllerWeb {
     private final RequestService requestService;
-    private final ObjectMapperR mapper;
+    private final RequestMapper mapper;
 
     @GetMapping("/request_find")
     public String findRequests(Model model) {

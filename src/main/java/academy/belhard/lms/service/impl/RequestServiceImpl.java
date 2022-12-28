@@ -2,6 +2,7 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.repository.RequestRep;
+import academy.belhard.lms.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import academy.belhard.lms.service.exception.NotFoundException;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
     private final RequestRep requestRep;
-    private final ObjectMapperR mapper;
+    private final RequestMapper mapper;
 
     public void validate(Request request) {//fixMe
 

@@ -1,9 +1,9 @@
 package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.data.entity.Request;
+import academy.belhard.lms.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
-import academy.belhard.lms.service.impl.ObjectMapperR;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RequestControllerREST {
     private final RequestService requestService;
-    private final ObjectMapperR mapper;
+    private final RequestMapper mapper;
 
     @PostMapping("/create")
     public Request create(@RequestBody RequestDto requestDto) {
