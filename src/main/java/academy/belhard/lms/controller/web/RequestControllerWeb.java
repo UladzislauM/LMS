@@ -1,6 +1,5 @@
 package academy.belhard.lms.controller.web;
 
-import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import academy.belhard.lms.service.impl.ObjectMapperR;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RequestControllerWeb {
     private final RequestService requestService;
-    private final CourseService courseService;
     private final ObjectMapperR mapper;
 
     @GetMapping("/request_find")
@@ -36,10 +34,7 @@ public class RequestControllerWeb {
     }
 
     @PostMapping("/request_update/{id}")
-    public String editRequest(@ModelAttribute("request") RequestDto requestDto, Model model) {
-
-        requestDto.setCourse(mapper.toCourse(courseService.findById((Long)model.getAttribute("courses_id"))));
-
+    public String editRequest(@ModelAttribute("request") RequestDto requestDto) {
         requestService.update(requestDto);
         return "redirect:/request/request_find";
     }
