@@ -48,6 +48,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void deleteRequest(RequestDto requestDto) {
         requestDto.setDeleted(true);
+        requestRep.save(mapper.toRequest(requestDto));
     }
 
     @Override
