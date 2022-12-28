@@ -1,11 +1,15 @@
 package academy.belhard.lms.data.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "requests")
 public class Request {
@@ -20,4 +24,17 @@ public class Request {
 
     @Column(name = "is_deleted")
     private boolean deleted;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Request request = (Request) o;
+        return id != null && Objects.equals(id, request.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
