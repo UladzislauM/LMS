@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-INSERT INTO users(email, password, first_name, last_name, patronymic_name, contact_preferences, social_media)
-VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM', '@Ivan'),
-       ('petr48@gmail.com', 'fdfbbfd67sdb', 'Petr', 'Petrov', 'Petrovich', 'CELLPHONE', '+375291234567'),
-       ('sidor@gmail.com', 'klkjjk', 'Sidor', 'Sidorov', 'Sidorovich', 'INSTAGRAM', '#Sidor');
-=======
 INSERT INTO users(name, last_name, email, password, role) 
 VALUES ('Yauheni', 'Hlaholeu', 'jek94@gmail.com', '12qwaszx', 'STUDENT'),
     ('Uladzislau', 'Solovev', 'sol44@yandex.by', 'qazxsw21', 'TRAINER'),
@@ -36,4 +30,3 @@ VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), 'test_lesson_tit
 ((SELECT id FROM courses WHERE title = 'course_test_2'), 'test_lesson_title_3'),
 ((SELECT id FROM courses WHERE title = 'course_test_3'), 'test_lesson_title_4'),
 ((SELECT id FROM courses WHERE title = 'course_test_4'), 'test_lesson_title_5');
->>>>>>> LMS-2: Add SQL scheme & data
