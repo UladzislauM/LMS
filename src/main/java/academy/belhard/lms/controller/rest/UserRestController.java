@@ -1,10 +1,9 @@
 package academy.belhard.lms.controller.rest;
 
-import academy.belhard.lms.dto.UserDto;
-import academy.belhard.lms.dto.UserDtoForSaving;
-import academy.belhard.lms.dto.UserDtoForUpdating;
-import academy.belhard.lms.model.User;
-import academy.belhard.lms.servise.UserService;
+import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.user.UserDto;
+import academy.belhard.lms.service.dto.user.UserDtoForSaving;
+import academy.belhard.lms.service.dto.user.UserDtoForUpdating;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,33 +16,34 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/v1.0/user")
 @RequiredArgsConstructor
 public class UserRestController {
     private final UserService userService;
 
     @PostMapping
-    public User create(@RequestBody UserDtoForSaving userDtoForSaving) {
-        return userService.createUser(userDtoForSaving);
+    public UserDto create(@RequestBody UserDtoForSaving dto) {
+        return userService.createUser(dto);
     }
 
     @GetMapping
-    public List<UserDto> findAllUsers() {
-        return userService.findAllUsers();
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public UserDto findUserById(@PathVariable Long id) {
-        return userService.findUserById(id);
+    public UserDto getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody UserDtoForUpdating userDtoForUpdating) {
-        return userService.updateUser(id, userDtoForUpdating);
+    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDtoForUpdating dto) {
+        dto.setId(id);
+        return userService.updateUser(dto);
     }
 
     @GetMapping("/delete/{id}")
-    public User deleteUser(@PathVariable Long id) {
+    public UserDto deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
 }

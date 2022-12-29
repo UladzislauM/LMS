@@ -1,9 +1,9 @@
-package academy.belhard.lms.mapper;
+package academy.belhard.lms.service.mapper;
 
-import academy.belhard.lms.dto.UserDto;
-import academy.belhard.lms.dto.UserDtoForSaving;
-import academy.belhard.lms.dto.UserDtoForUpdating;
-import academy.belhard.lms.model.User;
+import academy.belhard.lms.data.entity.User;
+import academy.belhard.lms.service.dto.user.UserDto;
+import academy.belhard.lms.service.dto.user.UserDtoForSaving;
+import academy.belhard.lms.service.dto.user.UserDtoForUpdating;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
