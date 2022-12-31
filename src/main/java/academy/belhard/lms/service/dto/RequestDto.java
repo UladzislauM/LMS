@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class RequestDto {
     private Long id;
-    private CourseDto courseDto;
-    private UserDto userDto;
+    private CourseDto course;
+    private UserDto user;
     private StatusReq statusReq;
     private boolean deleted;
 }
