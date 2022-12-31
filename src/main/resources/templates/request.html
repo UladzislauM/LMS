@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Request</title>
@@ -17,31 +16,34 @@
         <th>status</th>
     </tr>
 
-    <tr th:each="request : ${requests}">
-        <form align="left" th:action="@{/request/request_update/__${request.id}__}" method="post"
-              th:object="${request}">
-            <td th:text="${request.id}"></td>
-            <td th:text="${request.statusReq}"></td>
-<!--            <span th:each="request : ${requests}">-->
-<!--            <p><input type="radio" name="${request.course.title}" value="${request.course.id" }>-->
-<!--                <a th:text="${request.course.title}"> title</a>-->
-<!--            </p>-->
-<!--        </span>            -->
-            <!--                <input type="hidden" name="user" th:value="${request.user.id}"/>-->
-            <!--            <td><input type="text" name="statusReq" th:placeholder="${request.statusReq}"></td>-->
-            <!--                <td> <input type="submit" name="submit" value="Update request"/></td>-->
-        </form>
+    <tr th:each="request : ${requests}" th:object="${request}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{course.title}"></td>
+        <td th:text="*{user.email}"></td>
+        <td th:text="*{statusReq}"></td>
+        <td>
+            <form th:action="@{/request/get_by_id/__*{id}__}" method="get">
+                <input type="submit" value="Change request"/>
+            </form>
+        </td>
     </tr>
-
 </table>
+
+<span th:if="${requests.totalPages > 0}" class="pagination"
+      th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/request/get_all(size=${requests.size}, page=${pageNumber})}"
+       th:text=${pageNumber}
+       th:class="${pageNumber==requests.number + 1} ? active"></a>
+</span>
 
 <form align="left" action="/request/create" method="post">
     <details>
         <summary>Create New Request</summary>
         <p>Write Parameters:</p>
         <input type="hidden" name="statusReq" value="IN_PROCESSING"/>
-
-        <p><input type="submit" name="submit" value="Create request"/></p>
+        <span><input type="email" name="user_email" placeholder="Email User"></span>
+        <span><input type="text" name="course_title" placeholder="Title course"></span>
+        <span><input type="submit" name="submit" value="Create request"/></span>
     </details>
 </form>
 
