@@ -21,9 +21,6 @@ public class Course {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "course")
-    private Request request;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
