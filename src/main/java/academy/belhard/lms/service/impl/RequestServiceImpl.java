@@ -7,9 +7,15 @@ import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service("requestService")
 @RequiredArgsConstructor
@@ -24,14 +30,29 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDto> getAll() {
-        List<Request> requests = requestRep.findAll();
-        if (requests == null) {
-            throw new NotFoundException("FindAll: Requests is not exist..."); //fixMe
+    public Page<RequestDto> getAll(Pageable pageable) {
+        List<Request> requestsDto = requestRep.findAll();
+        if (requestsDto == null) {
+            throw new NotFoundException("FindAll: Requests is not exist...");
         } else {
-            return requests.stream().map(mapper::toRequestDto).toList();
+            List<RequestDto> requests = requestsDto.stream().map(mapper::toRequestDto).sorted(((o1, o2) ->
+                    ((Long) o1.getId()).compareTo(o2.getId()))).toList();
+            int pageSize = pageable.getPageSize();
+            int currentPage = pageable.getPageNumber();
+            int startItem = currentPage * pageSize;
+            List<RequestDto> list;
+
+            if (requests.size() < startItem) {
+                list = Collections.emptyList();
+            } else {
+                int toIndex = Math.min(startItem + pageSize, requests.size());
+                list = requests.subList(startItem, toIndex);
+            }
+
+            return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), requests.size());
         }
     }
+
 
     @Override
     public RequestDto getById(Long id) {
@@ -70,5 +91,18 @@ public class RequestServiceImpl implements RequestService {
             throw new NotFoundException("Failed update request");
         }
         return mapper.toRequestDto((requestRep.save(request)));
+    }
+
+    @Override
+    public List<Integer> getPageNumbers(Model model, int totalPages) {
+        List<Integer> pageNumbers = new ArrayList<>();
+        if (totalPages > 0) {
+            pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+        } else {
+            pageNumbers.add(1);
+        }
+        return pageNumbers;
     }
 }
