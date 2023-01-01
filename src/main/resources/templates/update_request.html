@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<div th:insert="/plugins/menu :: menu_fr"></div>
+
 <h1>Request number: <span th:text="${request.id}"></span></h1>
 <table>
 
@@ -23,18 +25,19 @@
             <td><input type="text" name="course_title" th:placeholder="*{course.title}" th:value="*{course.title}"></td>
             <td><input type="email" name="user_email" th:placeholder="*{user.email}" th:value="*{user.email}"></td>
             <td>
-                <p>Active status: <span th:text="*{statusReq}"></span></p>
-                <p><input type="radio" name="statusReq" value="IN_PROCESSING">IN_PROCESSING</p>
-                <p><input type="radio" name="statusReq" value="ASSEMBLED">ASSEMBLED</p>
-                <p><input type="radio" name="statusReq" value="AWAITING_PAYMENT">AWAITING_PAYMENT</p>
-                <p><input type="radio" name="statusReq" value="READY_TO_START">READY_TO_START</p>
-                <p><input type="radio" value="PAID_FOR">PAID_FOR</p>
-                <p><input type="radio" name="statusReq" value="COMPLETELY_CHANGED">COMPLETELY_CHANGED</p>
-                <p><input type="radio" name="statusReq" value="FAILED">FAILED</p>
-                <p><input type="radio" name="statusReq" value="REFUND">REFUND</p>
-                <p><input type="radio" name="statusReq" value="THE_TRANSACTION_IS_COMPLETED">THE_TRANSACTION_IS_COMPLETED
-                </p>
-                <p><input type="radio" value="CANCELLED">CANCELLED</p>
+                <select name="statusReq">
+                    <option value="IN_PROCESSING">IN_PROCESSING
+                    <option value="ASSEMBLED">ASSEMBLED
+                    <option value="AWAITING_PAYMENT">AWAITING_PAYMENT
+                    <option value="READY_TO_START">READY_TO_START
+                    <option value="PAID_FOR">PAID_FOR
+                    <option value="COMPLETELY_CHANGED">COMPLETELY_CHANGED
+                    <option value="FAILED">FAILED
+                    <option value="REFUND">REFUND
+                    <option value="THE_TRANSACTION_IS_COMPLETED">THE_TRANSACTION_IS_COMPLETED
+                    <option value="CANCELLED">CANCELLED
+                </select>
+                <h3>Active status: <span th:text="*{statusReq}"></span></h3>
             </td>
             <input type="hidden" name="page_now" th:value="${page}">
             <td><input type="submit" name="submit" value="Update request"/></td>
