@@ -41,19 +41,18 @@ public class RequestControllerWeb {
 
     @PostMapping("/create")
     public String createRequest(@ModelAttribute RequestDto requestDto,
-                                @RequestParam String user_email, String course_title, String page_now) {
+                                @RequestParam String user_email, String course_title, String page_now, String size) {
         addParamsToRequest(requestDto, user_email, course_title);
         requestService.createRequest(requestDto);
-        return "redirect:/request/get_all?page=" + page_now;
+        return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
     }
 
     @PostMapping("/update/{id}")
     public String editRequest(@ModelAttribute RequestDto requestDto,
-                              @RequestParam String user_email, String course_title, String page_now) {
+                              @RequestParam String user_email, String course_title, String page_now, String size) {
         addParamsToRequest(requestDto, user_email, course_title);
-//        requestDto.setStatusReq();
         requestService.updateRequest(requestDto);
-        return "redirect:/request/get_all";
+        return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
     }
 
     private static void addParamsToRequest(RequestDto requestDto, String user_email, String course_title) {
