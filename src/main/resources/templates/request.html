@@ -6,7 +6,21 @@
     <title>Request</title>
 </head>
 <body>
+
+<div th:insert="~{/plugins/menu :: menu_fr}"></div>
+
 <H1>Requests</H1>
+
+<div>
+    <span>Size requests on page</span>
+    <select th:onchange="'window.location.href = \'' + @{/request/get_all} + '?size=\' + this.value ' ">
+        <option th:text="@{Now: __${requests.size}__}"></option>
+        <option th:text="3"></option>
+        <option th:text="5"></option>
+        <option th:text="7"></option>
+        <option th:text="15"></option>
+    </select>
+</div>
 
 <table>
     <tr>
@@ -29,21 +43,19 @@
     </tr>
 </table>
 
-<span th:if="${requests.totalPages > 0}" class="pagination"
-      th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/request/get_all(size=${requests.size}, page=${pageNumber})}"
-       th:text=${pageNumber}
-       th:class="${pageNumber==requests.number + 1} ? active"></a>
-</span>
+<div th:insert="~{/plugins/pagination :: pagination_fr}"
+     th:with="firstVer=${requests}, pageNumbers=${pageNumbers}"></div>
 
-<form align="left" action="/request/create" method="post">
+<form th:action="@{/request/create}" method="post">
     <details>
         <summary>Create New Request</summary>
         <p>Write Parameters:</p>
-        <input type="hidden" name="statusReq" value="IN_PROCESSING"/>
-        <span><input type="email" name="user_email" placeholder="Email User"></span>
-        <span><input type="text" name="course_title" placeholder="Title course"></span>
-        <span><input type="submit" name="submit" value="Create request"/></span>
+        <input type="hidden" th:name="statusReq" value="IN_PROCESSING"/>
+        <div><input type="email" th:name="user_email" placeholder="Email User">Email User</div>
+        <div><input type="text" th:name="course_title" placeholder="Title course">Title course</div>
+        <div><input type="submit" th:name="submit" value="Create request"/></div>
+        <input type="hidden" name="page_now" th:value="${page}">
+        <input type="hidden" name="size" th:value="${requests.size}">
     </details>
 </form>
 
