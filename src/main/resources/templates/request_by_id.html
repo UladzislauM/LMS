@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<div th:insert="/plugins/menu :: menu_fr"></div>
+
 <h1>Request number: <span th:text="${request.id}"></span></h1>
 
 <table>
@@ -23,7 +25,6 @@
 </table>
 
 <form th:action="@{/request/update_form/__${request.id}__}" method="get">
-    <!--    <input type="hidden" name="id" th:value="${request.id}" />-->
     <input type="submit" value="Update Book"/>
 </form>
 <a href="#" onclick="history.back();return false;" class="history-back">
