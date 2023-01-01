@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div th:insert="/plugins/menu :: menu_fr"></div>
+
+<h1>Start page</h1>
+
+<span>
+    <a th:href="@{/request/get_all}"> - All requests - </a>
+</span>
+
+</body>
+</html>
