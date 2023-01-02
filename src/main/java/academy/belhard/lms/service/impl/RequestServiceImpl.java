@@ -2,6 +2,8 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.repository.RequestRep;
+import academy.belhard.lms.service.dto.CourseDto;
+import academy.belhard.lms.service.dto.UserDto;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
@@ -101,5 +103,15 @@ public class RequestServiceImpl implements RequestService {
             pageNumbers.add(1);
         }
         return pageNumbers;
+    }
+
+    @Override
+    public void addParamsToRequest(RequestDto requestDto, String user_email, String course_title) {
+        CourseDto courseDto = new CourseDto();
+        courseDto.setTitle(course_title);
+        requestDto.setCourse(courseDto);
+        UserDto userDto = new UserDto();
+        userDto.setEmail(user_email);
+        requestDto.setUser(userDto);
     }
 }

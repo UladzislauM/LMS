@@ -1,7 +1,5 @@
 package academy.belhard.lms.controller.view;
 
-import academy.belhard.lms.service.dto.CourseDto;
-import academy.belhard.lms.service.dto.UserDto;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +40,7 @@ public class RequestControllerWeb {
     @PostMapping("/create")
     public String createRequest(@ModelAttribute RequestDto requestDto,
                                 @RequestParam String user_email, String course_title, String page_now, String size) {
-        addParamsToRequest(requestDto, user_email, course_title);
+        requestService.addParamsToRequest(requestDto, user_email, course_title);
         requestService.createRequest(requestDto);
         return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
     }
@@ -50,18 +48,9 @@ public class RequestControllerWeb {
     @PostMapping("/update/{id}")
     public String editRequest(@ModelAttribute RequestDto requestDto,
                               @RequestParam String user_email, String course_title, String page_now, String size) {
-        addParamsToRequest(requestDto, user_email, course_title);
+        requestService.addParamsToRequest(requestDto, user_email, course_title);
         requestService.updateRequest(requestDto);
         return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
-    }
-
-    private static void addParamsToRequest(RequestDto requestDto, String user_email, String course_title) {
-        CourseDto courseDto = new CourseDto();
-        courseDto.setTitle(course_title);
-        requestDto.setCourse(courseDto);
-        UserDto userDto = new UserDto();
-        userDto.setEmail(user_email);
-        requestDto.setUser(userDto);
     }
 
     @GetMapping("/update_form/{id}")

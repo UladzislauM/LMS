@@ -9,4 +9,6 @@ import java.util.List;
 @Component
 public interface RequestService extends AbstractService<RequestDto> {
     List<Integer> getPageNumbers(Model model, int totalPages);
+
+    void addParamsToRequest(RequestDto requestDto, String user_email, String course_title);
 }
