@@ -29,10 +29,14 @@ public class RequestServiceImpl implements RequestService {
 
     public void validate(Request request) {
         StatusReq reqStatus = request.getStatusReq();
+        boolean check = false;
         for (StatusReq thisEnum : StatusReq.values()) {
             if (thisEnum == reqStatus) {
-                throw new LmsException("Request Status" + reqStatus + "is not valid");
+                check = true;
             }
+        }
+        if (!check) {
+            throw new LmsException("Request Status " + reqStatus + " is not valid");
         }
     }
 
