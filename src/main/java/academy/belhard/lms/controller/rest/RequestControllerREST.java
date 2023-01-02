@@ -1,16 +1,15 @@
 package academy.belhard.lms.controller.rest;
 
-import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/v1.0/request")
@@ -18,15 +17,13 @@ import java.util.List;
 public class RequestControllerREST {
     private final RequestService requestService;
 
-    @PostMapping("/create")
-    public RequestDto createRequest(@RequestBody RequestDto requestDto) {
-        return requestService.createRequest(requestDto);
-    }
-
-    @GetMapping("/get_all")
-    public Page<RequestDto> getAllRequest(@RequestParam(required = false) int page) {
-        Pageable pageable = PageRequest.of(page - 1, 5, Sort.Direction.ASC, "id");
-        return requestService.getAll(pageable);
+    @RequestMapping(path = "/get_all", method = RequestMethod.POST, consumes = "application/json")
+    public Page<RequestDto> getAllRequest(@RequestParam(required = false) Optional<Integer> page,
+                                          @RequestParam(required = false) Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        return requestService.getAll(
+                PageRequest.of(currentPage - 1, pageSize));
     }
 
     @GetMapping("/get_by_id/{id}")
@@ -34,15 +31,23 @@ public class RequestControllerREST {
         return requestService.getById(id);
     }
 
+    @PostMapping("/create")
+    public RequestDto createRequest(@RequestBody RequestDto requestDto,
+                                    @RequestParam String user_email, String course_title) {
+        requestService.addParamsToRequest(requestDto, user_email, course_title);
+        return requestService.createRequest(requestDto);
+    }
 
     @PutMapping("/update/{id}")
-    public RequestDto updateRequest(@RequestBody RequestDto requestDto) {
+    public RequestDto updateRequest(@RequestBody RequestDto requestDto,
+                                    @RequestParam String user_email, String course_title) {
+        requestService.addParamsToRequest(requestDto, user_email, course_title);
         return requestService.updateRequest(requestDto);
     }
 
-    @GetMapping("/delete/{id}")
-    public void deleteRequest(@RequestBody RequestDto requestDto) {
-        requestService.deleteRequest(requestDto);
+    @GetMapping("/update_form/{id}")
+    public RequestDto toUpdateForm(@PathVariable Long id, Model model) {
+        return requestService.getById(id);
     }
 }
 
