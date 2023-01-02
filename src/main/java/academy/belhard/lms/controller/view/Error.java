@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/error")
 public class Error {
     @GetMapping
-    public String error(){
+    public String error() {
         return "error";
     }
 
