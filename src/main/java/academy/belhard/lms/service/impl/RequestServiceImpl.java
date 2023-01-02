@@ -1,9 +1,11 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
+import academy.belhard.lms.data.entity.enums.StatusReq;
 import academy.belhard.lms.data.repository.RequestRep;
 import academy.belhard.lms.service.dto.CourseDto;
 import academy.belhard.lms.service.dto.UserDto;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.RequestDto;
@@ -25,33 +27,36 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRep requestRep;
     private final RequestMapper mapper;
 
-    public void validate(Request request) {//fixMe
-
-        throw new RuntimeException("... is not valid, ...");
-
+    public void validate(Request request) {
+        StatusReq reqStatus = request.getStatusReq();
+        for (StatusReq thisEnum : StatusReq.values()) {
+            if (thisEnum == reqStatus) {
+                throw new LmsException("Request Status" + reqStatus + "is not valid");
+            }
+        }
     }
 
     @Override
     public Page<RequestDto> getAll(Pageable pageable) {
-        List<Request> requestsDto = requestRep.findAll();
-        if (requestsDto == null) {
+        List<Request> requests = requestRep.findAll();
+        if (requests == null) {
             throw new NotFoundException("FindAll: Requests is not exist...");
         } else {
-            List<RequestDto> requests = requestsDto.stream().map(mapper::toRequestDto).sorted(((o1, o2) ->
+            requests.stream().forEach(req -> validate(req));
+            List<RequestDto> requestsDto = requests.stream().map(mapper::toRequestDto).sorted(((o1, o2) ->
                     ((Long) o1.getId()).compareTo(o2.getId()))).toList();
             int pageSize = pageable.getPageSize();
             int currentPage = pageable.getPageNumber();
             int startItem = currentPage * pageSize;
             List<RequestDto> list;
 
-            if (requests.size() < startItem) {
+            if (requestsDto.size() < startItem) {
                 list = Collections.emptyList();
             } else {
-                int toIndex = Math.min(startItem + pageSize, requests.size());
-                list = requests.subList(startItem, toIndex);
+                int toIndex = Math.min(startItem + pageSize, requestsDto.size());
+                list = requestsDto.subList(startItem, toIndex);
             }
-
-            return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), requests.size());
+            return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), requestsDto.size());
         }
     }
 
@@ -61,10 +66,8 @@ public class RequestServiceImpl implements RequestService {
         Request request = requestRep.findById(id).orElseThrow(() -> {
             throw new NotFoundException("Request with id: " + id + " wasn't found");
         });
+        validate(request);
         RequestDto requestDto = mapper.toRequestDto(request);
-        if (requestDto == null) {
-            throw new NotFoundException("RequestDto with id: " + id + " wasn't found");
-        }
         return requestDto;
     }
 
@@ -80,6 +83,7 @@ public class RequestServiceImpl implements RequestService {
         if (request == null) {
             throw new NotFoundException("Failed create request");
         }
+        validate(request);
         return mapper.toRequestDto((requestRep.save(request)));
     }
 
@@ -89,6 +93,7 @@ public class RequestServiceImpl implements RequestService {
         if (request == null) {
             throw new NotFoundException("Failed update request");
         }
+        validate(request);
         return mapper.toRequestDto((requestRep.save(request)));
     }
 
