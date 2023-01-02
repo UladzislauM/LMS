@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+<div th:text="${message != null ? message : 'Something went wrong...'}"></div>
+<a href="#" onclick="history.back();return false;" class="history-back">
+    <-Back</a>
+</body>
+</html>
