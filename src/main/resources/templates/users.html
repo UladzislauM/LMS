@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<div class="container mt-5">
+
+    <h1>Users</h1>
+    <table class="table table-sm table-bordered">
+        <thead>
+        <tr class="table-info">
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Patronymic name</th>
+            <th scope="col">Contact preferences</th>
+            <th scope="col">Social media</th>
+            <th scope="col">Role</th>
+            <th scope="col">Is active</th>
+            <th colspan="2" scope="col">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <div th:each="el: ${users}">
+            <tr>
+                <td><h5 th:text="${el.id}"/></td>
+                <td><h5 th:text="${el.email}"/></td>
+                <td><h5 th:text="${el.password}"/></td>
+                <td><h5 th:text="${el.firstName}"/></td>
+                <td><h5 th:text="${el.lastName}"/></td>
+                <td><h5 th:text="${el.patronymicName}"/></td>
+                <td><h5 th:text="${el.contactPreferences}"/></td>
+                <td><h5 th:text="${el.socialMedia}"/></td>
+                <td><h5 th:text="${el.role}"/></td>
+                <td><h5 th:text="${el.isActive}"/></td>
+                <td><a th:href="'/v1.0/user/update/' + ${el.id}" class="btn btn-warning">Edit</a></td>
+                <td><a th:href="'/v1.0/user/delete/' + ${el.id}" class="btn btn-danger">Delete</a></td>
+            </tr>
+
+        </div>
+        </tbody>
+
+    </table>
+
+    <a href="/v1.0/user/new" class="btn btn-success">Add user</a>
+</div>
+
+</body>
+</html>
