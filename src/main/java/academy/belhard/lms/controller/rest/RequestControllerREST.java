@@ -32,21 +32,21 @@ public class RequestControllerREST {
     }
 
     @PostMapping("/create")
-    public RequestDto createRequest(@RequestBody RequestDto requestDto,
+    public RequestDto createRequest(@RequestBody RequestDto request,
                                     @RequestParam String user_email, String course_title) {
-        requestService.addParamsToRequest(requestDto, user_email, course_title);
-        return requestService.createRequest(requestDto);
+        requestService.addParamsToRequest(request, user_email, course_title);
+        return requestService.createRequest(request);
     }
 
-    @PutMapping("/update/{id}")
-    public RequestDto updateRequest(@RequestBody RequestDto requestDto,
+    @PutMapping("/update")
+    public RequestDto updateRequest(@RequestBody RequestDto request,
                                     @RequestParam String user_email, String course_title) {
-        requestService.addParamsToRequest(requestDto, user_email, course_title);
-        return requestService.updateRequest(requestDto);
+        requestService.addParamsToRequest(request, user_email, course_title);
+        return requestService.updateRequest(request);
     }
 
-    @GetMapping("/update_form/{id}")
-    public RequestDto toUpdateForm(@PathVariable Long id, Model model) {
+    @GetMapping("/update_form")
+    public RequestDto toUpdateForm(@PathVariable Long id) {
         return requestService.getById(id);
     }
 }
