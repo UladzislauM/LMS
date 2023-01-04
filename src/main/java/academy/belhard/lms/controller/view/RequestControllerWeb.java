@@ -42,18 +42,18 @@ public class RequestControllerWeb {
 
 
     @PostMapping("/")
-    public String createRequest(@ModelAttribute RequestDto requestDto,
+    public String createRequest(@ModelAttribute RequestDto request,
                                 @RequestParam String user_email, String course_title, String page_now, String size) {
-        requestService.addParamsToRequest(requestDto, user_email, course_title);
-        requestService.createRequest(requestDto);
+        requestService.addParamsToRequest(request, user_email, course_title);
+        requestService.createRequest(request);
         return "redirect:/request/?size=" + size + "&page=" + page_now;
     }
 
     @PostMapping("/{id}")
-    public String editRequest(@ModelAttribute RequestDto requestDto,
+    public String editRequest(@ModelAttribute RequestDto request,
                               @RequestParam String user_email, String course_title, String page_now, String size) {
-        requestService.addParamsToRequest(requestDto, user_email, course_title);
-        requestService.updateRequest(requestDto);
+        requestService.addParamsToRequest(request, user_email, course_title);
+        requestService.updateRequest(request);
         return "redirect:/request/?size=" + size + "&page=" + page_now;
     }
 
