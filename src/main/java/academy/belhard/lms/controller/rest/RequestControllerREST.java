@@ -5,7 +5,6 @@ import academy.belhard.lms.service.dto.RequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -17,7 +16,7 @@ import java.util.Optional;
 public class RequestControllerREST {
     private final RequestService requestService;
 
-    @RequestMapping(path = "/get_all", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
     public Page<RequestDto> getAllRequest(@RequestParam(required = false) Optional<Integer> page,
                                           @RequestParam(required = false) Optional<Integer> size) {
         int currentPage = page.orElse(1);
@@ -26,28 +25,23 @@ public class RequestControllerREST {
                 PageRequest.of(currentPage - 1, pageSize));
     }
 
-    @GetMapping("/get_by_id/{id}")
+    @GetMapping("/{id}")
     public RequestDto getRequestById(@PathVariable Long id) {
         return requestService.getById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public RequestDto createRequest(@RequestBody RequestDto request,
                                     @RequestParam String user_email, String course_title) {
         requestService.addParamsToRequest(request, user_email, course_title);
         return requestService.createRequest(request);
     }
 
-    @PutMapping("/update")
-    public RequestDto updateRequest(@RequestBody RequestDto request,
-                                    @RequestParam String user_email, String course_title) {
+    @PutMapping("/{id}")
+    public RequestDto editRequest(@RequestBody RequestDto request,
+                                  @RequestParam String user_email, String course_title) {
         requestService.addParamsToRequest(request, user_email, course_title);
         return requestService.updateRequest(request);
-    }
-
-    @GetMapping("/update_form")
-    public RequestDto toUpdateForm(@PathVariable Long id) {
-        return requestService.getById(id);
     }
 }
 
