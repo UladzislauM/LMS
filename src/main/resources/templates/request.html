@@ -13,7 +13,7 @@
 
 <div>
     <span>Size requests on page</span>
-    <select th:onchange="'window.location.href = \'' + @{/request/get_all} + '?size=\' + this.value ' ">
+    <select th:onchange="'window.location.href = \'' + @{/request/} + '?size=\' + this.value ' ">
         <option th:text="@{Now: __${requests.size}__}"></option>
         <option th:text="3"></option>
         <option th:text="5"></option>
@@ -36,7 +36,7 @@
         <td th:text="*{user.email}"></td>
         <td th:text="*{statusReq}"></td>
         <td>
-            <form th:action="@{/request/get_by_id/__*{id}__}" method="get">
+            <form th:action="@{/request/__*{id}__?size=__${requests.size}__}" method="get">
                 <input type="submit" value="Change request"/>
             </form>
         </td>
@@ -46,7 +46,7 @@
 <div th:insert="~{/plugins/pagination :: pagination_fr}"
      th:with="firstVer=${requests}, pageNumbers=${pageNumbers}"></div>
 
-<form th:action="@{/request/create}" method="post">
+<form th:action="@{/request/}" method="post">
     <details>
         <summary>Create New Request</summary>
         <p>Write Parameters:</p>
