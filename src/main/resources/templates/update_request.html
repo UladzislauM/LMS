@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div th:insert="/plugins/menu :: menu_fr"></div>
+<div th:insert="~{/plugins/menu :: menu_fr}"></div>
 
 <h1>Request number: <span th:text="${request.id}"></span></h1>
 <table>
@@ -20,7 +20,7 @@
     </tr>
 
     <tr th:object="${request}">
-        <form align="left" th:action="@{/request/update/__*{id}__}" method="post">
+        <form align="left" th:action="@{/request/__*{id}__}" method="post">
             <td th:text="*{id}"><input type="hidden" name="id" th:value="*{id}"></td>
             <td><input type="text" name="course_title" th:placeholder="*{course.title}" th:value="*{course.title}"></td>
             <td><input type="email" name="user_email" th:placeholder="*{user.email}" th:value="*{user.email}"></td>
