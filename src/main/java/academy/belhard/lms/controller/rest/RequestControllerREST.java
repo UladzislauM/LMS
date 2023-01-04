@@ -16,7 +16,7 @@ import java.util.Optional;
 public class RequestControllerREST {
     private final RequestService requestService;
 
-    @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(path = "/", method = RequestMethod.GET)
     public Page<RequestDto> getAllRequest(@RequestParam(required = false) Optional<Integer> page,
                                           @RequestParam(required = false) Optional<Integer> size) {
         int currentPage = page.orElse(1);
@@ -30,18 +30,14 @@ public class RequestControllerREST {
         return requestService.getById(id);
     }
 
-    @PostMapping("/")
-    public RequestDto createRequest(@RequestBody RequestDto request,
-                                    @RequestParam String user_email, String course_title) {
-        requestService.addParamsToRequest(request, user_email, course_title);
+    @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
+    public RequestDto createRequest(@RequestBody RequestDto request) {
         return requestService.createRequest(request);
     }
 
-    @PutMapping("/{id}")
-    public RequestDto editRequest(@RequestBody RequestDto request,
-                                  @RequestParam String user_email, String course_title) {
-        requestService.addParamsToRequest(request, user_email, course_title);
-        return requestService.updateRequest(request);
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
+    public RequestDto editRequest(@RequestBody RequestDto request) {
+         return requestService.updateRequest(request);
     }
 }
 
