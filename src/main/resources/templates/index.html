@@ -7,12 +7,12 @@
 </head>
 <body>
 
-<div th:insert="/plugins/menu :: menu_fr"></div>
+<div th:insert="~{/plugins/menu :: menu_fr}"></div>
 
 <h1>Start page</h1>
 
 <span>
-    <a th:href="@{/request/get_all}"> - All requests - </a>
+    <a th:href="@{/request/}"> - All requests - </a>
 </span>
 
 </body>
