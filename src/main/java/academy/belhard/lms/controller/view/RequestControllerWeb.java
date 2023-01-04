@@ -17,7 +17,7 @@ import java.util.Optional;
 public class RequestControllerWeb {
     private final RequestService requestService;
 
-    @GetMapping("/get_all")
+    @GetMapping("/")
     public String getRequests(Model model, @RequestParam(required = false) Optional<Integer> page,
                               @RequestParam(required = false) Optional<Integer> size) {
         int currentPage = page.orElse(1);
@@ -30,32 +30,40 @@ public class RequestControllerWeb {
         return "request";
     }
 
-    @GetMapping("/get_by_id/{id}")
-    public String getRequestById(@PathVariable Long id, Model model) {
+    @GetMapping("/{id}")
+    public String getRequestById(@PathVariable Long id, Model model,
+                                 @RequestParam(value = "size", required = false) String size,
+                                 @RequestParam(value = "page", required = false) String page) {
         model.addAttribute("request", requestService.getById(id));
+        model.addAttribute("size", size);
+        model.addAttribute("page", page);
         return "request_by_id";
     }
 
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public String createRequest(@ModelAttribute RequestDto requestDto,
                                 @RequestParam String user_email, String course_title, String page_now, String size) {
         requestService.addParamsToRequest(requestDto, user_email, course_title);
         requestService.createRequest(requestDto);
-        return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
+        return "redirect:/request/?size=" + size + "&page=" + page_now;
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/{id}")
     public String editRequest(@ModelAttribute RequestDto requestDto,
                               @RequestParam String user_email, String course_title, String page_now, String size) {
         requestService.addParamsToRequest(requestDto, user_email, course_title);
         requestService.updateRequest(requestDto);
-        return "redirect:/request/get_all?size=" + size + "&page=" + page_now;
+        return "redirect:/request/?size=" + size + "&page=" + page_now;
     }
 
     @GetMapping("/update_form/{id}")
-    public String toUpdateForm(@PathVariable Long id, Model model) {
+    public String toUpdateForm(@PathVariable Long id, Model model,
+                               @RequestParam(value = "size", required = false) String size,
+                               @RequestParam(value = "page", required = false) String page) {
         model.addAttribute("request", requestService.getById(id));
+        model.addAttribute("size", size);
+        model.addAttribute("page", page);
         return "update_request";
     }
 
