@@ -1,7 +1,6 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.entity.StatusReq;
 import academy.belhard.lms.data.repository.RequestRep;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
@@ -26,9 +25,9 @@ public class RequestServiceImpl implements RequestService {
     private final RequestMapper mapper;
 
     public void validate(Request request) {
-        StatusReq reqStatus = request.getStatusReq();
+        Request.StatusReq reqStatus = request.getStatusReq();
         boolean check = false;
-        for (StatusReq thisEnum : StatusReq.values()) {
+        for (Request.StatusReq thisEnum : Request.StatusReq.values()) {
             if (thisEnum == reqStatus) {
                 check = true;
             }

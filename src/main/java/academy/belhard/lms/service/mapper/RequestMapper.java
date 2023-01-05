@@ -3,7 +3,6 @@ package academy.belhard.lms.service.mapper;
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
-import academy.belhard.lms.data.entity.StatusReq;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.UserDto;
@@ -23,7 +22,4 @@ public abstract class RequestMapper {
 
     public abstract UserDto toUserDto(User user);
 
-    public abstract StatusReq toStatusReq(StatusReq statusReq);
-
-    public abstract RequestDto toStatusReqDto(RequestDto requestDto);
 }
