@@ -1,6 +1,5 @@
 package academy.belhard.lms.data.entity;
 
-import academy.belhard.lms.data.entity.enums.StatusReq;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;

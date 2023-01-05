@@ -1,6 +1,6 @@
 package academy.belhard.lms.service.dto;
 
-import academy.belhard.lms.data.entity.enums.StatusReq;
+import academy.belhard.lms.data.entity.StatusReq;
 import lombok.Data;
 
 @Data

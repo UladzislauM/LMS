@@ -1,10 +1,8 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.entity.enums.StatusReq;
+import academy.belhard.lms.data.entity.StatusReq;
 import academy.belhard.lms.data.repository.RequestRep;
-import academy.belhard.lms.service.dto.CourseDto;
-import academy.belhard.lms.service.dto.UserDto;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;

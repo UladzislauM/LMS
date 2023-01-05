@@ -1,11 +1,11 @@
-package academy.belhard.lms.service.dto.enums;
+package academy.belhard.lms.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum StatusReqDto {
+public enum StatusReq {
     IN_PROCESSING,
     ASSEMBLED,
     AWAITING_PAYMENT,
