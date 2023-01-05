@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1.0/request")
 @RequiredArgsConstructor
-public class RequestControllerREST {
+public class RequestRestController {
     private final RequestService requestService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
