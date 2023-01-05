@@ -22,8 +22,12 @@
     <tr th:object="${request}">
         <form align="left" th:action="@{/request/__*{id}__}" method="post">
             <td th:text="*{id}"><input type="hidden" name="id" th:value="*{id}"></td>
-            <td><input type="text" name="course_title" th:placeholder="*{course.title}" th:value="*{course.title}"></td>
-            <td><input type="email" name="user_email" th:placeholder="*{user.email}" th:value="*{user.email}"></td>
+            <td><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
+                       th:value="*{course.title}"></td>
+            <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">
+            <td><input type="email" th:field="*{user.email}" th:placeholder="*{user.email}" th:value="*{user.email}">
+            </td>
+            <input type="hidden" th:field="*{user.id}" th:value="*{user.id}">
             <td>
                 <select name="statusReq">
                     <option value="IN_PROCESSING">IN_PROCESSING
@@ -39,7 +43,7 @@
                 </select>
                 <h3>Active status: <span th:text="*{statusReq}"></span></h3>
             </td>
-            <input type="hidden" name="page_now" th:value="${page}">
+            <input type="hidden" name="page" th:value="${page}">
             <input type="hidden" name="size" th:value="5">
             <td><input type="submit" name="submit" value="Update request"/></td>
         </form>

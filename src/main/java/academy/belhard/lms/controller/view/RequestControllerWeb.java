@@ -32,8 +32,8 @@ public class RequestControllerWeb {
 
     @GetMapping("/{id}")
     public String getRequestById(@PathVariable Long id, Model model,
-                                 @RequestParam(value = "size", required = false) String size,
-                                 @RequestParam(value = "page", required = false) String page) {
+                                 @RequestParam(value = "size", required = false, defaultValue = "5") String size,
+                                 @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         model.addAttribute("request", requestService.getById(id));
         model.addAttribute("size", size);
         model.addAttribute("page", page);
@@ -43,24 +43,24 @@ public class RequestControllerWeb {
 
     @PostMapping("/")
     public String createRequest(@ModelAttribute RequestDto request,
-                                @RequestParam String user_email, String course_title, String page_now, String size) {
-        requestService.addParamsToRequest(request, user_email, course_title);
-        requestService.createRequest(request);
-        return "redirect:/request/?size=" + size + "&page=" + page_now;
+                                @RequestParam(value = "size", required = false, defaultValue = "5") String size,
+                                @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
+        requestService.create(request);
+        return "redirect:/request/?size=" + size + "&page=" + page;
     }
 
     @PostMapping("/{id}")
     public String editRequest(@ModelAttribute RequestDto request,
-                              @RequestParam String user_email, String course_title, String page_now, String size) {
-        requestService.addParamsToRequest(request, user_email, course_title);
-        requestService.updateRequest(request);
-        return "redirect:/request/?size=" + size + "&page=" + page_now;
+                              @RequestParam(value = "size", required = false, defaultValue = "5") String size,
+                              @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
+        requestService.update(request);
+        return "redirect:/request/?size=" + size + "&page=" + page;
     }
 
     @GetMapping("/update_form/{id}")
     public String toUpdateForm(@PathVariable Long id, Model model,
-                               @RequestParam(value = "size", required = false) String size,
-                               @RequestParam(value = "page", required = false) String page) {
+                               @RequestParam(value = "size", required = false, defaultValue = "5") String size,
+                               @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         model.addAttribute("request", requestService.getById(id));
         model.addAttribute("size", size);
         model.addAttribute("page", page);

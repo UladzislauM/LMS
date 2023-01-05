@@ -76,13 +76,13 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void deleteRequest(RequestDto requestDto) {
+    public void delete(RequestDto requestDto) {
         requestDto.setDeleted(true);
         requestRep.save(mapper.toRequest(requestDto));
     }
 
     @Override
-    public RequestDto createRequest(RequestDto requestDto) {
+    public RequestDto create(RequestDto requestDto) {
         Request request = mapper.toRequest(requestDto);
         if (request == null) {
             throw new NotFoundException("Failed create request");
@@ -92,10 +92,10 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestDto updateRequest(RequestDto requestDto) {
+    public RequestDto update(RequestDto requestDto) {
         Request request = mapper.toRequest(requestDto);
         if (request == null) {
-            throw new NotFoundException("Failed update request");
+            throw new NotFoundException("Failed create request");
         }
         validate(request);
         return mapper.toRequestDto((requestRep.save(request)));
@@ -112,15 +112,5 @@ public class RequestServiceImpl implements RequestService {
             pageNumbers.add(1);
         }
         return pageNumbers;
-    }
-
-    @Override
-    public void addParamsToRequest(RequestDto requestDto, String user_email, String course_title) {
-        CourseDto courseDto = new CourseDto();
-        courseDto.setTitle(course_title);
-        requestDto.setCourse(courseDto);
-        UserDto userDto = new UserDto();
-        userDto.setEmail(user_email);
-        requestDto.setUser(userDto);
     }
 }
