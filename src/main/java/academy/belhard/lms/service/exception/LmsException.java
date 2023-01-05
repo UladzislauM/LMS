@@ -1,4 +1,4 @@
-package academy.belhard.lms.service.exceptions;
+package academy.belhard.lms.service.exception;
 
 public class LmsException extends RuntimeException {
     public LmsException() {

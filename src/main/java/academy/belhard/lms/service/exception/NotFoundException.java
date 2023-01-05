@@ -1,4 +1,4 @@
-package academy.belhard.lms.service.exceptions;
+package academy.belhard.lms.service.exception;
 
 public class NotFoundException extends LmsException {
     public NotFoundException() {

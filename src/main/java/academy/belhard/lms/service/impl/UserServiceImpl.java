@@ -6,7 +6,7 @@ import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSaving;
 import academy.belhard.lms.service.dto.user.UserDtoForUpdating;
-import academy.belhard.lms.service.exceptions.NotFoundException;
+import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto deleteUser(Long id) {
+    public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         if (!user.isActive()) {
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setActive(false);
         User deleted = userRepository.save(user);
-        return userMapper.userToUserDto(deleted);
+        userMapper.userToUserDto(deleted);
     }
 
 }

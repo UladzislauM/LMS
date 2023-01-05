@@ -2,6 +2,8 @@ package academy.belhard.lms.data.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,19 +44,21 @@ public class User {
     private String patronymicName;
 
     @Column(name = "contact_preferences")
+    @Enumerated(EnumType.STRING)
     private ContactPreferences contactPreferences;
 
     @Column(name = "social_media")
     private String socialMedia;
 
     @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "is_active")
     private boolean isActive;
 
     public enum Role {
-        STUDENT, MANAGER, TRAINER
+        STUDENT, TRAINER, MANAGER
     }
 
     public enum ContactPreferences {
