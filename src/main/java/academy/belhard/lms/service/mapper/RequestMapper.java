@@ -5,7 +5,7 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
-import academy.belhard.lms.service.dto.request.UserDto;
+import academy.belhard.lms.service.dto.user.UserDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
