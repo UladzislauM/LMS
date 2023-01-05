@@ -32,12 +32,12 @@ public class RequestControllerREST {
 
     @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
     public RequestDto createRequest(@RequestBody RequestDto request) {
-        return requestService.createRequest(request);
+        return requestService.create(request);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
     public RequestDto editRequest(@RequestBody RequestDto request) {
-         return requestService.updateRequest(request);
+        return requestService.update(request);
     }
 }
 
