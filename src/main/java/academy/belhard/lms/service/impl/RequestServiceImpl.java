@@ -6,7 +6,7 @@ import academy.belhard.lms.data.repository.RequestRep;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
-import academy.belhard.lms.service.dto.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;

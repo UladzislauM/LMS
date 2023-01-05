@@ -1,7 +1,7 @@
 package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.RequestService;
-import academy.belhard.lms.service.dto.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

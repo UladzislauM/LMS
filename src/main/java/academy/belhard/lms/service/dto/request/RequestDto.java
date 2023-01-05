@@ -1,4 +1,4 @@
-package academy.belhard.lms.service.dto;
+package academy.belhard.lms.service.dto.request;
 
 import academy.belhard.lms.data.entity.StatusReq;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package academy.belhard.lms.service;
 
-import academy.belhard.lms.service.dto.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
