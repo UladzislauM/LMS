@@ -6,7 +6,15 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users(
  id                 BIGSERIAL PRIMARY KEY NOT NULL,
- email              CHARACTER VARYING (100) NOT NULL
+ email              CHARACTER VARYING (100) NOT NULL,
+ password           CHARACTER VARYING (50) NOT null,
+ first_name         CHARACTER VARYING (100) NOT NULL,
+ last_name          CHARACTER VARYING (100) NOT NULL,
+ patronymic_name    CHARACTER VARYING (100) NOT NULL,
+ contact_preferences CHARACTER VARYING (60),
+ social_media		CHARACTER VARYING (60),
+ role	            CHARACTER VARYING (60),
+ is_active			BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE IF NOT EXISTS courses(
