@@ -14,12 +14,28 @@
 <table>
     <tr>
         <th>Course</th>
-        <th>User</th>
+        <th>User:
+        <th>email</th>
+        <th>firstName</th>
+        <th>lastName</th>
+        <th>patronymicName</th>
+        <th>contactPreferences</th>
+        <th>socialMedia</th>
+        <th>role</th>
+        </th>
         <th>Status</th>
     </tr>
     <tr th:object="${request}">
         <td th:text="*{course.title}"></td>
-        <td th:text="*{user.email}"></td>
+        <td>
+        <td th:text="*{user.email}">
+        <td th:text="*{user.firstName}"></td>
+        <td th:text="*{user.lastName}"></td>
+        <td th:text="*{user.patronymicName}"></td>
+        <td th:text="*{user.contactPreferences}"></td>
+        <td th:text="*{user.socialMedia}"></td>
+        <td th:text="*{user.role}"></td>
+        </td>
         <td th:text="*{statusReq}"></td>
     </tr>
 </table>

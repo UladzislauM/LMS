@@ -25,9 +25,19 @@
             <td><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
                        th:value="*{course.title}"></td>
             <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">
-            <td><input type="email" th:field="*{user.email}" th:placeholder="*{user.email}" th:value="*{user.email}">
+            <td>
+                <input type="email" th:field="*{user.email}" th:placeholder="*{user.email}" th:value="*{user.email}">
             </td>
             <input type="hidden" th:field="*{user.id}" th:value="*{user.id}">
+            <input type="hidden" th:field="*{user.email}" th:value="*{user.email}">
+            <input type="hidden" th:field="*{user.password}" th:value="*{user.password}">
+            <input type="hidden" th:field="*{user.firstName}" th:value="*{user.firstName}">
+            <input type="hidden" th:field="*{user.lastName}" th:value="*{user.lastName}">
+            <input type="hidden" th:field="*{user.patronymicName}" th:value="*{user.patronymicName}">
+            <input type="hidden" th:field="*{user.contactPreferences}" th:value="*{user.contactPreferences}">
+            <input type="hidden" th:field="*{user.socialMedia}" th:value="*{user.socialMedia}">
+            <input type="hidden" th:field="*{user.role}" th:value="*{user.role}">
+            <!--            <input type="hidden" th:field="*{user.isActive}" th:value="*{user.isActive}">-->
             <td>
                 <select name="statusReq">
                     <option value="IN_PROCESSING">IN_PROCESSING
