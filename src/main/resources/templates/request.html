@@ -52,6 +52,13 @@
         <p>Write Parameters:</p>
         <input type="hidden" th:name="statusReq" value="IN_PROCESSING"/>
         <div><input type="email" th:name="user.email" placeholder="Email User">Email User</div>
+        <input type="hidden" th:name="user.password" th:value="Test">
+        <input type="hidden" th:name="user.firstName" th:value="Test_F">
+        <input type="hidden" th:name="user.lastName" th:value="Test_L">
+        <input type="hidden" th:name="user.patronymicName" th:value="Test_P">
+        <input type="hidden" th:name="user.contactPreferences" th:value="VIBER">
+        <input type="hidden" th:name="user.socialMedia" th:value="tel">
+        <!--        <input type="hidden" th:name="user.role" th:value="USER">-->
         <div><input type="text" th:name="course.title" placeholder="Title course">Title course</div>
         <div><input type="submit" th:name="submit" value="Create request"/></div>
         <input type="hidden" name="page" th:value="${page}">
