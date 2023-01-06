@@ -1,10 +1,5 @@
 package academy.belhard.lms.service.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
 public enum StatusReqDto {
     IN_PROCESSING,
     ASSEMBLED,
