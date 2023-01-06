@@ -1,7 +1,10 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Request;
+import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRep;
+import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
@@ -79,13 +82,16 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestDto create(RequestDto requestDto) {
-        Request request = mapper.toRequest(requestDto);
+    public RequestDtoForSaving create(RequestDtoForSaving requestDto) {
+        Request request = mapper.toRequestDtoForSaving(requestDto);
         if (request == null) {
             throw new NotFoundException("Failed create request");
         }
         validate(request);
-        return mapper.toRequestDto((requestRep.save(request)));
+        User user = request.getUser();
+        user.setRole(User.Role.STUDENT);
+        request.setUser(user);
+        return mapper.toRequestForSaving((requestRep.save(request)));
     }
 
     @Override
