@@ -2,6 +2,7 @@ package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.request.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,7 +43,7 @@ public class RequestControllerWeb {
 
 
     @PostMapping("/")
-    public String createRequest(@ModelAttribute RequestDto request,
+    public String createRequest(@ModelAttribute RequestDtoForSaving request,
                                 @RequestParam(value = "size", required = false, defaultValue = "5") String size,
                                 @RequestParam(value = "page", required = false, defaultValue = "1") String page) {
         requestService.create(request);

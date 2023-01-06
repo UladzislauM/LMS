@@ -1,6 +1,7 @@
 package academy.belhard.lms.service;
 
 import academy.belhard.lms.service.dto.request.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ public interface RequestService {
 
     void delete(RequestDto d);
 
-    RequestDto create(RequestDto d);
+    RequestDtoForSaving create(RequestDtoForSaving d);
 
     RequestDto update(RequestDto d);
 

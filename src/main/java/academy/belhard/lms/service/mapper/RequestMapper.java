@@ -5,6 +5,7 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import academy.belhard.lms.service.dto.user.UserDto;
 import org.mapstruct.Mapper;
 
@@ -21,5 +22,9 @@ public abstract class RequestMapper {
     public abstract User toUser(UserDto userDto);
 
     public abstract UserDto toUserDto(User user);
+
+    public abstract Request toRequestDtoForSaving(RequestDtoForSaving requestDtoForSaving);
+
+    public abstract RequestDtoForSaving toRequestForSaving(Request request);
 
 }

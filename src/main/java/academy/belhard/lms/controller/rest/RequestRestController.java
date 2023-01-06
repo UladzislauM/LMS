@@ -2,6 +2,7 @@ package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.request.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class RequestRestController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
-    public RequestDto createRequest(@RequestBody RequestDto request) {
+    public RequestDtoForSaving createRequest(@RequestBody RequestDtoForSaving request) {
         return requestService.create(request);
     }
 
