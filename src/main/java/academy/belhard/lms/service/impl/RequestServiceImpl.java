@@ -3,7 +3,6 @@ package academy.belhard.lms.service.impl;
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRep;
-import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
