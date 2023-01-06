@@ -62,8 +62,6 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException(USER_NOT_FOUND_MSG);
         }
         user.setActive(false);
-        User deleted = userRepository.save(user);
-        userMapper.userToUserDto(deleted);
+        userRepository.save(user);
     }
-
 }
