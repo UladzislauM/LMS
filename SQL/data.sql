@@ -1,7 +1,7 @@
-INSERT INTO users(email, password, first_name, last_name, patronymic_name, contact_preferences, social_media)
-VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM', '@Ivan'),
-       ('petr48@gmail.com', 'fdfbbfd67sdb', 'Petr', 'Petrov', 'Petrovich', 'CELLPHONE', '+375291234567'),
-       ('sidor@gmail.com', 'klkjjk', 'Sidor', 'Sidorov', 'Sidorovich', 'INSTAGRAM', '#Sidor'),
+INSERT INTO users(email, password, first_name, last_name, patronymic_name, contact_preferences, role, social_media)
+VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM', 'TRAINER', '@Ivan'),
+       ('petr48@gmail.com', 'fdfbbfd67sdb', 'Petr', 'Petrov', 'Petrovich', 'CELLPHONE', 'MANAGER', '+375291234567'),
+       ('sidor@gmail.com', 'klkjjk', 'Sidor', 'Sidorov', 'Sidorovich', 'INSTAGRAM', 'MANAGER', '#Sidor'),
        ('jek94@gmail.com', '12qwaszx', 'Yauheni', 'Hlaholeu', 'Yayhenivich', 'TELEGRAM', 'STUDENT', '+375291234567'),
        ('sol44@yandex.by', 'qazxsw21', 'Uladzislau', 'Solovev', 'Alexandrovich', 'TELEGRAM', 'STUDENT', '#Solovey'),
        ('galina_sid@gmail.com', 'sid93LL', 'Haliana', 'Sidoric', 'Sergeevna', 'INSTAGRAM', 'STUDENT', '@Sid'),
