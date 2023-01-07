@@ -19,14 +19,13 @@ CREATE TABLE IF NOT EXISTS users
 );
 
 CREATE TABLE IF NOT EXISTS courses(
- id                 BIGSERIAL PRIMARY KEY NOT NULL,
- title				CHARACTER VARYING (80) NOT NULL
+    id                  BIGSERIAL PRIMARY KEY  NOT NULL,
+    title				CHARACTER VARYING (80) NOT NULL
  );
 
 CREATE TABLE IF NOT EXISTS requests(
- id                 BIGSERIAL PRIMARY KEY NOT NULL,
- courses_id			BIGINT REFERENCES courses(id),
- users_id			BIGINT REFERENCES users(id),
- status				CHARACTER VARYING (60),
- is_deleted			BOOLEAN NOT NULL DEFAULT FALSE
+    id                  BIGSERIAL PRIMARY KEY           NOT NULL,
+    course_id			BIGINT REFERENCES courses(id),
+    user_id			    BIGINT REFERENCES users(id),
+    status				CHARACTER VARYING (60)          DEFAULT 'PROCESSING'
  );

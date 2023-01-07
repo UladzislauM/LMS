@@ -18,11 +18,11 @@ VALUES ('course_test_1'),
 	('course_test_5'),
 	('course_test_6');
 
-INSERT INTO requests (courses_id, users_id, status)
-VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), (SELECT id FROM users WHERE email='jek94@gmail.com'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_2'), (SELECT id FROM users WHERE email='sol44@yandex.by'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_3'), (SELECT id FROM users WHERE email='galina_sid@gmail.com'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_4'), (SELECT id FROM users WHERE email='dlana@mail.ru'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_5'), (SELECT id FROM users WHERE email='AKsin@Gmail.com'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE email='vagan@mail.ru'), 'IN_PROCESSING'),
-((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE email='tMin@tut.by'), 'IN_PROCESSING');
+INSERT INTO requests (course_id, user_id)
+VALUES ((SELECT id FROM courses WHERE title = 'course_test_1'), (SELECT id FROM users WHERE email='jek94@gmail.com')),
+((SELECT id FROM courses WHERE title = 'course_test_2'), (SELECT id FROM users WHERE email='sol44@yandex.by')),
+((SELECT id FROM courses WHERE title = 'course_test_3'), (SELECT id FROM users WHERE email='galina_sid@gmail.com')),
+((SELECT id FROM courses WHERE title = 'course_test_4'), (SELECT id FROM users WHERE email='dlana@mail.ru')),
+((SELECT id FROM courses WHERE title = 'course_test_5'), (SELECT id FROM users WHERE email='AKsin@Gmail.com')),
+((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE email='vagan@mail.ru')),
+((SELECT id FROM courses WHERE title = 'course_test_6'), (SELECT id FROM users WHERE email='tMin@tut.by'));
