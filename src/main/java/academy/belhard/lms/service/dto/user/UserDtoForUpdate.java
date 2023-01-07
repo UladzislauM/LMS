@@ -3,7 +3,8 @@ package academy.belhard.lms.service.dto.user;
 import lombok.Data;
 
 @Data
-public class UserDtoForSaving {
+public class UserDtoForUpdate {
+    private Long id;
     private String email;
     private String password;
     private String firstName;
@@ -11,4 +12,5 @@ public class UserDtoForSaving {
     private String patronymicName;
     private ContactPreferencesDto contactPreferences;
     private String socialMedia;
+    private RoleDto role;
 }
