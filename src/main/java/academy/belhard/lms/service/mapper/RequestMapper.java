@@ -5,26 +5,32 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
-import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
+import academy.belhard.lms.service.dto.request.RequestDtoForSave;
+import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
 import academy.belhard.lms.service.dto.user.UserDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class RequestMapper {
-    public abstract Request toRequest(RequestDto requestDto);
+public interface RequestMapper {
+    Request toRequest(RequestDto requestDto);
 
-    public abstract RequestDto toRequestDto(Request request);
+    RequestDto toRequestDto(Request request);
 
-    public abstract Course toCourse(CourseDto courseDto);
+    Course toCourse(CourseDto courseDto);
 
-    public abstract CourseDto toCourseDto(Course course);
+    CourseDto toCourseDto(Course course);
 
-    public abstract User toUser(UserDto userDto);
+    User toUser(UserDto userDto);
 
-    public abstract UserDto toUserDto(User user);
+    UserDto toUserDto(User user);
 
-    public abstract Request toRequestDtoForSaving(RequestDtoForSaving requestDtoForSaving);
+    Request toRequestDtoForSave(RequestDtoForSave requestDtoForSaving);
 
-    public abstract RequestDtoForSaving toRequestForSaving(Request request);
+    RequestDtoForSave toRequestForSave(Request request);
 
+    Request toRequestDtoForUpdate(Request request);
+
+    RequestDtoForUpdate toRequestForUpdate(RequestDtoForUpdate requestDtoForUpdate);
+
+    Request toRequest(RequestDtoForUpdate requestDtoForUpdate);
 }
