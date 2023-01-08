@@ -18,11 +18,11 @@ public class Request {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;
 
