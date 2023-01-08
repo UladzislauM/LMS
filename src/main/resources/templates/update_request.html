@@ -15,45 +15,25 @@
     <tr>
         <th>id</th>
         <th>courses</th>
-        <th>users</th>
         <th>status</th>
     </tr>
 
     <tr th:object="${request}">
-        <form align="left" th:action="@{/request/__*{id}__}" method="post">
+        <form align="left" th:action="@{/requests/__*{id}__}" method="post">
             <td th:text="*{id}"><input type="hidden" name="id" th:value="*{id}"></td>
             <td><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
                        th:value="*{course.title}"></td>
             <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">
             <td>
-                <input type="email" th:field="*{user.email}" th:placeholder="*{user.email}" th:value="*{user.email}">
-            </td>
-            <input type="hidden" th:field="*{user.id}" th:value="*{user.id}">
-            <input type="hidden" th:field="*{user.email}" th:value="*{user.email}">
-            <input type="hidden" th:field="*{user.password}" th:value="*{user.password}">
-            <input type="hidden" th:field="*{user.firstName}" th:value="*{user.firstName}">
-            <input type="hidden" th:field="*{user.lastName}" th:value="*{user.lastName}">
-            <input type="hidden" th:field="*{user.patronymicName}" th:value="*{user.patronymicName}">
-            <input type="hidden" th:field="*{user.contactPreferences}" th:value="*{user.contactPreferences}">
-            <input type="hidden" th:field="*{user.socialMedia}" th:value="*{user.socialMedia}">
-            <input type="hidden" th:field="*{user.role}" th:value="*{user.role}">
-            <td>
-                <select name="statusReq">
-                    <option value="IN_PROCESSING">IN_PROCESSING
-                    <option value="ASSEMBLED">ASSEMBLED
-                    <option value="AWAITING_PAYMENT">AWAITING_PAYMENT
-                    <option value="READY_TO_START">READY_TO_START
-                    <option value="PAID_FOR">PAID_FOR
-                    <option value="COMPLETELY_CHANGED">COMPLETELY_CHANGED
-                    <option value="FAILED">FAILED
-                    <option value="REFUND">REFUND
-                    <option value="THE_TRANSACTION_IS_COMPLETED">THE_TRANSACTION_IS_COMPLETED
+                <select name="status">
+                    <option value="PROCESSING">PROCESSING
+                    <option value="APPROVED">APPROVED
+                    <option value="PAID">PAID
+                    <option value="SATISFIED">SATISFIED
                     <option value="CANCELLED">CANCELLED
                 </select>
-                <h3>Active status: <span th:text="*{statusReq}"></span></h3>
+                <h3>Active status: <span th:text="*{status}"></span></h3>
             </td>
-            <input type="hidden" name="page" th:value="${page}">
-            <input type="hidden" name="size" th:value="5">
             <td><input type="submit" name="submit" value="Update request"/></td>
         </form>
     </tr>
