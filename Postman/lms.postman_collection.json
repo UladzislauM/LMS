@@ -1,133 +1,125 @@
 {
-	"info": {
-		"_postman_id": "4d3e9611-a1fb-4784-b866-7a314b35acde",
-		"name": "lms",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25217427"
-	},
-	"item": [
-		{
-			"name": "request",
-			"item": [
-				{
-					"name": "getAll",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"25\",\r\n    \"course\": {\r\n        \r\n        \"title\": \"course_test_Postman_UPD\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"Postman@Gmail.com\"\r\n    },\r\n    \"statusReq\": \"ASSEMBLED\",\r\n    \"deleted\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1.0/request/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"request",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateRequest1",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"id\": 1,\r\n            \"course\": {\r\n                \"id\": 1,\r\n                \"title\": \"course_test_1_Postman\"\r\n            },\r\n            \"user\": {\r\n                \"id\": 5,\r\n                \"email\": \"jek94_Postman@gmail.com\",\r\n                \"password\": \"12qwaszx\",\r\n                \"firstName\": \"Yauheni\",\r\n                \"lastName\": \"Hlaholeu\",\r\n                \"patronymicName\": \"Yayhenivich\",\r\n                \"contactPreferences\": \"TELEGRAM\",\r\n                \"socialMedia\": \"+375299369992\",\r\n                \"role\": \"MANAGER\",\r\n                \"active\": true\r\n            },\r\n            \"statusReq\": \"IN_PROCESSING\",\r\n            \"deleted\": false\r\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1.0/request/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"request",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createRequest",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n            \"id\": 1,\r\n            \"course\": {\r\n                \"id\": 1,\r\n                \"title\": \"course_test_1\"\r\n            },\r\n            \"user\": {\r\n                \"id\": 5,\r\n                \"email\": \"jek94@gmail.com\",\r\n                \"password\": \"12qwaszx\",\r\n                \"firstName\": \"Yauheni\",\r\n                \"lastName\": \"Hlaholeu\",\r\n                \"patronymicName\": \"Yayhenivich\",\r\n                \"contactPreferences\": \"TELEGRAM\",\r\n                \"socialMedia\": \"+375291234567\",\r\n                \"role\": \"STUDENT\",\r\n                \"active\": true\r\n            },\r\n            \"statusReq\": \"IN_PROCESSING\",\r\n            \"deleted\": false\r\n        }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/api/v1.0/request/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"request",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getById1",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/api/v1.0/request/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"request",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "4d3e9611-a1fb-4784-b866-7a314b35acde",
+    "name": "lms",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25217427"
+  },
+  "item": [
+    {
+      "name": "request",
+      "item": [
+        {
+          "name": "getAll",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1.0/requests?sort=id,asc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1.0",
+                "requests"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "id,asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateRequest1",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "        {\r\n            \"id\": 1,\r\n            \"course\": {\r\n                \"id\": 1,\r\n                \"title\": \"course_test_1_Postman\"\r\n            },\r\n            \"status\": \"APPROVED\"\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1.0/requests/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1.0",
+                "requests",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createRequest",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n            \"course\": {\r\n                \"title\": \"course_test_APPROVED\"\r\n            },\r\n            \"user\": {\r\n                \"email\": \"jek94@gmail.com\",\r\n                \"password\": \"12qwaszx\",\r\n                \"firstName\": \"Yauheni\",\r\n                \"lastName\": \"Hlaholeu\",\r\n                \"patronymicName\": \"Yayhenivich\",\r\n                \"contactPreferences\": \"TELEGRAM\",\r\n                \"socialMedia\": \"+375291234567\"\r\n            }\r\n        }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1.0/requests",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1.0",
+                "requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1.0/requests/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1.0",
+                "requests",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
