@@ -18,23 +18,24 @@ public class Request {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "courses_id")
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
+    @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private StatusReq statusReq;
+    private Status status;
 
-    @Column(name = "is_deleted")
-    private boolean deleted;
-
-    public enum StatusReq {
-        IN_PROCESSING, ASSEMBLED, AWAITING_PAYMENT, READY_TO_START, PAID_FOR, COMPLETELY_CHANGED, FAILED, REFUND, THE_TRANSACTION_IS_COMPLETED, CANCELLED
+    public enum Status {
+        PROCESSING,
+        APPROVED,
+        PAID,
+        SATISFIED,
+        CANCELLED
     }
 
     @Override
