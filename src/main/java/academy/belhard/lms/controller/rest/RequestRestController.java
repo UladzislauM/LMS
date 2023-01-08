@@ -2,43 +2,45 @@ package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.request.RequestDto;
-import academy.belhard.lms.service.dto.request.RequestDtoForSaving;
+import academy.belhard.lms.service.dto.request.RequestDtoForSave;
+import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
-
 @RestController
-@RequestMapping("/api/v1.0/request")
+@RequestMapping("/api/v1.0/requests")
 @RequiredArgsConstructor
 public class RequestRestController {
     private final RequestService requestService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public Page<RequestDto> getAllRequest(@RequestParam(required = false) Optional<Integer> page,
-                                          @RequestParam(required = false) Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        return requestService.getAll(
-                PageRequest.of(currentPage - 1, pageSize));
-    }
-
-    @GetMapping("/{id}")
-    public RequestDto getRequestById(@PathVariable Long id) {
-        return requestService.getById(id);
-    }
-
-    @RequestMapping(path = "/", method = RequestMethod.POST, consumes = "application/json")
-    public RequestDtoForSaving createRequest(@RequestBody RequestDtoForSaving request) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public RequestDto create(@RequestBody RequestDtoForSave request) {
         return requestService.create(request);
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-    public RequestDto editRequest(@RequestBody RequestDto request) {
+    @GetMapping
+    public Page<RequestDto> getAll(Pageable pageable) {
+        return requestService.getAll(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public RequestDto getById(@PathVariable Long id) {
+        return requestService.getById(id);
+    }
+
+    @PutMapping("/{id}")
+    public RequestDto update(@PathVariable Long id, @RequestBody RequestDtoForUpdate request) {
+        request.setId(id);
+        return requestService.update(request);
+    }
+
+    @PatchMapping("/{id}")
+    public RequestDto updatePartly(@PathVariable Long id, @RequestBody RequestDtoForUpdate request) {
+        request.setId(id);
         return requestService.update(request);
     }
 }
-
