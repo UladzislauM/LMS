@@ -8,6 +8,5 @@ public class RequestDto {
     private Long id;
     private CourseDto course;
     private UserDto user;
-    private StatusReqDto statusReq;
-    private boolean deleted;
+    private StatusDto status;
 }
