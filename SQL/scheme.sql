@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS requests(
     id                  BIGSERIAL PRIMARY KEY           NOT NULL,
     course_id			BIGINT REFERENCES courses(id),
     user_id			    BIGINT REFERENCES users(id),
-    status				CHARACTER VARYING (60)          DEFAULT 'PROCESSING'
+    status				CHARACTER VARYING (60)
  );
