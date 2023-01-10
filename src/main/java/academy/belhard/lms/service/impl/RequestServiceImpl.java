@@ -28,26 +28,26 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDto create(RequestDtoForSave requestDto) {
         validate(requestDto);
-        Request request = mapper.toRequestDtoForSave(requestDto);
+        Request request = mapper.RequestDtoForSave(requestDto);
         User user = request.getUser();
         user.setRole(User.Role.STUDENT);
         user.setActive(true);
         request.setUser(user);
         request.setStatus(Request.Status.PROCESSING);
-        return mapper.toRequestDto((requestRepository.save(request)));
+        return mapper.RequestDto((requestRepository.save(request)));
     }
 
     @Override
     public Page<RequestDto> getAll(Pageable pageable) {
         Page<Request> requests = requestRepository.findAll(pageable);
-        return requests.map(mapper::toRequestDto);
+        return requests.map(mapper::RequestDto);
     }
 
 
     @Override
     public RequestDto getById(Long id) {
         return requestRepository.findById(id)
-                .map(mapper::toRequestDto)
+                .map(mapper::RequestDto)
                 .orElseThrow(() -> {
                     throw new NotFoundException("Request with id: " + id + " wasn't found");
                 });
@@ -55,8 +55,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestDto update(RequestDtoForUpdate requestDto) {
-        Request request = mapper.toRequest(requestDto);
-        request.setUser(mapper.toUser(userService.getUserById(getById(request.getId()).getUser().getId())));
-        return mapper.toRequestDto((requestRepository.save(request)));
+        Request request = mapper.Request(requestDto);
+        request.setUser(mapper.User(userService.getUserById(getById(request.getId()).getUser().getId())));
+        return mapper.RequestDto((requestRepository.save(request)));
     }
 }

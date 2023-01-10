@@ -12,25 +12,25 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface RequestMapper {
-    Request toRequest(RequestDto requestDto);
+    Request Request(RequestDto requestDto);
 
-    RequestDto toRequestDto(Request request);
+    RequestDto RequestDto(Request request);
 
-    Course toCourse(CourseDto courseDto);
+    Course Course(CourseDto courseDto);
 
-    CourseDto toCourseDto(Course course);
+    CourseDto CourseDto(Course course);
 
-    User toUser(UserDto userDto);
+    User User(UserDto userDto);
 
-    UserDto toUserDto(User user);
+    UserDto UserDto(User user);
 
-    Request toRequestDtoForSave(RequestDtoForSave requestDtoForSaving);
+    Request RequestDtoForSave(RequestDtoForSave requestDtoForSaving);
 
-    RequestDtoForSave toRequestForSave(Request request);
+    RequestDtoForSave RequestForSave(Request request);
 
-    Request toRequestDtoForUpdate(Request request);
+    Request RequestDtoForUpdate(Request request);
 
-    RequestDtoForUpdate toRequestForUpdate(RequestDtoForUpdate requestDtoForUpdate);
+    RequestDtoForUpdate RequestForUpdate(RequestDtoForUpdate requestDtoForUpdate);
 
-    Request toRequest(RequestDtoForUpdate requestDtoForUpdate);
+    Request Request(RequestDtoForUpdate requestDtoForUpdate);
 }
