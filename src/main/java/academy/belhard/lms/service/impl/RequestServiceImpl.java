@@ -6,6 +6,8 @@ import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
+import academy.belhard.lms.service.dto.request.StatusDto;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.request.RequestDto;
@@ -54,9 +56,55 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public RequestDto update(RequestDtoForUpdate requestDto) {
-        Request request = mapper.Request(requestDto);
-        request.setUser(mapper.User(userService.getUserById(getById(request.getId()).getUser().getId())));
+    public RequestDto update(RequestDtoForUpdate requestDtoForUpdate) {
+
+        StatusDto newStatusDto = requestDtoForUpdate.getStatus();
+
+        RequestDto oldRequest = getById(requestDtoForUpdate.getId());
+
+        StatusDto oldStatusDto = oldRequest.getStatus();
+
+        Request request;
+
+        switch (oldStatusDto) {
+            case PROCESSING:
+                if (newStatusDto == StatusDto.APPROVED || newStatusDto == StatusDto.CANCELLED) {
+                    request = addToRequest(requestDtoForUpdate);
+                    break;
+                }
+                throw new LmsException("Failure update");
+
+            case APPROVED:
+                if (newStatusDto == StatusDto.PROCESSING || newStatusDto == StatusDto.PAID ||
+                        newStatusDto == StatusDto.CANCELLED) {
+                    request = addToRequest(requestDtoForUpdate);
+                    break;
+                }
+                throw new LmsException("Failure update");
+
+            case PAID:
+                if (newStatusDto == StatusDto.SATISFIED || newStatusDto == StatusDto.CANCELLED) {
+                    request = addToRequest(requestDtoForUpdate);
+                }
+                throw new LmsException("Failure update");
+
+            case SATISFIED:
+                if (newStatusDto == StatusDto.CANCELLED) {
+                    request = addToRequest(requestDtoForUpdate);
+                    break;
+                }
+                throw new LmsException("Failure update");
+            default:
+                throw new LmsException("Failure update");
+        }
+
         return mapper.RequestDto((requestRepository.save(request)));
+    }
+
+    private Request addToRequest(RequestDtoForUpdate requestDtoForUpdate) {
+        Request request;
+        request = mapper.Request(requestDtoForUpdate);
+        request.setUser(mapper.User(userService.getUserById(getById(request.getId()).getUser().getId())));
+        return request;
     }
 }
