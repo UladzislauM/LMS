@@ -85,6 +85,7 @@ public class RequestServiceImpl implements RequestService {
             case PAID:
                 if (newStatusDto == StatusDto.SATISFIED || newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
+                    break;
                 }
                 throw new LmsException("Failure update");
 
