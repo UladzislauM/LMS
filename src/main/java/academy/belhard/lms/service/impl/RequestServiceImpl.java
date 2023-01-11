@@ -4,13 +4,10 @@ import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.service.UserService;
-import academy.belhard.lms.service.dto.request.RequestDtoForSave;
-import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
-import academy.belhard.lms.service.dto.request.StatusDto;
+import academy.belhard.lms.service.dto.request.*;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
-import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service("requestService")
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
+    public static final String FAILURE_UPDATE = "Failure update";
     private final RequestRepository requestRepository;
     private final UserService userService;
     private final RequestMapper mapper;
@@ -58,11 +56,15 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDto update(RequestDtoForUpdate requestDtoForUpdate) {
 
+        CourseDto newCourseDto = requestDtoForUpdate.getCourse();
+
         StatusDto newStatusDto = requestDtoForUpdate.getStatus();
 
         RequestDto oldRequest = getById(requestDtoForUpdate.getId());
 
         StatusDto oldStatusDto = oldRequest.getStatus();
+
+        CourseDto oldCourseDto = oldRequest.getCourse();
 
         Request request;
 
@@ -72,7 +74,7 @@ public class RequestServiceImpl implements RequestService {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
-                throw new LmsException("Failure update");
+                throw new LmsException(FAILURE_UPDATE);
 
             case APPROVED:
                 if (newStatusDto == StatusDto.PROCESSING || newStatusDto == StatusDto.PAID ||
@@ -80,23 +82,23 @@ public class RequestServiceImpl implements RequestService {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
-                throw new LmsException("Failure update");
+                throw new LmsException(FAILURE_UPDATE);
 
             case PAID:
                 if (newStatusDto == StatusDto.SATISFIED || newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
-                throw new LmsException("Failure update");
+                throw new LmsException(FAILURE_UPDATE);
 
             case SATISFIED:
                 if (newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
-                throw new LmsException("Failure update");
+                throw new LmsException(FAILURE_UPDATE);
             default:
-                throw new LmsException("Failure update");
+                throw new LmsException(FAILURE_UPDATE);
         }
 
         return mapper.RequestDto((requestRepository.save(request)));
