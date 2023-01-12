@@ -3,20 +3,27 @@ package academy.belhard.lms.service.impl;
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRepository;
-import academy.belhard.lms.service.UserService;
-import academy.belhard.lms.service.dto.request.*;
-import academy.belhard.lms.service.exception.LmsException;
-import academy.belhard.lms.service.mapper.RequestMapper;
 import academy.belhard.lms.service.RequestService;
+import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.request.CourseDto;
+import academy.belhard.lms.service.dto.request.RequestDto;
+import academy.belhard.lms.service.dto.request.RequestDtoForSave;
+import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
+import academy.belhard.lms.service.dto.request.StatusDto;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
+import academy.belhard.lms.service.mapper.RequestMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service("requestService")
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
     public static final String FAILURE_UPDATE = "Failure update";
+    public static final String COURSE_CHANGE_NOT_POSSIBLE = "Course change not possible";
+    public static final String ACTION_FORBIDDEN = "For this status action forbidden";
     private final RequestRepository requestRepository;
     private final UserService userService;
     private final RequestMapper mapper;
@@ -55,53 +62,55 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public RequestDto update(RequestDtoForUpdate requestDtoForUpdate) {
-
+        Request request;
         CourseDto newCourseDto = requestDtoForUpdate.getCourse();
-
         StatusDto newStatusDto = requestDtoForUpdate.getStatus();
-
         RequestDto oldRequest = getById(requestDtoForUpdate.getId());
-
         StatusDto oldStatusDto = oldRequest.getStatus();
-
         CourseDto oldCourseDto = oldRequest.getCourse();
 
-        Request request;
-
         switch (oldStatusDto) {
-            case PROCESSING:
+            case PROCESSING -> {
                 if (newStatusDto == StatusDto.APPROVED || newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
                 throw new LmsException(FAILURE_UPDATE);
-
-            case APPROVED:
+            }
+            case APPROVED -> {
                 if (newStatusDto == StatusDto.PROCESSING || newStatusDto == StatusDto.PAID ||
                         newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
                     break;
                 }
                 throw new LmsException(FAILURE_UPDATE);
-
-            case PAID:
+            }
+            case PAID -> {
                 if (newStatusDto == StatusDto.SATISFIED || newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
+                    checkCourse(newCourseDto, oldCourseDto);
                     break;
                 }
                 throw new LmsException(FAILURE_UPDATE);
-
-            case SATISFIED:
+            }
+            case SATISFIED -> {
                 if (newStatusDto == StatusDto.CANCELLED) {
                     request = addToRequest(requestDtoForUpdate);
+                    checkCourse(newCourseDto, oldCourseDto);
                     break;
                 }
                 throw new LmsException(FAILURE_UPDATE);
-            default:
-                throw new LmsException(FAILURE_UPDATE);
+            }
+            case CANCELLED -> throw new LmsException(ACTION_FORBIDDEN);
+            default -> throw new LmsException(FAILURE_UPDATE);
         }
-
         return mapper.RequestDto((requestRepository.save(request)));
+    }
+
+    private void checkCourse(CourseDto newCourseDto, CourseDto oldCourseDto) {
+        if (oldCourseDto != newCourseDto) {
+            throw new LmsException(COURSE_CHANGE_NOT_POSSIBLE);
+        }
     }
 
     private Request addToRequest(RequestDtoForUpdate requestDtoForUpdate) {
