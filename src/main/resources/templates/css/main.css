@@ -1,0 +1,108 @@
+body{
+  font-family: Sans-serif;
+}
+
+.menu{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-around;
+  align-items: center;
+  background: #00bfff;
+  margin: 0px 0px 50px 0px;
+}
+
+.left-side-area{
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: flex-end;
+  float: left;
+  margin-right: 3%;
+}
+
+.header{
+  color: #00bfff;
+  font: italic bold 40px Arial;
+  margin: 15px 0px 15px 0px;
+  }
+
+.subheader{
+  color: black;
+  font: italic bold 25px  Arial;
+  margin: 10px 0px 10px 0px;
+}
+
+.table{
+  border-collapse:collapse;
+}
+
+td, th{
+  padding: 10px;
+*/border-left: grey 2px solid;
+}
+
+.table-header{
+  background: #00bfff;
+  border: grey 2px solid;
+  font: bold 20px  Arial;
+}
+
+.table-data{
+  border: grey 2px solid;
+  font: 15px  Arial;
+}
+
+.button{
+  color: black;
+  border-radius: 5px;
+}
+
+
+.button-active{
+  color: black;
+  border-radius: 5px;
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
+}
+
+
+.button-readonly{
+  border-radius: 5px;
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
+}
+
+input{
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
+}
+
+input:focus{
+  color: #00bfff;
+}
+
+input:disabled{
+}
+
+.text{
+  font: italic 15px  Arial;
+}
+
+.subscript{
+  font-size: smaller;
+}
+
+#popup{
+  width: 200px;
+  font: 13px  Arial;
+  padding: 15px;
+  border: grey 1px solid;
+  border-radius: 10px;
+  color: black;
+  display: none;
+}
+
+#popup:target {
+  display: block;
+}
