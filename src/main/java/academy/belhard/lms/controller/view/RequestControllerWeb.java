@@ -23,7 +23,7 @@ public class RequestControllerWeb {
 
     @GetMapping("/create")
     public String createForm() {
-        return "create_request";//FixMe create page
+        return "create_request";
     }
 
     @PostMapping("/create")
