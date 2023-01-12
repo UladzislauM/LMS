@@ -37,18 +37,17 @@
         </tr>
         <tr th:each="request : ${requests}" th:object="${request}">
             <td><a th:href="@{/requests/__*{id}__}">View</a></td>
-            <td><a th:href="@{/requests/update/__*{id}__}">View</a></td>
+            <td><a th:href="@{/requests/update/__*{id}__}">Change</a></td>
             <td></td>
-            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"><a th:href="@{/requests/update/__*{id}__}">View</a>
-            </td>
+            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"><a th:href="@{/users/__*{id}__}">User</a></td>
             <td><a th:href="@{/courses/__*{id}__}" th:text="*{course.title}">Course title</a></td>
             <td th:text="*{status}"></td>
             <td></td>
         </tr>
     </table>
 
-    <div th:insert="~{/plugins/pagination :: pagination_fr}"
-         th:with="firstVer=${requests}"></div>
+    <nav th:replace="~{/plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${requests}"></nav>
 </div>
 
 </body>
