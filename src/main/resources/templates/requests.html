@@ -10,7 +10,8 @@
 <nav th:replace="~{/plugins/menu :: menu}"></nav>
 
 <div class="left-side-area">
-    <H1>Requests</H1>
+    <h1>Show</h1>
+    <h2>Requests</h2>
 </div>
 <div class="main-area">
     <div>
@@ -35,12 +36,14 @@
             <th>Actions</th>
         </tr>
         <tr th:each="request : ${requests}" th:object="${request}">
-            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"></td>
-            <td th:text="*{course.title}"></td>
-            <td th:text="*{status}"></td>
-            <td>
-                <a th:href="@{/requests/__*{id}__}">Change request</a>
+            <td><a th:href="@{/requests/__*{id}__}">View</a></td>
+            <td><a th:href="@{/requests/update/__*{id}__}">View</a></td>
+            <td></td>
+            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"><a th:href="@{/requests/update/__*{id}__}">View</a>
             </td>
+            <td><a th:href="@{/courses/__*{id}__}" th:text="*{course.title}">Course title</a></td>
+            <td th:text="*{status}"></td>
+            <td></td>
         </tr>
     </table>
 

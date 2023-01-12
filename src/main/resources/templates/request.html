@@ -7,24 +7,34 @@
 </head>
 <body>
 
-<div th:insert="~{/plugins/menu :: menu_fr}"></div>
+<nav th:replace="~{/plugins/menu :: menu}"></nav>
 
-<h1>Request number: <span th:text="${request.id}"></span></h1>
+<div class="left-side-area">
+    <h1>Create</h1>
+    <h2>Request number: <span th:text="${request.id}"></span></h2>
+</div>
+<div class="main-area">
+    <div th:type="text" th:name="user.firstName + ' ' + user.lastName">User</div>
+    <div><input type="text" th:name="course.title" placeholder="Title course">Title course</div>
+    <div><input type="submit" th:name="submit" value="Create request"/></div>
 
-<table>
-    <tr>
-        <th>Course</th>
-        <th>Status</th>
-    </tr>
-    <tr th:object="${request}">
-        <td th:text="*{course.title}"></td>
-        <td th:text="*{status}"></td>
-    </tr>
-</table>
+    <!--    <table>-->
+    <!--        <tr>-->
+    <!--            <th>User</th>-->
+    <!--            <th>Course</th>-->
+    <!--            <th>Status</th>-->
+    <!--        </tr>-->
+    <!--        <tr th:object="${request}">-->
+    <!--            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"></td>-->
+    <!--            <td th:text="*{course.title}"></td>-->
+    <!--            <td th:text="*{status}"></td>-->
+    <!--        </tr>-->
+    <!--    </table>-->
+</div>
 
-<form th:action="@{/requests/update_form/__${request.id}__}" method="get">
-    <input type="submit" value="Update Book"/>
-</form>
+<a th:href="@{/requests/update/__${request.id}__}">Edit request</a>
+<a th:href="@{/requests/create}">Create request</a>
+
 <a href="#" onclick="history.back();return false;" class="history-back">
     <-Back</a>
 </body>

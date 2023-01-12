@@ -6,9 +6,16 @@
     <title>Create request</title>
 </head>
 <body>
-<form method="post">
-    <details>
-        <summary>Create New Request</summary>
+
+<nav th:replace="~{/plugins/menu :: menu}"></nav>
+
+<div class="left-side-area">
+    <h1>Create</h1>
+    <h2>Request</h2>
+</div>
+<div class="main-area">
+
+    <form method="post">
         <p>Write Parameters:</p>
         <div><input type="email" th:name="user.email" placeholder="Email User">Email User</div>
         <input type="hidden" th:name="user.password" th:value="Test">
@@ -21,7 +28,7 @@
         <div><input type="submit" th:name="submit" value="Create request"/></div>
         <input type="hidden" name="page" th:value="${requests.getPageable.getPageNumber}">
         <input type="hidden" name="size" th:value="${requests.getSize}">
-    </details>
-</form>
+    </form>
+</div>
 </body>
 </html>

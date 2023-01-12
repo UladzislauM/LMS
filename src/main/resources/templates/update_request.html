@@ -7,19 +7,21 @@
 </head>
 <body>
 
-<div th:insert="~{/plugins/menu :: menu_fr}"></div>
+<nav th:replace="~{/plugins/menu :: menu}"></nav>
 
-<h1>Request number: <span th:text="${request.id}"></span></h1>
-<table>
+<div class="left-side-area">
+    <h1>Create</h1>
+    <h2>Request number: <span th:text="${request.id}"></span></h2>
+</div>
+<div class="main-area">
 
-    <tr>
-        <th>id</th>
-        <th>courses</th>
-        <th>status</th>
-    </tr>
-
-    <tr th:object="${request}">
-        <form align="left" th:action="@{/requests/__*{id}__}" method="post">
+    <table>
+        <tr>
+            <th>User</th>
+            <th>Course</th>
+            <th>Status</th>
+        </tr>
+        <tr th:object="${request}">
             <td th:text="*{id}"><input type="hidden" name="id" th:value="*{id}"></td>
             <td><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
                        th:value="*{course.title}"></td>
@@ -34,10 +36,11 @@
                 </select>
                 <h3>Active status: <span th:text="*{status}"></span></h3>
             </td>
-            <td><input type="submit" name="submit" value="Update request"/></td>
-        </form>
-    </tr>
-</table>
+            <td><input type="submit" name="submit" value="Edit request"/></td>
+        </tr>
+    </table>
+
+</div>
 
 <a href="#" onclick="history.back();return false;" class="history-back">
     <-Back</a>
