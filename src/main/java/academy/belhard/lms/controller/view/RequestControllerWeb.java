@@ -21,35 +21,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RequestControllerWeb {
     private final RequestService requestService;
 
-    @PostMapping
-    public String create(@ModelAttribute RequestDtoForSave request, Pageable pageable) {
-        requestService.create(request);
-        return "redirect:/requests?size=" + pageable.getPageSize() + "&page=" + pageable.getPageNumber();
+    @GetMapping("/create")
+    public String createForm() {
+        return "create_request";//FixMe create page
+    }
+
+    @PostMapping("/create")
+    public String create(@ModelAttribute RequestDtoForSave request) {
+        RequestDto created = requestService.create(request);
+        return "redirect:/requests/" + created.getId();
     }
 
     @GetMapping
     public String getAll(Model model, Pageable pageable) {
         Page<RequestDto> requests = requestService.getAll(pageable);
         model.addAttribute("requests", requests);
-        return "request";
+        return "requests";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable Long id, Model model) {
-        model.addAttribute("request", requestService.getById(id));
-        return "request_by_id";
+        RequestDto request = requestService.getById(id);
+        model.addAttribute("request", request);
+        return "request";
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute RequestDtoForUpdate request) {
-        requestService.update(request);
-        return "redirect:/requests?sort=id,asc";
-    }
-
-    @GetMapping("/update_form/{id}")
-    public String toUpdateForm(@PathVariable Long id, Model model) {
-        model.addAttribute("request", requestService.getById(id));
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        RequestDto toUpdate = requestService.getById(id);
+        model.addAttribute("request", toUpdate);
         return "update_request";
     }
 
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute RequestDtoForUpdate request) {
+        request.setId(id);
+        requestService.update(request);
+        return "redirect:/requests/" + id;
+    }
 }
