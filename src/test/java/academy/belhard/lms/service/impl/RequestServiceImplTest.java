@@ -13,6 +13,7 @@ import academy.belhard.lms.service.dto.request.StatusDto;
 import academy.belhard.lms.service.dto.user.ContactPreferencesDto;
 import academy.belhard.lms.service.dto.user.RoleDto;
 import academy.belhard.lms.service.dto.user.UserDto;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.mapper.RequestMapperImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RequestServiceImplTest {
     private static RequestService requestService;
@@ -102,6 +104,11 @@ class RequestServiceImplTest {
         requestExisting.setUser(user);
         requestExisting.setCourse(course);
         requestExisting.setStatus(Request.Status.PROCESSING);
+
+        Optional<Request> optional = Optional.of(requestExisting);
+        Mockito.when(requestRepositoryMock.findById(1L)).thenReturn(optional);
+        Mockito.when(userServiceMock.getUserById(1L)).thenReturn(userDto);
+        Mockito.when(requestRepositoryMock.save(requestToRepositorySave)).thenReturn(requestToRepositorySave);
     }
 
     @Test
@@ -109,11 +116,6 @@ class RequestServiceImplTest {
         RequestDto fromService;
 
         requestExisting.setStatus(Request.Status.PROCESSING);
-
-        Optional<Request> optional = Optional.of(requestExisting);
-        Mockito.when(requestRepositoryMock.findById(1L)).thenReturn(optional);
-        Mockito.when(userServiceMock.getUserById(1L)).thenReturn(userDto);
-        Mockito.when(requestRepositoryMock.save(requestToRepositorySave)).thenReturn(requestToRepositorySave);
 
         requestDtoForUpdate.setStatus(StatusDto.APPROVED);
         requestToRepositorySave.setStatus(Request.Status.APPROVED);
@@ -160,5 +162,64 @@ class RequestServiceImplTest {
         requestToRepositorySave.setStatus(Request.Status.CANCELLED);
         fromService = requestService.update(requestDtoForUpdate);
         assertEquals((StatusDto.CANCELLED), fromService.getStatus());
+    }
+
+    @Test
+    void updateNegative() {
+        RequestDto fromService;
+
+        requestExisting.setStatus(Request.Status.PROCESSING);
+
+        requestDtoForUpdate.setStatus(StatusDto.PAID);
+        requestToRepositorySave.setStatus(Request.Status.PAID);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.SATISFIED);
+        requestToRepositorySave.setStatus(Request.Status.SATISFIED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestExisting.setStatus(Request.Status.APPROVED);
+
+        requestDtoForUpdate.setStatus(StatusDto.SATISFIED);
+        requestToRepositorySave.setStatus(Request.Status.SATISFIED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestExisting.setStatus(Request.Status.PAID);
+
+        requestDtoForUpdate.setStatus(StatusDto.APPROVED);
+        requestToRepositorySave.setStatus(Request.Status.APPROVED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.PROCESSING);
+        requestToRepositorySave.setStatus(Request.Status.PROCESSING);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestExisting.setStatus(Request.Status.SATISFIED);
+
+        requestDtoForUpdate.setStatus(StatusDto.PROCESSING);
+        requestToRepositorySave.setStatus(Request.Status.PROCESSING);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.APPROVED);
+        requestToRepositorySave.setStatus(Request.Status.APPROVED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestExisting.setStatus(Request.Status.CANCELLED);
+
+        requestDtoForUpdate.setStatus(StatusDto.PROCESSING);
+        requestToRepositorySave.setStatus(Request.Status.PROCESSING);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.APPROVED);
+        requestToRepositorySave.setStatus(Request.Status.APPROVED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.PAID);
+        requestToRepositorySave.setStatus(Request.Status.PAID);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
+
+        requestDtoForUpdate.setStatus(StatusDto.SATISFIED);
+        requestToRepositorySave.setStatus(Request.Status.SATISFIED);
+        assertThrows(LmsException.class, () -> requestService.update(requestDtoForUpdate).getStatus());
     }
 }
