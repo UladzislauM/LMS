@@ -2,17 +2,19 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.service.RequestService;
+import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
-import academy.belhard.lms.service.dto.request.StatusDto;
+import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.RequestMapper;
+import academy.belhard.lms.service.mapper.UserMapper;
+import academy.belhard.lms.service.dto.request.StatusDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +26,9 @@ public class RequestServiceImpl implements RequestService {
     public static final String FAILURE_UPDATE = "Failure update";
     public static final String ACTION_FORBIDDEN = "For this status action forbidden";
     private final RequestRepository requestRepository;
-    private final RequestMapper mapper;
+    private final UserService userService;
+    private final RequestMapper requestMapper;
+    private final UserMapper userMapper;
 
     public void validate(RequestDtoForSave request) {
 
@@ -33,26 +37,30 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDto create(RequestDtoForSave requestDto) {
         validate(requestDto);
-        Request request = mapper.requestDtoForSave(requestDto);
-        User user = request.getUser();
-        user.setRole(User.Role.STUDENT);
-        user.setActive(true);
-        request.setUser(user);
+        Request request = requestMapper.RequestDtoForSave(requestDto);
+        UserDto userDto = userService.getUserById(request.getUser().getId());
+        fakeCourseService();//FixMe for Course Service
+        request.setUser(userMapper.userDtoToUser(userDto));
         request.setStatus(Request.Status.PROCESSING);
-        return mapper.requestDto((requestRepository.save(request)));
+        return requestMapper.RequestDto((requestRepository.save(request)));
+    }
+
+    private static void fakeCourseService() {
+        CourseDto courseDto = new CourseDto();
+        courseDto.setTitle("course_test_1");
     }
 
     @Override
     public Page<RequestDto> getAll(Pageable pageable) {
         Page<Request> requests = requestRepository.findAll(pageable);
-        return requests.map(mapper::requestDto);
+        return requests.map(requestMapper::RequestDto);
     }
 
 
     @Override
     public RequestDto getById(Long id) {
         return requestRepository.findById(id)
-                .map(mapper::requestDto)
+                .map(requestMapper::RequestDto)
                 .orElseThrow(() -> {
                     throw new NotFoundException("Request with id: " + id + " wasn't found");
                 });
@@ -63,7 +71,7 @@ public class RequestServiceImpl implements RequestService {
         validateUpdate(dto);
         Request request = addToRequest(dto);
         Request updated = requestRepository.save(request);
-        return mapper.requestDto(updated);
+        return requestMapper.RequestDto(updated);
     }
 
     private void validateUpdate(RequestDtoForUpdate dto) {
@@ -129,7 +137,7 @@ public class RequestServiceImpl implements RequestService {
         StatusDto statusDto = requestDto.getStatus();
         request.setStatus(Request.Status.valueOf(statusDto.toString()));
         CourseDto courseDto = requestDto.getCourse();
-        Course course = mapper.course(courseDto);
+        Course course = requestMapper.Course(courseDto);
         request.setCourse(course);
         return request;
     }
