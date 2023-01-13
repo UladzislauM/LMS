@@ -3,37 +3,25 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Request by id</title>
+    <title>Request</title>
 </head>
 <body>
 
 <nav th:replace="~{/plugins/menu :: menu}"></nav>
 
 <div class="left-side-area">
-    <h1>Create</h1>
+    <h1>View</h1>
     <h2>Request number: <span th:text="${request.id}"></span></h2>
 </div>
 <div class="main-area">
-    <div th:type="text" th:name="user.firstName + ' ' + user.lastName">User</div>
-    <div><input type="text" th:name="course.title" placeholder="Title course">Title course</div>
-    <div><input type="submit" th:name="submit" value="Create request"/></div>
-
-    <!--    <table>-->
-    <!--        <tr>-->
-    <!--            <th>User</th>-->
-    <!--            <th>Course</th>-->
-    <!--            <th>Status</th>-->
-    <!--        </tr>-->
-    <!--        <tr th:object="${request}">-->
-    <!--            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"></td>-->
-    <!--            <td th:text="*{course.title}"></td>-->
-    <!--            <td th:text="*{status}"></td>-->
-    <!--        </tr>-->
-    <!--    </table>-->
+    <ul>
+        <li th:text="${request.user.firstName} + ' ' + ${request.user.lastName}">User</li>
+        <li th:text="${request.course.title}">Title course<</li>
+        <li th:text="${request.status}">Status<</li>
+    </ul>
 </div>
 
 <a th:href="@{/requests/update/__${request.id}__}">Edit request</a>
-<a th:href="@{/requests/create}">Create request</a>
 
 <a href="#" onclick="history.back();return false;" class="history-back">
     <-Back</a>

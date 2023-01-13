@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update request</title>
+    <title>Edit request</title>
 </head>
 <body>
 
@@ -13,20 +13,16 @@
     <h1>Create</h1>
     <h2>Request number: <span th:text="${request.id}"></span></h2>
 </div>
-<div class="main-area">
 
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Course</th>
-            <th>Status</th>
-        </tr>
-        <tr th:object="${request}">
-            <td th:text="*{id}"><input type="hidden" name="id" th:value="*{id}"></td>
-            <td><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
-                       th:value="*{course.title}"></td>
-            <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">
-            <td>
+<div class="main-area">
+    <form method="post" th:object="${request}">
+        <ul>
+            <li th:text="*{user.firstName} + ' ' + *{user.lastName}">User</li>
+            <li><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
+                       th:value="*{course.title}">
+                <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">Title course
+            </li>
+            <li>
                 <select name="status">
                     <option value="PROCESSING">PROCESSING
                     <option value="APPROVED">APPROVED
@@ -34,12 +30,11 @@
                     <option value="SATISFIED">SATISFIED
                     <option value="CANCELLED">CANCELLED
                 </select>
-                <h3>Active status: <span th:text="*{status}"></span></h3>
-            </td>
-            <td><input type="submit" name="submit" value="Edit request"/></td>
-        </tr>
-    </table>
-
+                <p>Active status: <span th:text="*{status}"></span></p>
+            </li>
+        </ul>
+        <input type="submit" name="submit" value="Edit request"/>
+    </form>
 </div>
 
 <a href="#" onclick="history.back();return false;" class="history-back">

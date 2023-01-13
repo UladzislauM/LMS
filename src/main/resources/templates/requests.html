@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Request</title>
+    <title>Requests</title>
 </head>
 <body>
 
@@ -12,6 +12,7 @@
 <div class="left-side-area">
     <h1>Show</h1>
     <h2>Requests</h2>
+    <h3><a th:href="@{/requests/create}">Create request</a></h3>
 </div>
 <div class="main-area">
     <div>
@@ -46,8 +47,8 @@
         </tr>
     </table>
 
-    <nav th:replace="~{/plugins/pagination :: pagination_fr}"
-         th:with="firstVer=${requests}"></nav>
+    <div th:insert="~{/plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${requests}"></div>
 </div>
 
 </body>
