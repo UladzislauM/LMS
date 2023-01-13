@@ -14,7 +14,7 @@ import org.mapstruct.Mapper;
 public interface RequestMapper {
     Request Request(RequestDto requestDto);
 
-    RequestDto RequestDto(Request request);
+    RequestDto requestDto(Request request);
 
     Course Course(CourseDto courseDto);
 
