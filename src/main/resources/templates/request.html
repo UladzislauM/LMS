@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Request</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
 <nav th:replace="~{/plugins/menu :: menu}"></nav>
 
 <div class="left-side-area">
-    <h1>View</h1>
+    <h1 class="header">View</h1>
     <h2>Request number: <span th:text="${request.id}"></span></h2>
 </div>
 <div class="main-area">

@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
-<div th:insert="~{/plugins/menu :: menu_fr}"></div>
+<div th:insert="~{/plugins/menu :: menu}"></div>
 
-<h1>Start page</h1>
+<h1 class="header">Start page</h1>
 
-<span>
-    <a th:href="@{/requests}"> - All requests - </a>
-</span>
+<ul>
+    <li th:href="@{/requests}"> - All requests -</li>
+</ul>
 
 </body>
 </html>
