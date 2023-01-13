@@ -1,11 +1,5 @@
-<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Pagination</title>
-</head>
-<body>
 <div th:fragment="pagination_fr">
 <span th:if="${not firstVer.first AND firstVer.totalPages > 0}">
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page = 0)}">First </a>
@@ -26,5 +20,4 @@
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.totalPages - 1})}"> Last</a>
 </span>
 </div>
-</body>
 </html>
