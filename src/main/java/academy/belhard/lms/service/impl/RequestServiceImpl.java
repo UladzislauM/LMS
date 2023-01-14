@@ -33,7 +33,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDto create(RequestDtoForSave requestDto) {
         validate(requestDto);
-        Request request = mapper.RequestDtoForSave(requestDto);
+        Request request = mapper.requestDtoForSave(requestDto);
         User user = request.getUser();
         user.setRole(User.Role.STUDENT);
         user.setActive(true);
@@ -123,7 +123,7 @@ public class RequestServiceImpl implements RequestService {
         StatusDto statusDto = requestDto.getStatus();
         request.setStatus(Request.Status.valueOf(statusDto.toString()));
         CourseDto courseDto = requestDto.getCourse();
-        Course course = mapper.Course(courseDto);
+        Course course = mapper.course(courseDto);
         request.setCourse(course);
         return request;
     }
