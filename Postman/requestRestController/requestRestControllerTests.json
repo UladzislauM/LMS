@@ -29,7 +29,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_for_update\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":2\r\n    },\r\n    \"user\": {\r\n        \"id\":2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -37,22 +37,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "createReqNegativeWithoutTitle",
+					"name": "createReqPositiveWithUnnessesaryUserInfo",
 					"event": [
 						{
 							"listen": "test",
@@ -71,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_for_update\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":2,\r\n        \"title\":\"some_course\"\r\n    },\r\n    \"user\": {\r\n        \"id\":2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -79,22 +77,60 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "createReqPositiveWithoutPatronymicName",
+					"name": "createReqPositiveWithUnnessesaryCourseInfo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":2\r\n    },\r\n    \"user\": {\r\n        \"id\":2,\r\n        \"email\": \"sidor@gmail.com\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReqNegativeWithExsistingUserAndCourseId",
 					"event": [
 						{
 							"listen": "test",
@@ -113,7 +149,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":2\r\n    },\r\n    \"user\": {\r\n        \"id\":2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -121,29 +157,27 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "createReqNegativeWithoutTitle",
+					"name": "createReqNegativeWithNotValidUserId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -155,7 +189,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":2\r\n    },\r\n    \"user\": {\r\n        \"id\":999\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -163,29 +197,27 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "createReqNegativeWithoutEmail",
+					"name": "createReqNegativeWithNotValidCourseId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -197,7 +229,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":999\r\n    },\r\n    \"user\": {\r\n        \"id\":2\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -205,29 +237,27 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "createReqNegativeWithoutPassword",
+					"name": "createReqNegativeWithNotValidCourseAndUserId",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -239,7 +269,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\":999\r\n    },\r\n    \"user\": {\r\n        \"id\":999\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -247,183 +277,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createReqNegativeWithoutFirstname",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createReqNegativeWithoutLastname",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createReqNegativeWithoutContactPreferences",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"socialMedia\": \"#Solovey\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "createReqNegativeWithoutSocialMedia",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 500\", function () {\r",
-									"    pm.response.to.have.status(500);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"title\": \"course_test_556\"\r\n    },\r\n    \"user\": {\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
@@ -453,22 +313,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests",
+							"raw": "{{host}}/{{api}}/{{controller}}",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests"
+								"{{api}}",
+								"{{controller}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getAllReqNegative",
+					"name": "getAllReqNegativeWithBadRequest",
 					"event": [
 						{
 							"listen": "test",
@@ -486,14 +344,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1.0/request",
+							"raw": "{{host}}/{{api}}/request",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
+								"{{api}}",
 								"request"
 							]
 						}
@@ -519,15 +375,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/2",
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests",
+								"{{api}}",
+								"{{controller}}",
 								"2"
 							]
 						}
@@ -553,15 +407,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/9999",
+							"raw": "{{host}}/{{api}}/{{controller}}/9999",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests",
+								"{{api}}",
+								"{{controller}}",
 								"9999"
 							]
 						}
@@ -593,7 +445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11,\r\n        \"title\": \"course_test_after_update_9\"\r\n    },\r\n    \"user\": {\r\n        \"id\": 5,\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\",\r\n        \"role\": \"STUDENT\",\r\n        \"active\": true\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11\r\n    },\r\n    \"user\": {\r\n        \"id\": 5\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -601,15 +453,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/2",
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests",
+								"{{api}}",
+								"{{controller}}",
 								"2"
 							]
 						}
@@ -617,50 +467,7 @@
 					"response": []
 				},
 				{
-					"name": "updateReqByIdPositiveWithOtherUserId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11,\r\n        \"title\": \"course_test_after_update_9\"\r\n    },\r\n    \"user\": {\r\n        \"id\": 10,\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\",\r\n        \"role\": \"STUDENT\",\r\n        \"active\": true\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/2",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1.0",
-								"requests",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "updateReqByNonExistenReqdIdNegative",
+					"name": "updateReqByIdNegativeWithNotValidReqId",
 					"event": [
 						{
 							"listen": "test",
@@ -679,7 +486,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11,\r\n        \"title\": \"course_test_after_update_9\"\r\n    },\r\n    \"user\": {\r\n        \"id\": 5,\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\",\r\n        \"role\": \"STUDENT\",\r\n        \"active\": true\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11\r\n    },\r\n    \"user\": {\r\n        \"id\": 5\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -687,15 +494,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/9999",
+							"raw": "{{host}}/{{api}}/{{controller}}/9999",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests",
+								"{{api}}",
+								"{{controller}}",
 								"9999"
 							]
 						}
@@ -703,7 +508,7 @@
 					"response": []
 				},
 				{
-					"name": "?updateReqByNonExistendCourseIdNegative",
+					"name": "updateReqByIdNegtiveWithNonValidCourseId",
 					"event": [
 						{
 							"listen": "test",
@@ -722,7 +527,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11,\r\n        \"title\": \"course_test_after_update_9\"\r\n    },\r\n    \"user\": {\r\n        \"id\": 5,\r\n        \"email\": \"sol44@yandex.by\",\r\n        \"password\": \"qazxsw21\",\r\n        \"firstName\": \"Uladzislau\",\r\n        \"lastName\": \"Solovev\",\r\n        \"patronymicName\": \"Alexandrovich\",\r\n        \"contactPreferences\": \"TELEGRAM\",\r\n        \"socialMedia\": \"#Solovey\",\r\n        \"role\": \"STUDENT\",\r\n        \"active\": true\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 999\r\n    },\r\n    \"user\": {\r\n        \"id\": 5\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -730,22 +535,280 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1.0/requests/9999",
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
 							"host": [
-								"localhost"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1.0",
-								"requests",
-								"9999"
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidUserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11\r\n    },\r\n    \"user\": {\r\n        \"id\": 999\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11\r\n    },\r\n    \"user\": {\r\n        \"id\": 5\r\n    },\r\n    \"status\": \"blablabla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidCourseAndUserId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 999\r\n    },\r\n    \"user\": {\r\n        \"id\": 999\r\n    },\r\n    \"status\": \"PROCESSING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidCourseIdAndStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 999\r\n    },\r\n    \"user\": {\r\n        \"id\": 5\r\n    },\r\n    \"status\": \"blablabla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidUserIdAndStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 11\r\n    },\r\n    \"user\": {\r\n        \"id\": 9999\r\n    },\r\n    \"status\": \"blablabla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateReqByIdNegativeWithNonValidUserId_Status_CourseId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": {\r\n        \"id\": 9999\r\n    },\r\n    \"user\": {\r\n        \"id\": 9999\r\n    },\r\n    \"status\": \"blablabla\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/{{api}}/{{controller}}/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{api}}",
+								"{{controller}}",
+								"2"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "api",
+			"value": "api/v1.0"
+		},
+		{
+			"key": "controller",
+			"value": "requests"
 		}
 	]
 }
