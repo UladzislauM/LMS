@@ -62,3 +62,10 @@ FOREIGN KEY (student_id) REFERENCES users(id),
 FOREIGN KEY (lesson_id) REFERENCES lessons(id),
 FOREIGN KEY (filelink_id) REFERENCES file_links(id)
 );
+
+CREATE TABLE IF NOT EXISTS requests(
+    id                  BIGSERIAL PRIMARY KEY NOT NULL,
+    course_id			BIGINT REFERENCES courses(id),
+    user_id			    BIGINT REFERENCES users(id),
+    status				CHARACTER VARYING (60)
+);

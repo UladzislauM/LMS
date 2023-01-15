@@ -28,19 +28,19 @@ public class CourseServiceImp implements CourseService {
     @Override
     public List<CourseSimpleDto> getAll() {
         return courseRepository.findAll().stream()
-                .map(courseMapper::courseToCourseReadDto)
+                .map(courseMapper::courseToCourseSimpleDto)
                 .toList();
     }
 
     @Override
     public CourseSimpleDto getById(Long id) {
-        return courseMapper.courseToCourseReadDto(courseRepository.findById(id)
+        return courseMapper.courseToCourseSimpleDto(courseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
     }
 
     @Override
     public CourseSimpleDto create(CourseSimpleDto courseSimpleDto) {
-        return courseMapper.courseToCourseReadDto(courseRepository.save(courseMapper.courseReadDtoToCourse(courseSimpleDto)));
+        return courseMapper.courseToCourseSimpleDto(courseRepository.save(courseMapper.courseSimpleDtoToCourse(courseSimpleDto)));
     }
 
     @Override
