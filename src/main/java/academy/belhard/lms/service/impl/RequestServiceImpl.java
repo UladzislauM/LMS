@@ -86,8 +86,8 @@ public class RequestServiceImpl implements RequestService {
     private static void validateUpdateSatisfied(CourseDto newCourseDto,
                                                 StatusDto newStatusDto,
                                                 CourseDto oldCourseDto) {
-        if (newStatusDto == StatusDto.CANCELLED
-                || oldCourseDto != newCourseDto) {
+        if (newStatusDto != StatusDto.CANCELLED
+                || oldCourseDto == newCourseDto) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
@@ -97,7 +97,7 @@ public class RequestServiceImpl implements RequestService {
                                            CourseDto oldCourseDto) {
         if (newStatusDto != StatusDto.SATISFIED
                 && newStatusDto != StatusDto.CANCELLED
-                || oldCourseDto != newCourseDto) {
+                || oldCourseDto == newCourseDto) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
