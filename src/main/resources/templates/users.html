@@ -1,46 +1,55 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Users</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
+<body>
 
-<div class="container mt-5">
+<nav th:insert="~{/plugins/menu :: menu}" class="menu"></nav>
 
-    <h1>Users</h1>
-    <table class="table table-sm table-bordered">
+<div class="left-side-area">
+    <h1 class="header">Users</h1>
+    <h1 class="subheader">List of all users</h1>
+    <a href="/users/create" class="button-active">Create</a>
+</div>
+
+<div>
+    <table class="table">
         <thead>
-        <tr class="table-info">
-            <th scope="col">#</th>
-            <th scope="col">Email</th>
-            <th scope="col">Password</th>
-            <th scope="col">First name</th>
-            <th scope="col">Last name</th>
-            <th scope="col">Patronymic name</th>
-            <th scope="col">Contact preferences</th>
-            <th scope="col">Social media</th>
-            <th scope="col">Role</th>
-            <th scope="col">Is active</th>
-            <th colspan="2" scope="col">Action</th>
+        <tr class="table-header">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Patronymic name</th>
+            <th>Contact preferences</th>
+            <th>Social media</th>
+            <th>Role</th>
+            <th>Is active</th>
         </tr>
         </thead>
 
         <tbody>
         <div th:each="el: ${users}">
-            <tr>
-                <td><h5 th:text="${el.id}"/></td>
-                <td><h5 th:text="${el.email}"/></td>
-                <td><h5 th:text="${el.password}"/></td>
-                <td><h5 th:text="${el.firstName}"/></td>
-                <td><h5 th:text="${el.lastName}"/></td>
-                <td><h5 th:text="${el.patronymicName}"/></td>
-                <td><h5 th:text="${el.contactPreferences}"/></td>
-                <td><h5 th:text="${el.socialMedia}"/></td>
-                <td><h5 th:text="${el.role}"/></td>
-                <td><h5 th:text="${el.isActive}"/></td>
-                <td><a th:href="'/v1.0/user/update/' + ${el.id}" class="btn btn-warning">Edit</a></td>
-                <td><a th:href="'/v1.0/user/delete/' + ${el.id}" class="btn btn-danger">Delete</a></td>
+            <tr class="table-data">
+                <td><a th:href="'/users/' + ${el.id}" >E</a></td>
+                <td><a th:href="'/users/update/' + ${el.id}" >\</a></td>
+                <td><a th:href="'/users/delete/' + ${el.id}" >X</a></td>
+                <td><p th:text="${el.email}"></p></td>
+                <td><p th:text="${el.password}"></p></td>
+                <td><p th:text="${el.firstName}"></p></td>
+                <td><p th:text="${el.lastName}"></p></td>
+                <td><p th:text="${el.patronymicName}"></p></td>
+                <td><p th:text="${el.contactPreferences}"></p></td>
+                <td><p th:text="${el.socialMedia}"></p></td>
+                <td><p th:text="${el.role}"></p></td>
+                <td><p th:text="${el.isActive}"></p></td>
             </tr>
 
         </div>
@@ -48,7 +57,7 @@
 
     </table>
 
-    <a href="/v1.0/user/new" class="btn btn-success">Add user</a>
+
 </div>
 
 </body>

@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Menu</title>
-</head>
-<body>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<div th:fragment="menu_fr">
-<span>
-    <a th:href="@{/}">- Index - </a>
-</span>
-    <span>
-    <a th:href="@{/requests?page=0&size=5&sort=id,asc}"> - All requests - </a>
-</span>
-</div>
-</body>
-</html>
+<nav th:fragment="menu">
+    <ul>
+        <li>
+            <img src="logo.jpg" alt="logo" style="width:50px">
+        </li>
+        <li>
+            <a class="text" href="/">Home</a>
+        </li>
+        <li>
+            <a class="text" href="/users">Users</a>
+        </li>
+        <li>
+            <a class="text" href="/courses">Courses</a>
+        </li>
+        <li>
+            <a class="text" href="/requests">Requests</a>
+        </li>
+        <li>
+            <p class="text" style="width:50%"></p>
+        </li>
+        <li>
+            <a class="text" href="/login">Sign in | Sign up</a>
+        </li>
+    </ul>
+</nav>

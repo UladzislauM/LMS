@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav th:insert="~{/plugins/menu :: menu}" class="menu"></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Edit user</h1>
+    <h1 class="subheader">Changing user information</h1>
+
+</div>
+
+<div th:each="el: ${user}">
+    <form th:action="'/users/update/' + ${user.id}" method="post">
+        <table>
+            <tr>
+                <td class="text" align="right" wight="20%">Email</td>
+                <td><input type="text" th:value=${el.email} name="email"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Password</td>
+                <td><input type="text" th:value=${el.password} name="password"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">First name</td>
+                <td><input type="text" th:value=${el.firstName} name="firstName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Last name</td>
+                <td><input type="text" th:value=${el.lastName} name="lastName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Patronymic name</td>
+                <td><input type="text" th:value=${el.patronymicName} name="patronymicName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Contact preferences</td>
+                <td><input type="text" th:value=${el.contactPreferences} name="contactPreferences"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Social media</td>
+                <td><input type="text" th:value=${el.socialMedia} name="socialMedia"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Role</td>
+                <td><input type="text" th:value=${el.role} name="role"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Is active</td>
+                <td><input type="text" th:value=${el.isActive} disabled></td>
+            </tr>
+
+        </table>
+        <button type="submit" class="button-active">Save</button>
+    </form>
+</div>
+
+</body>
+</html>
