@@ -75,7 +75,7 @@ public class RequestServiceImpl implements RequestService {
 
         switch (oldStatusDto) {
             case PROCESSING -> validateUpdateProcessing(newStatusDto);
-            case APPROVED -> validateUpdateApproved(newStatusDto);
+            case APPROVED -> validateUpdateApproved(newStatusDto, newCourseDto, oldCourseDto);
             case PAID -> validateUpdatePaid(newCourseDto, newStatusDto, oldCourseDto);
             case SATISFIED -> validateUpdateSatisfied(newCourseDto, newStatusDto, oldCourseDto);
             case CANCELLED -> throw new LmsException(ACTION_FORBIDDEN);
@@ -102,10 +102,12 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    private static void validateUpdateApproved(StatusDto newStatusDto) {
-        if (newStatusDto != StatusDto.PROCESSING
-                && newStatusDto != StatusDto.PAID
-                && newStatusDto != StatusDto.CANCELLED) {
+    private static void validateUpdateApproved(StatusDto newStatusDto,
+                                               CourseDto newCourseDto,
+                                               CourseDto oldCourseDto) {
+        if (newStatusDto != StatusDto.PAID
+                && newStatusDto != StatusDto.CANCELLED
+                || oldCourseDto == newCourseDto) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
