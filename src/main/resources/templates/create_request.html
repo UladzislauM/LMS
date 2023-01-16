@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:replace="~{/plugins/menu :: menu}"></nav>
+<nav th:replace="~{/plugins/menu :: menu}" class="menu"></nav>
 
 <div class="left-side-area">
     <h1>Create</h1>
@@ -19,13 +19,13 @@
     <form method="post">
         <ul>
             <li>
-                <input type="text" th:name="user.id" placeholder="Enter user id">
+                <input type="text" th:name="user.id" placeholder="Enter user id" class="input">
             </li>
-            <li><input type="text" th:name="course.id" placeholder="Enter course id">
+            <li><input type="text" th:name="course.id" placeholder="Enter course id" class="input">
             </li>
             <li>PROCESSING</li>
         </ul>
-        <input type="submit" name="submit" value="Edit request"/>
+        <input type="submit" name="submit" value="Edit request" class="button"/>
     </form>
 </div>
 </body>

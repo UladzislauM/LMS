@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:replace="~{/plugins/menu :: menu}"></nav>
+<nav th:replace="~{/plugins/menu :: menu}" class="menu"></nav>
 
 <div class="left-side-area">
     <h1 class="header">Create</h1>
@@ -20,8 +20,8 @@
         <ul>
             <li th:text="*{user.firstName} + ' ' + *{user.lastName}">User</li>
             <li><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
-                       th:value="*{course.title}">
-                <input type="hidden" th:field="*{course.id}" th:value="*{course.id}">Title course
+                       th:value="*{course.title}" class="input">
+                <input type="hidden" th:field="*{course.id}" th:value="*{course.id}" class="input">Title course
             </li>
             <li>
                 <select name="status">
@@ -34,11 +34,11 @@
                 <p>Active status: <span th:text="*{status}"></span></p>
             </li>
         </ul>
-        <input type="submit" name="submit" value="Edit request"/>
+        <input type="submit" name="submit" value="Edit request" class="button"/>
     </form>
 </div>
 
-<a href="#" onclick="history.back();return false;" class="history-back">
+<a href="#" onclick="history.back();return false;" class="button">
     <-Back</a>
 
 </body>

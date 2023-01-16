@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:replace="~{/plugins/menu :: menu}"></nav>
+<nav th:replace="~{/plugins/menu :: menu}" class="menu"></nav>
 
 <div class="left-side-area">
     <h1 class="header">View</h1>
@@ -22,9 +22,9 @@
     </ul>
 </div>
 
-<a th:href="@{/requests/update/__${request.id}__}">Edit request</a>
+<a th:href="@{/requests/update/__${request.id}__}" class="button">Edit request</a>
 
-<a href="#" onclick="history.back();return false;" class="history-back">
+<a href="#" onclick="history.back();return false;" class="button">
     <-Back</a>
 </body>
 </html>
