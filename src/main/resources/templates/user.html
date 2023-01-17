@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:insert="~{/plugins/menu :: menu}" class="menu"></nav>
+<nav th:replace="~{/plugins/menu :: menu}" ></nav>
 
 <div class="left-side-area">
     <h1 class="header">User</h1>
@@ -18,43 +18,43 @@
 
 </div>
 
-<div th:each="el: ${user}">
+<div>
     <table>
         <tr>
             <td class="text" align="right" wight="20%">Email</td>
-            <td><input type="text" th:value=${el.email} disabled></td>
+            <td><input type="text" th:value=${user.email} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Password</td>
-            <td><input type="text" th:value=${el.password} disabled></td>
+            <td><input type="text" th:value=${user.password} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">First name</td>
-            <td><input type="text" th:value=${el.firstName} disabled></td>
+            <td><input type="text" th:value=${user.firstName} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Last name</td>
-            <td><input type="text" th:value=${el.lastName} disabled></td>
+            <td><input type="text" th:value=${user.lastName} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Patronymic name</td>
-            <td><input type="text" th:value=${el.patronymicName} disabled></td>
+            <td><input type="text" th:value=${user.patronymicName} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Contact preferences</td>
-            <td><input type="text" th:value=${el.contactPreferences} disabled></td>
+            <td><input type="text" th:value=${user.contactPreferences} disabled></td>
         </tr>
         <tr>
-            <td class="text" align="right" wight="20%">Social media</td>
-            <td><input type="text" th:value=${el.socialMedia} disabled></td>
+            <td class="text" align="right">Social media</td>
+            <td><input type="text" th:value=${user.socialMedia} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Role</td>
-            <td><input type="text" th:value=${el.role} disabled></td>
+            <td><input type="text" th:value=${user.role} disabled></td>
         </tr>
         <tr>
             <td class="text" align="right">Is active</td>
-            <td><input type="text" th:value=${el.isActive} disabled></td>
+            <td><input type="text" th:value=${user.isActive} disabled></td>
         </tr>
 
     </table>

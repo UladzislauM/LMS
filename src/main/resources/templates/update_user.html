@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:insert="~{/plugins/menu :: menu}" class="menu"></nav>
+<nav th:replace="~{/plugins/menu :: menu}" ></nav>
 
 <div class="left-side-area">
     <h1 class="header">Edit user</h1>
@@ -16,44 +16,44 @@
 
 </div>
 
-<div th:each="el: ${user}">
+<div>
     <form th:action="'/users/update/' + ${user.id}" method="post">
         <table>
             <tr>
                 <td class="text" align="right" wight="20%">Email</td>
-                <td><input type="text" th:value=${el.email} name="email"></td>
+                <td><input type="text" th:value=${user.email} name="email"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Password</td>
-                <td><input type="text" th:value=${el.password} name="password"></td>
+                <td><input type="text" th:value=${user.password} name="password"></td>
             </tr>
             <tr>
                 <td class="text" align="right">First name</td>
-                <td><input type="text" th:value=${el.firstName} name="firstName"></td>
+                <td><input type="text" th:value=${user.firstName} name="firstName"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Last name</td>
-                <td><input type="text" th:value=${el.lastName} name="lastName"></td>
+                <td><input type="text" th:value=${user.lastName} name="lastName"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Patronymic name</td>
-                <td><input type="text" th:value=${el.patronymicName} name="patronymicName"></td>
+                <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Contact preferences</td>
-                <td><input type="text" th:value=${el.contactPreferences} name="contactPreferences"></td>
+                <td><input type="text" th:value=${user.contactPreferences} name="contactPreferences"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Social media</td>
-                <td><input type="text" th:value=${el.socialMedia} name="socialMedia"></td>
+                <td><input type="text" th:value=${user.socialMedia} name="socialMedia"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Role</td>
-                <td><input type="text" th:value=${el.role} name="role"></td>
+                <td><input type="text" th:value=${user.role} name="role"></td>
             </tr>
             <tr>
                 <td class="text" align="right">Is active</td>
-                <td><input type="text" th:value=${el.isActive} disabled></td>
+                <td><input type="text" th:value=${user.isActive} disabled></td>
             </tr>
 
         </table>
