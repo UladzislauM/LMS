@@ -86,8 +86,9 @@ public class RequestServiceImpl implements RequestService {
     private static void validateUpdateSatisfied(CourseDto newCourseDto,
                                                 StatusDto newStatusDto,
                                                 CourseDto oldCourseDto) {
-        if (newStatusDto != StatusDto.CANCELLED
-                || oldCourseDto == newCourseDto) {
+        if (newStatusDto != StatusDto.CANCELLED) {
+            throw new LmsException(FAILURE_UPDATE);
+        } else if (!oldCourseDto.toString().equals(newCourseDto.toString())) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
@@ -96,8 +97,9 @@ public class RequestServiceImpl implements RequestService {
                                            StatusDto newStatusDto,
                                            CourseDto oldCourseDto) {
         if (newStatusDto != StatusDto.SATISFIED
-                && newStatusDto != StatusDto.CANCELLED
-                || oldCourseDto == newCourseDto) {
+                && newStatusDto != StatusDto.CANCELLED) {
+            throw new LmsException(FAILURE_UPDATE);
+        } else if (!oldCourseDto.toString().equals(newCourseDto.toString())) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
@@ -106,14 +108,16 @@ public class RequestServiceImpl implements RequestService {
                                                CourseDto newCourseDto,
                                                CourseDto oldCourseDto) {
         if (newStatusDto != StatusDto.PAID
-                && newStatusDto != StatusDto.CANCELLED
-                || oldCourseDto == newCourseDto) {
+                && newStatusDto != StatusDto.CANCELLED) {
+            throw new LmsException(FAILURE_UPDATE);
+        } else if (!oldCourseDto.toString().equals(newCourseDto.toString())) {
             throw new LmsException(FAILURE_UPDATE);
         }
     }
 
     private static void validateUpdateProcessing(StatusDto newStatusDto) {
-        if (newStatusDto != StatusDto.APPROVED
+        if (newStatusDto != StatusDto.PROCESSING
+                && newStatusDto != StatusDto.APPROVED
                 && newStatusDto != StatusDto.CANCELLED) {
             throw new LmsException(FAILURE_UPDATE);
         }
