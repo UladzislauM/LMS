@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Requests</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<nav th:replace="~{/plugins/menu :: menu}" class="menu"></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Show</h1>
+    <h2>Requests</h2>
+    <h3><a th:href="@{/requests/create}" class="button">Create request</a></h3>
+</div>
+<div class="main-area">
+    <div>
+        <span>Size requests on page</span>
+        <select th:onchange="'window.location.href = \'' + @{/requests?sort=id,asc} + '&size=\' + this.value'">
+            <option th:text="@{Now: __${requests.getSize}__}"></option>
+            <option th:text="3"></option>
+            <option th:text="5"></option>
+            <option th:text="7"></option>
+            <option th:text="15"></option>
+        </select>
+    </div>
+
+    <table class="table">
+        <tr class="table-header">
+            <th>View</th>
+            <th>Change</th>
+            <th>Delete</th>
+            <th>Users</th>
+            <th>Courses</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
+            <td><a th:href="@{/requests/__*{id}__}" class="button">View</a></td>
+            <td><a th:href="@{/requests/update/__*{id}__}" class="button">Change</a></td>
+            <td></td>
+            <td th:text="*{user.firstName} + ' ' + *{user.lastName}"><a th:href="@{/users/__*{id}__}" class="button">User</a>
+            </td>
+            <td><a th:href="@{/courses/__*{id}__}" th:text="*{course.title}" class="button">Course title</a></td>
+            <td th:text="*{status}"></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div th:insert="~{/plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${requests}"></div>
+</div>
+
+</body>
+</html>
