@@ -1,4 +1,4 @@
-package controller.view;
+package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;

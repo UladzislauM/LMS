@@ -1,4 +1,4 @@
-package controller.view;
+package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.dto.request.RequestDto;

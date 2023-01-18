@@ -1,4 +1,4 @@
-package controller.rest;
+package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDto;
