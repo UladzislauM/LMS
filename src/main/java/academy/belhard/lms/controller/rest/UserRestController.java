@@ -28,34 +28,34 @@ public class UserRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto create(@RequestBody UserDtoForSave dto) {
-        return userService.createUser(dto);
+        return userService.create(dto);
     }
 
     @GetMapping
     public Page<UserDto> getAll(Pageable pageable) {
-        return userService.getAllUsers(pageable);
+        return userService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable Long id) {
-        return userService.getUserById(id);
+        return userService.getById(id);
     }
 
     @PutMapping("/{id}")
     public UserDto update(@PathVariable Long id, @RequestBody UserDtoForUpdate dto) {
         dto.setId(id);
-        return userService.updateUser(dto);
+        return userService.update(dto);
     }
 
     @PatchMapping("/{id}")
     public UserDto updatePartly(@PathVariable Long id, @RequestBody UserDtoForUpdate dto) {
         dto.setId(id);
-        return userService.updateUser(dto);
+        return userService.update(dto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-        userService.deleteUser(id);
+        userService.delete(id);
     }
 }

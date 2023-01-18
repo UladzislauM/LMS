@@ -6,12 +6,15 @@ import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +24,11 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public UserDto createUser(UserDtoForSave dto) {
+    public UserDto create(UserDtoForSave dto) {
+        Optional<User> existing = userRepository.findByEmailActive(dto.getEmail());
+        if (existing.isPresent()) {
+            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+        }
         User entity = userMapper.userDtoForSavingToUser(dto);
         entity.setRole(User.Role.STUDENT);
         entity.setActive(true);
@@ -30,20 +37,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDto> getAllUsers(Pageable pageable) {
+    public Page<UserDto> getAll(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         return users.map(userMapper::userToUserDto);
     }
 
     @Override
-    public UserDto getUserById(Long id) {
+    public UserDto getById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         return userMapper.userToUserDto(user);
     }
 
     @Override
-    public UserDto updateUser(UserDtoForUpdate dto) {
+    public UserDto update(UserDtoForUpdate dto) {
+        Optional<User> existing = userRepository.findByEmailActive(dto.getEmail());
+        if (existing.isPresent() && !existing.get().getId().equals(dto.getId())) {
+            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+        }
         User oldUser = userRepository.findById(dto.getId())
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         User newUser = userMapper.userDtoForUpdatingToUser(dto);
@@ -53,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         if (!user.isActive()) {
