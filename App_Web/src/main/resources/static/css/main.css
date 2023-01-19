@@ -1,15 +1,15 @@
 body{
-  font-family: Sans-serif;
+  font-family: Sans-serif, sans-serif;
 }
 
-.menu{
+.menu {
   height: 10%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   background: #00bfff;
-  margin: 0px 0px 50px 0px;
+  margin: 0 0 50px 0;
 }
 
 .left-side-area{
@@ -23,16 +23,16 @@ body{
   text-align: right;
 }
 
-.header{
+.header {
   color: #00bfff;
   font: italic bold 40px Arial;
-  margin: 15px 0px 15px 0px;
-  }
+  margin: 15px 0 15px 0;
+}
 
-.subheader{
+.subheader {
   color: black;
-  font: italic bold 25px  Arial;
-  margin: 15px 0px 15px 0px;
+  font: italic bold 25px Arial;
+  margin: 15px 0 15px 0;
 }
 
 li {
@@ -65,27 +65,27 @@ td, th{
 }
 
 
-.button-active{
-  border:1px solid #ccc;
-  background:#eaeaea;
+.button-active {
+  border: 1px solid #ccc;
+  background: #eaeaea;
   padding: 10px 20px;
   text-decoration: none;
   color: black;
   border-radius: 5px;
-  font: 15px  Arial;
-  margin: 20px 0px 20px 0px;
+  font: 15px Arial;
+  margin: 20px 0 20px 0;
 }
 
 
-.button-readonly{
+.button-readonly {
   border-radius: 5px;
-  font: 15px  Arial;
-  margin: 20px 0px 20px 0px;
+  font: 15px Arial;
+  margin: 20px 0 20px 0;
 }
 
-input{
-  font: 15px  Arial;
-  margin: 20px 0px 20px 0px;
+input {
+  font: 15px Arial;
+  margin: 20px 0 20px 0;
 }
 
 input:focus{
