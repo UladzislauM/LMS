@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LmsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" value="development" />
+    <option name="ACTIVE_PROFILES" />
     <module name="lms.App_Launcher.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="academy.belhard.lms.LmsApplication" />
-    <option name="VM_PARAMETERS" value="--add-opens java.base/java.lang=ALL-UNNAMED" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=development --add-opens java.base/java.lang=ALL-UNNAMED" />
     <extension name="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
