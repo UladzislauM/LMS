@@ -1,0 +1,3 @@
+open module lms.platform {
+
+}
