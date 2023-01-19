@@ -2,91 +2,59 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
-import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.RequestRepository;
-import academy.belhard.lms.data.repository.UserRepository;
 import academy.belhard.lms.service.RequestService;
+import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
-import academy.belhard.lms.service.dto.request.StatusDto;
+import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.RequestMapper;
+import academy.belhard.lms.service.mapper.UserMapper;
+import academy.belhard.lms.service.dto.request.StatusDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service("requestService")
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
-    public static final String USER_ID_NOT_EXIST = "User id = %s not exist";
-    public static final String CREATE_EXCEPTION = "You can't create new Request. Request is created with status = %s";
     public static final String FAILURE_UPDATE = "Failure update";
     public static final String ACTION_FORBIDDEN = "For this status action forbidden";
     private final RequestRepository requestRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final RequestMapper requestMapper;
+    private final UserMapper userMapper;
 
     public void validate(RequestDtoForSave request) {
-        Request oldRequest = requestRepository.findByUser(requestMapper.request(request).getUser());
-        Request.Status status;
-        try {
-            status = oldRequest.getStatus();
-        } catch (NullPointerException e) {
-            return;
-        }
-        if (status == Request.Status.CANCELLED) {
-            return;
-        }
-        throw new LmsException(String.format(CREATE_EXCEPTION, status));
+
     }
 
     @Override
     public RequestDto create(RequestDtoForSave requestDto) {
         validate(requestDto);
-        Long id = requestDto.getUser().getId();
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format(USER_ID_NOT_EXIST, id)));
-        Course course = fakeCourseRepository(requestDto);//FixMe for Course Repository
-        Request request = setRequest(user, course);
+        Request request = requestMapper.request(requestDto);
+        UserDto userDto = userService.getById(request.getUser().getId());
+        fakeCourseService();//FixMe for Course Service
+        request.setUser(userMapper.userDtoToUser(userDto));
+        request.setStatus(Request.Status.PROCESSING);
         return requestMapper.requestDto((requestRepository.save(request)));
     }
 
-    private static Request setRequest(User user, Course course) {
-        Request request = new Request();
-        request.setStatus(Request.Status.PROCESSING);
-        request.setUser(user);
-        request.setCourse(course);
-        return request;
-    }
-
-    private static Course fakeCourseRepository(RequestDtoForSave request) {
-        Course course = new Course();
-        course.setId(request.getCourse().getId());
-        course.setTitle("course_test_1");
-        return course;
+    private static void fakeCourseService() {
+        CourseDto courseDto = new CourseDto();
+        courseDto.setTitle("course_test_1");
     }
 
     @Override
     public Page<RequestDto> getAll(Pageable pageable) {
         Page<Request> requests = requestRepository.findAll(pageable);
-        Page<RequestDto> requestsDto;
-        try {
-            requestsDto = requests.map(requestMapper::requestDto);
-        } catch (NullPointerException e) {
-            List<RequestDto> list = new ArrayList<>();
-            requestsDto = new PageImpl<>(list);
-        }
-        return requestsDto;
+        return requests.map(requestMapper::requestDto);
     }
-
 
     @Override
     public RequestDto getById(Long id) {
