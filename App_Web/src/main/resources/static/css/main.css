@@ -45,7 +45,7 @@ list-style-type: none;
 
 td, th{
   padding: 5px;
-*/border-left: grey 2px solid;
+  border-left: grey 2px solid;
 }
 
 .table-header{
