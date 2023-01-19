@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<div align="center">
+    <table border="1">
+        <caption><h2>List of Lessons</h2></caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Start time</th>
+            <th>Description</th>
+            <th>Content</th>
+            <th>Home task</th>
+            <th>Home works</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="lesson : ${lessons}">
+            <tr>
+                <td th:text="${lesson.id}"></td>
+                <td th:text="${lesson.title}"></td>
+                <td th:text="${lesson.startTime}"></td>
+                <td th:text="${lesson.description}"></td>
+                <td th:text="${lesson.content}"></td>
+                <td th:text="${lesson.homeTask}"></td>
+                <td>
+                    <div align="center">
+                        <table border="1">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="homework : ${lesson.getHomeworks()}">
+                                <tr>
+                                    <td th:text="${homework.id}"></td>
+                                    <td th:text="${homework.student.firstName} + ' ' + ${homework.student.lastName}"></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

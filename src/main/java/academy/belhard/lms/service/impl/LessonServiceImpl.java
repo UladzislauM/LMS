@@ -5,10 +5,12 @@ import academy.belhard.lms.data.repository.HomeworkRepository;
 import academy.belhard.lms.data.repository.LessonRepository;
 import academy.belhard.lms.service.LessonService;
 import academy.belhard.lms.service.dto.course.LessonDto;
+import academy.belhard.lms.service.dto.course.LessonSimpleDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.LessonMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +25,15 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<LessonDto> getAll() {
-        return lessonRepository.findAll().stream()
+        return lessonRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
                 .map(lessonMapper::lessonToLessonDto)
                 .toList();
+    }
+
+    @Override
+    public LessonSimpleDto getSimpleById(Long id) {
+        return lessonMapper.lessonToLessonSimpleDto(lessonRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(LESSON_NOT_FOUND_MSG, id))));
     }
 
     @Override

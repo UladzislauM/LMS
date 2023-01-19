@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<form method="post" action="/lessons/create">
+    <b>Form for create new lesson:</b><br>
+    <p><b>Enter new data</b><br>
+        <input type="text" name="title"> Title<br>
+        <input type="datetime-local" name="startTime"> Start time<br>
+        <input type="text" name="description"> Description<br>
+        <input type="text" name="content"> Content<br>
+        <input type="text" name="homeTask"> Home task<br>
+    <p> <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+    </p>
+</form>
+</body>
+</html>

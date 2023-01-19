@@ -10,7 +10,7 @@ import java.util.List;
 public class LessonDto {
     private Long id;
     private String title;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSS")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddTHH:mm:ss.SSSS")
     private LocalDateTime startTime;
     private String description;
     private String content;

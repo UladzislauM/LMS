@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<div class="left-side-area">
+    <h1 class="header">Courses</h1>
+    <h1 class="subheader">List Of All Courses</h1>
+    <a href="/courses/createForm" class="button-active">Create</a>
+</div>
+<div align="center">
+    <div align="centre">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="course : ${courses}">
+                <tr>
+                    <td>
+                        <a th:href="'/courses/read/' + ${course.id}">
+                            <i class="fa-solid fa-eye"></i></a>
+                    </td>
+                    <td>
+                        <a th:href="'/courses/updateForm/' + ${course.id}">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="'/courses/delete/' + ${course.id}">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </td>
+                    <td th:text="${course.title}"></td>
+                    <td th:text="${course.price}"></td>
+                    <td th:text="${course.startDate}"></td>
+                    <td th:text="${course.description}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@ import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.CourseMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,20 +28,26 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public List<CourseSimpleDto> getAll() {
-        return courseRepository.findAll().stream()
-                .map(courseMapper::courseToCourseSimpleDto)
+        return courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
+                .map(courseMapper::courseToCourseReadDto)
                 .toList();
     }
 
     @Override
-    public CourseSimpleDto getById(Long id) {
-        return courseMapper.courseToCourseSimpleDto(courseRepository.findById(id)
+    public CourseDto getById(Long id) {
+        return courseMapper.courseToCourseDto(courseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
     }
 
     @Override
-    public CourseSimpleDto create(CourseSimpleDto courseSimpleDto) {
-        return courseMapper.courseToCourseSimpleDto(courseRepository.save(courseMapper.courseSimpleDtoToCourse(courseSimpleDto)));
+    public CourseSimpleDto getSimpleById(Long id) {
+        return courseMapper.courseToCourseReadDto(courseRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
+    }
+
+    @Override
+    public CourseDto create(CourseDto courseDto) {
+        return courseMapper.courseToCourseDto(courseRepository.save(courseMapper.courseDtoToCourse(courseDto)));
     }
 
     @Override

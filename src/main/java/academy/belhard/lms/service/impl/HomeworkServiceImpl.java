@@ -6,6 +6,7 @@ import academy.belhard.lms.service.dto.course.HomeworkDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.HomeworkMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class HomeworkServiceImpl implements HomeworkService {
 
     @Override
     public List<HomeworkDto> getAll() {
-        return homeworkRepository.findAll().stream().
+        return homeworkRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream().
                 map(homeworkMapper::homeworkToHomeworkDto)
                 .toList();
     }

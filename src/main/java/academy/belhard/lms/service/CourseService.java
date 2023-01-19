@@ -8,9 +8,11 @@ import java.util.List;
 public interface CourseService {
     List<CourseSimpleDto> getAll();
 
-    CourseSimpleDto getById(Long id);
+    CourseDto getById(Long id);
 
-    CourseSimpleDto create(CourseSimpleDto CourseSimpleDto);
+    CourseSimpleDto getSimpleById(Long id);
+
+    CourseDto create(CourseDto courseDto);
 
     CourseDto update(CourseDto courseDto);
 

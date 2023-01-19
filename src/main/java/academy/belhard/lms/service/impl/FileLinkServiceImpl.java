@@ -6,6 +6,7 @@ import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.FileLinkMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class FileLinkServiceImpl implements FileLinkService {
 
     @Override
     public List<FileLinkDto> getAll() {
-        return fileLinkRepository.findAll().stream().
+        return fileLinkRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream().
                 map(fileLinkMapper::fileLinkToFileLinkDto)
                 .toList();
     }

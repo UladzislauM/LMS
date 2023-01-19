@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+    <i class="fa-solid fa-graduation-cap"></i>
+    <p hidden th:text="${course.id}">ID</p>
+    <p th:text="${course.title}">Title</p>
+    <p th:text="${course.startDate}">Start date</p>
+    <p th:text="${course.description}">Description</p>
+    <p th:text="${course.price}">Price</p>
+</body>
+</html>
