@@ -6,6 +6,14 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
+
+<nav th:replace="~{/plugins/menu :: menu}" ></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Course</h1>
+    <h1 class="subheader">Information about the course</h1>
+    <a th:href="'/courses/updateForm/' + ${course.id}" class="button-active">Edit</a>
+</div>
     <i class="fa-solid fa-graduation-cap"></i>
     <p hidden th:text="${course.id}">ID</p>
     <p th:text="${course.title}">Title</p>
