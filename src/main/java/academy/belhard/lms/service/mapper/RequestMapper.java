@@ -14,6 +14,10 @@ import org.mapstruct.Mapper;
 public interface RequestMapper {
     Request request(RequestDto requestDto);
 
+    Request request(RequestDtoForSave requestDtoForSave);
+
+    Request request(RequestDtoForUpdate requestDtoForUpdate);
+
     RequestDto requestDto(Request request);
 
     Course course(CourseDto courseDto);
@@ -24,13 +28,9 @@ public interface RequestMapper {
 
     UserDto userDto(User user);
 
-    Request requestDtoForSave(RequestDtoForSave requestDtoForSaving);
-
     RequestDtoForSave requestForSave(Request request);
 
     Request requestDtoForUpdate(Request request);
 
     RequestDtoForUpdate requestForUpdate(RequestDtoForUpdate requestDtoForUpdate);
-
-    Request request(RequestDtoForUpdate requestDtoForUpdate);
 }
