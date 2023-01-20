@@ -6,13 +6,14 @@ import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.ContactPreferencesDto;
 import academy.belhard.lms.service.dto.user.RoleDto;
 import academy.belhard.lms.service.dto.user.UserDto;
-import academy.belhard.lms.service.dto.user.UserDtoForSaving;
+import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapperImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ class UserServiceImplTest {
     private static UserRepository userRepository;
     private static User existing;
     private static UserDto existingDto;
-    private static UserDtoForSaving userDtoForSaving;
+    private static UserDtoForSave userDtoForSaving;
 
     @BeforeAll
     static void beforeAll() {
@@ -60,7 +61,7 @@ class UserServiceImplTest {
         existingDto.setPatronymicName("Ivanovich");
         existingDto.setSocialMedia("Telegram");
 
-        userDtoForSaving = new UserDtoForSaving();
+        userDtoForSaving = new UserDtoForSave();
         userDtoForSaving.setEmail("test1@mail.ru");
         userDtoForSaving.setFirstName("IvanTest");
         userDtoForSaving.setLastName("TestIvan");
@@ -82,7 +83,7 @@ class UserServiceImplTest {
 
         when(userRepository.findAll()).thenReturn(userList);
 
-        List<UserDto> fromService = userService.getAllUsers();
+        Page<UserDto> fromService = userService.getAll(null);// FIXME: reimplement
 
         assertEquals(userList, fromService);
     }
@@ -107,7 +108,7 @@ class UserServiceImplTest {
     void getUserByIdExistingTest() {
         when(userRepository.findById(ID_EXISTING)).thenReturn(Optional.of(existing));
 
-        UserDto fromService = userService.getUserById(ID_EXISTING);
+        UserDto fromService = userService.getById(ID_EXISTING);
 
         assertEquals(existingDto, fromService);
     }
@@ -116,21 +117,21 @@ class UserServiceImplTest {
     void getUserByIdNotExistingTest() {
         when(userRepository.findById(ID_NOT_EXISTING)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.getUserById(ID_NOT_EXISTING));
+        assertThrows(NotFoundException.class, () -> userService.getById(ID_NOT_EXISTING));
     }
 
     @Test
     void getUserByIdZeroTest() {
         when(userRepository.findById(ID_ZERO)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.getUserById(ID_ZERO));
+        assertThrows(NotFoundException.class, () -> userService.getById(ID_ZERO));
     }
 
     @Test
     void getUserByIdNegativeTest() {
         when(userRepository.findById(ID_NEGATIVE)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.getUserById(ID_NEGATIVE));
+        assertThrows(NotFoundException.class, () -> userService.getById(ID_NEGATIVE));
     }
 
     @Test
@@ -141,7 +142,7 @@ class UserServiceImplTest {
     void deleteUserExistingTest() {
         when(userRepository.findById(ID_EXISTING)).thenReturn(Optional.of(existing));
 
-        userService.deleteUser(ID_EXISTING);
+        userService.delete(ID_EXISTING);
 
         Mockito.verify(userRepository, Mockito.times(1)).save(Mockito.any());
     }
@@ -150,7 +151,7 @@ class UserServiceImplTest {
     void deleteUserNotExistingTest() {
         when(userRepository.findById(ID_NOT_EXISTING)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.deleteUser(ID_NOT_EXISTING));
+        assertThrows(NotFoundException.class, () -> userService.delete(ID_NOT_EXISTING));
 
     }
 
@@ -158,7 +159,7 @@ class UserServiceImplTest {
     void deleteUserZeroTest() {
         when(userRepository.findById(ID_ZERO)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.deleteUser(ID_ZERO));
+        assertThrows(NotFoundException.class, () -> userService.delete(ID_ZERO));
 
     }
 
@@ -166,7 +167,7 @@ class UserServiceImplTest {
     void deleteUserNegativeTest() {
         when(userRepository.findById(ID_NEGATIVE)).thenReturn(Optional.empty());
 
-        assertThrows(NotFoundException.class, () -> userService.deleteUser(ID_NEGATIVE));
+        assertThrows(NotFoundException.class, () -> userService.delete(ID_NEGATIVE));
 
     }
 }
