@@ -37,7 +37,6 @@ public class RequestServiceImpl implements RequestService {
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
     private final RequestMapper requestMapper;
-    private final UserMapper userMapper;
 
     public void validate(RequestDtoForSave request) {
         User user = requestMapper.user(request.getUser());
