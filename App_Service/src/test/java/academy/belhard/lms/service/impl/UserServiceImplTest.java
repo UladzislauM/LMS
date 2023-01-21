@@ -7,6 +7,7 @@ import academy.belhard.lms.service.dto.user.ContactPreferencesDto;
 import academy.belhard.lms.service.dto.user.RoleDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapperImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -135,14 +136,10 @@ class UserServiceImplTest {
         User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
         toSaveEntity.setRole(User.Role.STUDENT);
         toSaveEntity.setActive(true);
-        UserDto expected = USER_MAPPER.userToUserDto(existing);
 
-        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
-        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
 
-        UserDto created = userService.create(userDtoForSave);
-
-        assertEquals(expected, created);
+        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
     }
 
     @Test
