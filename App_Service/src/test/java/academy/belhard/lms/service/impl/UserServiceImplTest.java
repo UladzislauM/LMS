@@ -165,6 +165,17 @@ class UserServiceImplTest {
     }
 
     @Test
+    void createActiveFalseTest() {
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(false);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
+
+        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
+    }
+
+    @Test
     void getAllPositiveTest() {
         List<User> userList = new ArrayList<>();
         setList(userList);
