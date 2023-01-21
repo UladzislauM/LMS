@@ -24,10 +24,6 @@
                 <td><input type="text" th:value=${user.email} name="email"></td>
             </tr>
             <tr>
-                <td class="text" align="right">Password</td>
-                <td><input type="text" th:value=${user.password} name="password"></td>
-            </tr>
-            <tr>
                 <td class="text" align="right">First name</td>
                 <td><input type="text" th:value=${user.firstName} name="firstName"></td>
             </tr>
@@ -54,6 +50,10 @@
             <tr>
                 <td class="text" align="right">Is active</td>
                 <td><input type="text" th:value=${user.isActive} disabled></td>
+            </tr>
+            <tr>
+                <td class="text" align="right" hidden>Password</td>
+                <td><input type="text" th:value=${user.password} name="password" hidden></td>
             </tr>
 
         </table>

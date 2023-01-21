@@ -24,7 +24,6 @@
             <th></th>
             <th></th>
             <th>Email</th>
-            <th>Password</th>
             <th>First name</th>
             <th>Last name</th>
             <th>Patronymic name</th>
@@ -42,7 +41,6 @@
                 <td><a th:href="'/users/update/' + ${el.id}" >\</a></td>
                 <td><a th:href="'/users/delete/' + ${el.id}" >X</a></td>
                 <td><p th:text="${el.email}"></p></td>
-                <td><p th:text="${el.password}"></p></td>
                 <td><p th:text="${el.firstName}"></p></td>
                 <td><p th:text="${el.lastName}"></p></td>
                 <td><p th:text="${el.patronymicName}"></p></td>
