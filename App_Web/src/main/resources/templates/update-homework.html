@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>update homework page</title>
-    <link href="../../static.css/main.css" rel="stylesheet" type="menu/css">
-    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-<form method="put" action="/homeworks/update">
-    <b>Form for update Homework:</b><br>
-    <p><b>Enter new data</b><br>
-        <input type="text" value="Student ID..." class="field left" readonly> Student ID<br>
-    </p>
-    <p><input placeholder="Paste your link here..." type="text" name="file_link"> File link<br></p>
-    <p><input placeholder="input mark..." type="text" name="mark"> Mark <br></p>
-    <p><input placeholder="Write some comment..." type="text" name="comment"> Comment <br></p>
-    <p><input type="submit" value="Submit">
-        <input type="reset" value="Reset">
-    </p>
-</form>
+
+<nav th:replace="~{/plugins/menu :: menu}"></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Update homework</h1>
+    <h1 class="subheader">Changing homework information</h1>
+
+</div>
+
+<div>
+    <form th:action="'/homeworks/update' + ${homework.id}" method="post">
+
+        <p><label for="email">Email address:</label><br></p>
+        <p><input id="email" type="text" th:value=${homework.email}><br></p>
+
+        <p><label for="filelink">Add your homework file here:</label><br></p>
+        <p><input id="filelink" type="file" th:value=${homework.fileLink} name="fileLink"><br></p>
+
+        <textarea id="content" name="content" cols="60" rows="5" th:value=${homework.comment}></textarea>
+
+        <p><input placeholder="Your mark..." type="text" name="mark"> Mark <br></p>
+
+        <p><input placeholder="Write some comment..." type="text" name="comment"> Trainer comment <br></p>
+
+        <input type="hidden" th:value=${homework.student}><br>
+        <p><input type="submit" value="Save changes">
+            <input type="reset" value="Reset">
+        </p>
+    </form>
+</div>
+
 </body>
 </html>
