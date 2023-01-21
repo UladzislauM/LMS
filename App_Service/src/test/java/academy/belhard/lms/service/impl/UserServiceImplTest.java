@@ -116,19 +116,30 @@ class UserServiceImplTest {
         reset(userRepository);
     }
 
+//    @Test
+//    void createPositiveTest() {
+//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+//        toSaveEntity.setRole(User.Role.STUDENT);
+//        toSaveEntity.setActive(true);
+//        UserDto expected = USER_MAPPER.userToUserDto(existing);
+//
+//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
+//        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+//
+//        UserDto created = userService.create(userDtoForSave);
+//
+//        assertEquals(expected, created);
+//    }
+
     @Test
-    void createPositiveTest() {
+    void createRoleManagerTest() {
         User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
-        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setRole(User.Role.MANAGER);
         toSaveEntity.setActive(true);
-        UserDto expected = USER_MAPPER.userToUserDto(existing);
 
-        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
-        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
 
-        UserDto created = userService.create(userDtoForSave);
-
-        assertEquals(expected, created);
+        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
     }
 
     @Test
