@@ -3,6 +3,7 @@ package academy.belhard.lms.service.impl;
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
+import academy.belhard.lms.data.repository.CourseRepository;
 import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.data.repository.UserRepository;
 import academy.belhard.lms.service.RequestService;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
@@ -80,6 +82,8 @@ class RequestServiceImplTest {
     private static RequestRepository requestRepositoryMock;
     @Mock
     private static UserRepository userRepositoryMock;
+    @Mock
+    private static CourseRepository courseRepositoryMock;
     private static User user;
     private static UserDto userDto;
 
@@ -103,9 +107,10 @@ class RequestServiceImplTest {
 
     @BeforeAll
     static void beforeAll() {
-        requestRepositoryMock = Mockito.mock(RequestRepository.class);
-        userRepositoryMock = Mockito.mock(UserRepository.class);
-        requestService = new RequestServiceImpl(requestRepositoryMock, userRepositoryMock, new RequestMapperImpl());
+        requestRepositoryMock = mock(RequestRepository.class);
+        userRepositoryMock = mock(UserRepository.class);
+        courseRepositoryMock = mock(CourseRepository.class);
+        requestService = new RequestServiceImpl(requestRepositoryMock, userRepositoryMock, courseRepositoryMock, new RequestMapperImpl());
         initUser(USER_ID,
                 USER_FIRST_NAME,
                 USER_LAST_NAME,
