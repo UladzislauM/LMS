@@ -2,14 +2,15 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
+import academy.belhard.lms.data.entity.User;
+import academy.belhard.lms.data.repository.CourseRepository;
 import academy.belhard.lms.data.repository.RequestRepository;
+import academy.belhard.lms.data.repository.UserRepository;
 import academy.belhard.lms.service.RequestService;
-import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.request.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
-import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.RequestMapper;
@@ -17,37 +18,55 @@ import academy.belhard.lms.service.mapper.UserMapper;
 import academy.belhard.lms.service.dto.request.StatusDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service("requestService")
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
     public static final String FAILURE_UPDATE = "Failure update";
     public static final String ACTION_FORBIDDEN = "For this status action forbidden";
+    public static final String REQUEST_EXITING_EXCEPTION = "You request with status = %s exiting";
+    public static final String REQUEST_IS_NOT_FOUND = "Request is not found";
+    public static final String USER_IS_NOT_FOUND = "User is not found";
+    public static final String COURSE_IS_NOT_FOUND = "Course is not found";
     private final RequestRepository requestRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
     private final RequestMapper requestMapper;
     private final UserMapper userMapper;
 
     public void validate(RequestDtoForSave request) {
-
+        User user = requestMapper.user(request.getUser());
+        requestRepository.findByUser(user)
+                .ifPresent(r -> {
+                    Request.Status status = r.getStatus();
+                    if (status != Request.Status.CANCELLED) {
+                        throw new LmsException(String.format(REQUEST_EXITING_EXCEPTION, status));
+                    }
+                });
     }
 
     @Override
     public RequestDto create(RequestDtoForSave requestDto) {
         validate(requestDto);
-        Request request = requestMapper.request(requestDto);
-        UserDto userDto = userService.getById(request.getUser().getId());
-        fakeCourseService();//FixMe for Course Service
-        request.setUser(userMapper.userDtoToUser(userDto));
+        Long userId = requestDto.getUser().getId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> {
+                    throw new NotFoundException(USER_IS_NOT_FOUND);
+                });
+        Request request = new Request();
+        request.setUser(user);
+        Course course = courseRepository.findById(requestDto.getCourse().getId())
+                .orElseThrow(() -> {
+                    throw new NotFoundException(COURSE_IS_NOT_FOUND);
+                });
+        request.setCourse(course);
         request.setStatus(Request.Status.PROCESSING);
         return requestMapper.requestDto((requestRepository.save(request)));
-    }
-
-    private static void fakeCourseService() {
-        CourseDto courseDto = new CourseDto();
-        courseDto.setTitle("course_test_1");
     }
 
     @Override
@@ -132,11 +151,19 @@ public class RequestServiceImpl implements RequestService {
 
     private Request addToRequest(RequestDtoForUpdate requestDto) {
         Request request = requestRepository.findById(requestDto.getId())
-                .orElseThrow(() -> new NotFoundException("User is not found"));
+                .orElseThrow(() -> new NotFoundException(REQUEST_IS_NOT_FOUND));
         StatusDto statusDto = requestDto.getStatus();
         request.setStatus(Request.Status.valueOf(statusDto.toString()));
+        Course course;
         CourseDto courseDto = requestDto.getCourse();
-        Course course = requestMapper.course(courseDto);
+        if(courseDto != null){//FixMe Herman please, because I don't got how do it different...
+            course = courseRepository.findById(requestDto.getCourse().getId())
+                    .orElseThrow(() -> {
+                throw new NotFoundException(COURSE_IS_NOT_FOUND);
+            });
+        }else {
+            course = request.getCourse();
+        }
         request.setCourse(course);
         return request;
     }
