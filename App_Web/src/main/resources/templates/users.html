@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav th:replace="~{plugins/menu :: menu}" ></nav>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
 
 <div class="left-side-area">
     <h1 class="header">Users</h1>
@@ -16,6 +16,16 @@
     <a href="/users/create" class="button-active">Create</a>
 </div>
 
+<div>
+    <span>Size requests on page</span>
+    <select th:onchange="'window.location.href = \'' + @{/users?sort=id,asc} + '&size=\' + this.value'">
+        <option th:text="@{Now: __${users.getSize}__}"></option>
+        <option th:text="3"></option>
+        <option th:text="5"></option>
+        <option th:text="7"></option>
+        <option th:text="15"></option>
+    </select>
+</div>
 <div>
     <table class="table">
         <thead>
@@ -37,9 +47,9 @@
         <tbody>
         <div th:each="el: ${users}">
             <tr class="table-data">
-                <td><a th:href="'/users/' + ${el.id}" >E</a></td>
-                <td><a th:href="'/users/update/' + ${el.id}" >\</a></td>
-                <td><a th:href="'/users/delete/' + ${el.id}" >X</a></td>
+                <td><a th:href="'/users/' + ${el.id}">E</a></td>
+                <td><a th:href="'/users/update/' + ${el.id}">\</a></td>
+                <td><a th:href="'/users/delete/' + ${el.id}">X</a></td>
                 <td><p th:text="${el.email}"></p></td>
                 <td><p th:text="${el.firstName}"></p></td>
                 <td><p th:text="${el.lastName}"></p></td>
@@ -54,7 +64,8 @@
         </tbody>
 
     </table>
-
+    <div th:insert="~{plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${users}"></div>
 
 </div>
 
