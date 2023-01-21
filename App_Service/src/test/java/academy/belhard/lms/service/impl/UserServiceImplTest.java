@@ -14,6 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,7 @@ class UserServiceImplTest {
     private static UserRepository userRepository;
     private static User existing;
     private static UserDto existingDto;
-    private static UserDtoForSave userDtoForSaving;
+    private static UserDtoForSave userDtoForSave;
 
     @BeforeAll
     static void beforeAll() {
@@ -61,14 +64,14 @@ class UserServiceImplTest {
         existingDto.setPatronymicName("Ivanovich");
         existingDto.setSocialMedia("Telegram");
 
-        userDtoForSaving = new UserDtoForSave();
-        userDtoForSaving.setEmail("test1@mail.ru");
-        userDtoForSaving.setFirstName("IvanTest");
-        userDtoForSaving.setLastName("TestIvan");
-        userDtoForSaving.setPassword("12345");
-        userDtoForSaving.setPatronymicName("Ivanovich");
-        userDtoForSaving.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-        userDtoForSaving.setSocialMedia("Telegram");
+        userDtoForSave = new UserDtoForSave();
+        userDtoForSave.setEmail("test1@mail.ru");
+        userDtoForSave.setFirstName("IvanTest");
+        userDtoForSave.setLastName("TestIvan");
+        userDtoForSave.setPassword("12345");
+        userDtoForSave.setPatronymicName("Ivanovich");
+        userDtoForSave.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
+        userDtoForSave.setSocialMedia("Telegram");
     }
 
     @BeforeEach
@@ -77,19 +80,23 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getAllUsersPositiveTest() {
+    void getAllPositiveTest() {
         List<User> userList = new ArrayList<>();
         setList(userList);
+        Pageable pageable = PageRequest.ofSize(1);
+        Page<User> userPage = new PageImpl<>(userList);
+        when(userRepository.findAll(pageable)).thenReturn(userPage);
 
-        when(userRepository.findAll()).thenReturn(userList);
+        List<UserDto> listDto = new ArrayList<>();
+        setListDto(listDto);
+        Page<UserDto> incomingUser = new PageImpl<>(listDto);
+        Page<UserDto> fromService = userService.getAll(pageable);
 
-        Page<UserDto> fromService = userService.getAll(null);// FIXME: reimplement
-
-        assertEquals(userList, fromService);
+        assertEquals(incomingUser, fromService);
     }
 
     private static void setList(List<User> userList) {
-        for (Long i = 1L; i < 8 + 1; i++) {
+        for (long i = 1; i < 10; i++) {
             User user = new User();
             user.setId(i);
             user.setEmail("fhasjfh@mnzvn.com" + i);
@@ -101,6 +108,24 @@ class UserServiceImplTest {
             user.setPatronymicName("Sanek");
             user.setContactPreferences(User.ContactPreferences.TELEGRAM);
             user.setSocialMedia("Instagramm");
+            userList.add(user);
+        }
+    }
+
+    private static void setListDto(List<UserDto> userList) {
+        for (long i = 1; i < 10; i++) {
+            UserDto userDto = new UserDto();
+            userDto.setId(i);
+            userDto.setEmail("fhasjfh@mnzvn.com" + i);
+            userDto.setPassword("hsfadh");
+            userDto.setFirstName("Sanya");
+            userDto.setLastName("Sanich");
+            userDto.setRole(RoleDto.STUDENT);
+            userDto.setActive(true);
+            userDto.setPatronymicName("Sanek");
+            userDto.setContactPreferences(ContactPreferencesDto.TELEGRAM);
+            userDto.setSocialMedia("Instagramm");
+            userList.add(userDto);
         }
     }
 
