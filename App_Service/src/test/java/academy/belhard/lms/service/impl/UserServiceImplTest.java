@@ -33,6 +33,7 @@ class UserServiceImplTest {
     public static final long ID_NOT_EXISTING = 988L;
     public static final long ID_ZERO = 0L;
     public static final long ID_NEGATIVE = -1L;
+    public static final UserMapperImpl USER_MAPPER = new UserMapperImpl();
     private static UserService userService;
     private static UserRepository userRepository;
     private static User existing;
@@ -42,7 +43,7 @@ class UserServiceImplTest {
     @BeforeAll
     static void beforeAll() {
         userRepository = Mockito.mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository, new UserMapperImpl());
+        userService = new UserServiceImpl(userRepository, USER_MAPPER);
         existing = new User();
         existing.setId(ID_EXISTING);
         existing.setEmail("test1@mail.ru");
@@ -73,39 +74,6 @@ class UserServiceImplTest {
         userDtoForSave.setPatronymicName("Ivanovich");
         userDtoForSave.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
         userDtoForSave.setSocialMedia("Telegram");
-    }
-
-    @BeforeEach
-    void setUp() {
-        reset(userRepository);
-    }
-
-    @Test
-    void getAllPositiveTest() {
-        List<User> userList = new ArrayList<>();
-        setList(userList);
-        Pageable pageable = PageRequest.ofSize(1);
-        Page<User> userPage = new PageImpl<>(userList);
-        when(userRepository.findAll(pageable)).thenReturn(userPage);
-
-        List<UserDto> listDto = new ArrayList<>();
-        setListDto(listDto);
-        Page<UserDto> incomingUser = new PageImpl<>(listDto);
-        Page<UserDto> fromService = userService.getAll(pageable);
-
-        assertEquals(incomingUser, fromService);
-    }
-
-    @Test
-    void getAllNegativeTest() {
-        List<User> userList = new ArrayList<>();
-        Pageable pageable = PageRequest.ofSize(1);
-        Page<User> userPage = new PageImpl<>(userList);
-        when(userRepository.findAll(pageable)).thenReturn(userPage);
-
-        Page<UserDto> fromService = userService.getAll(pageable);
-
-        assertNotNull(fromService);
     }
 
     private static void setList(List<User> userList) {
@@ -140,6 +108,69 @@ class UserServiceImplTest {
             userDto.setSocialMedia("Instagramm");
             userList.add(userDto);
         }
+    }
+
+    @BeforeEach
+    void setUp() {
+        reset(userRepository);
+    }
+
+    @Test
+    void createPositiveTest() {
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+        UserDto expected = USER_MAPPER.userToUserDto(existing);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+
+        UserDto created = userService.create(userDtoForSave);
+
+        assertEquals(expected, created);
+    }
+
+    @Test
+    void createExistingEmailTest() {
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+        UserDto expected = USER_MAPPER.userToUserDto(existing);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+
+        UserDto created = userService.create(userDtoForSave);
+
+        assertEquals(expected, created);
+    }
+
+    @Test
+    void getAllPositiveTest() {
+        List<User> userList = new ArrayList<>();
+        setList(userList);
+        Pageable pageable = PageRequest.ofSize(1);
+        Page<User> userPage = new PageImpl<>(userList);
+        when(userRepository.findAll(pageable)).thenReturn(userPage);
+
+        List<UserDto> listDto = new ArrayList<>();
+        setListDto(listDto);
+        Page<UserDto> incomingUser = new PageImpl<>(listDto);
+        Page<UserDto> fromService = userService.getAll(pageable);
+
+        assertEquals(incomingUser, fromService);
+    }
+
+    @Test
+    void getAllNegativeTest() {
+        List<User> userList = new ArrayList<>();
+        Pageable pageable = PageRequest.ofSize(1);
+        Page<User> userPage = new PageImpl<>(userList);
+        when(userRepository.findAll(pageable)).thenReturn(userPage);
+
+        Page<UserDto> fromService = userService.getAll(pageable);
+
+        assertNotNull(fromService);
     }
 
     @Test
