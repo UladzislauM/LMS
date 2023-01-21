@@ -13,7 +13,7 @@
 <div class="left-side-area">
     <h1 class="header">Show</h1>
     <h2>Requests</h2>
-    <h3><a th:href="@{/requests/create}" class="button">Create request</a></h3>
+    <h3><a th:href="@{requests/create}" class="button">Create request</a></h3>
 </div>
 <div class="main-area">
     <div>
@@ -49,7 +49,7 @@
         </tr>
     </table>
 
-    <div th:insert="~{/plugins/pagination :: pagination_fr}"
+    <div th:insert="~{plugins/pagination :: pagination_fr}"
          th:with="firstVer=${requests}"></div>
 </div>
 
