@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+<div class="left-side-area">
+    <h1 class="header">Show</h1>
+    <h2>Homeworks</h2>
+    <!--    <h3><a th:href="@{requests/create}" class="button">Create request</a></h3>-->
+</div>
+<div class="main-area">
+    <div>
+        !!!! Pagination
+    </div>
+    <table class="table">
+        <h2>Homeworks list</h2>
+        <tr class="table-header">
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Users</th>
+            <th>Comment</th>
+            <th>File link</th>
+            <th>Mark</th>
+        </tr>
+        <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
+            <td><a th:href="@{/homeworks/__*{id}__}" class="button">E</a></td>
+            <td><a th:href="@{/homeworks/update/__*{id}__}" class="button">\</a></td>
+            <td><a th:href="@{/homeworks/delete/__*{id}__}" class="button">X</a></td>
+            <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">
+                Full name
+            </td>
+            <td th:text="*{comment}">comment</td>
+            <td th:text="*{fileLink}">filelink</td>
+            <td th:text="*{mark}">mark</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
