@@ -177,16 +177,36 @@ class UserServiceImplTest {
 
     @Test
     void createNotValidEmailTest() {
-        UserDtoForSave userDtoForSaveNotValidEmail = new UserDtoForSave();
-        userDtoForSaveNotValidEmail.setEmail("shfjhfdjfh");
-        userDtoForSaveNotValidEmail.setFirstName("IvanTest");
-        userDtoForSaveNotValidEmail.setLastName("TestIvan");
-        userDtoForSaveNotValidEmail.setPassword("12345");
-        userDtoForSaveNotValidEmail.setPatronymicName("Ivanovich");
-        userDtoForSaveNotValidEmail.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-        userDtoForSaveNotValidEmail.setSocialMedia("Telegram");
+        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
+        userDtoForSaveTest.setEmail("shfjhfdjfh");
+        userDtoForSaveTest.setFirstName("IvanTest");
+        userDtoForSaveTest.setLastName("TestIvan");
+        userDtoForSaveTest.setPassword("12345");
+        userDtoForSaveTest.setPatronymicName("Ivanovich");
+        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
+        userDtoForSaveTest.setSocialMedia("Telegram");
 
-        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveNotValidEmail);
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
+
+        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
+    }
+
+    @Test
+    void createWithoutEmailTest() {
+        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
+        userDtoForSaveTest.setEmail("");
+        userDtoForSaveTest.setFirstName("IvanTest");
+        userDtoForSaveTest.setLastName("TestIvan");
+        userDtoForSaveTest.setPassword("12345");
+        userDtoForSaveTest.setPatronymicName("Ivanovich");
+        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
+        userDtoForSaveTest.setSocialMedia("Telegram");
+
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
         toSaveEntity.setRole(User.Role.STUDENT);
         toSaveEntity.setActive(true);
 
