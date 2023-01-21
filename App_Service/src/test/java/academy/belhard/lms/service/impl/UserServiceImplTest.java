@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
@@ -93,6 +94,18 @@ class UserServiceImplTest {
         Page<UserDto> fromService = userService.getAll(pageable);
 
         assertEquals(incomingUser, fromService);
+    }
+
+    @Test
+    void getAllNegativeTest() {
+        List<User> userList = new ArrayList<>();
+        Pageable pageable = PageRequest.ofSize(1);
+        Page<User> userPage = new PageImpl<>(userList);
+        when(userRepository.findAll(pageable)).thenReturn(userPage);
+
+        Page<UserDto> fromService = userService.getAll(pageable);
+
+        assertNotNull(fromService);
     }
 
     private static void setList(List<User> userList) {
