@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,21 +42,26 @@ public class HomeworkWebController {
 
     @PostMapping("/create")
     public String create(Model model, @RequestParam Map<String, Object> params) {
-        return "";
+        return "redirect:/homeworks";
     }
 
-    @GetMapping("/updateForm/{id}")
+    @GetMapping("/update/{id}")
     public String updateForm(Model model, @PathVariable Long id) {
-        return "";
+        HomeworkDto toUpdate = homeworkService.getById(id);
+        model.addAttribute("update", toUpdate);
+        return "update-homework";
     }
 
-    @PostMapping("/update")
-    public String update(@RequestParam Map<String, Object> params) {
-        return "";
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto) {
+        homeworkDto.setId(id);
+        homeworkService.update(homeworkDto);
+        return "redirect:/homeworks";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteById(@PathVariable Long id) {
-        return "";
+    public String delete(@PathVariable(value = "id") Long id) {
+        homeworkService.delete(id);
+        return "redirect:/homeworks";
     }
 }
