@@ -335,6 +335,21 @@ class UserServiceImplTest {
     }
 
     @Test
+    void updateUserWithNotExistingIdTest() {
+        UserDto userDto = new UserDto();
+        userDto.setId(ID_NOT_EXISTING);
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
+
+        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
+        assertThrows(NotFoundException.class, () -> userService.getById(userDto.getId()));
+    }
+
+    @Test
     void deleteUserExistingTest() {
         when(userRepository.findById(ID_EXISTING)).thenReturn(Optional.of(existing));
 
