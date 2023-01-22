@@ -116,20 +116,20 @@ class UserServiceImplTest {
         reset(userRepository);
     }
 
-//    @Test
-//    void createPositiveTest() {
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(true);
-//        UserDto expected = USER_MAPPER.userToUserDto(existing);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
-//        when(userRepository.save(toSaveEntity)).thenReturn(existing);
-//
-//        UserDto created = userService.create(userDtoForSave);
-//
-//        assertEquals(expected, created);
-//    }
+    @Test
+    void createPositiveTest() {
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+        UserDto expected = USER_MAPPER.userToUserDto(existing);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+
+        UserDto created = userService.create(userDtoForSave);
+
+        assertEquals(expected, created);
+    }
 
     @Test
     void createExistingEmailTest() {
@@ -141,109 +141,6 @@ class UserServiceImplTest {
 
         assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
     }
-
-//    @Test
-//    void createRoleManagerTest() {
-//        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
-//        userDtoForSaveTest.setEmail("shfjhfdjfh");
-//        userDtoForSaveTest.setFirstName("IvanTest");
-//        userDtoForSaveTest.setLastName("TestIvan");
-//        userDtoForSaveTest.setPassword("12345");
-//        userDtoForSaveTest.setPatronymicName("Ivanovich");
-//        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-//        userDtoForSaveTest.setSocialMedia("Telegram");
-//
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
-//        toSaveEntity.setRole(User.Role.MANAGER);
-//        toSaveEntity.setActive(true);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
-//        when(userRepository.save(toSaveEntity)).thenReturn(null);
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
-//
-//    @Test
-//    void createRoleTrainerTest() {
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
-//        toSaveEntity.setRole(User.Role.TRAINER);
-//        toSaveEntity.setActive(true);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
-//
-//    @Test
-//    void createActiveFalseTest() {
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(false);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
-//
-//    @Test
-//    void createNotValidEmailTest() {
-//        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
-//        userDtoForSaveTest.setEmail("shfjhfdjfh");
-//        userDtoForSaveTest.setFirstName("IvanTest");
-//        userDtoForSaveTest.setLastName("TestIvan");
-//        userDtoForSaveTest.setPassword("12345");
-//        userDtoForSaveTest.setPatronymicName("Ivanovich");
-//        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-//        userDtoForSaveTest.setSocialMedia("Telegram");
-//
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(true);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
-//
-//    @Test
-//    void createWithoutEmailTest() {
-//        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
-//        userDtoForSaveTest.setEmail("");
-//        userDtoForSaveTest.setFirstName("IvanTest");
-//        userDtoForSaveTest.setLastName("TestIvan");
-//        userDtoForSaveTest.setPassword("12345");
-//        userDtoForSaveTest.setPatronymicName("Ivanovich");
-//        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-//        userDtoForSaveTest.setSocialMedia("Telegram");
-//
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(true);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
-//
-//    @Test
-//    void createWithoutFirstNameTest() {
-//        UserDtoForSave userDtoForSaveTest = new UserDtoForSave();
-//        userDtoForSaveTest.setEmail("test1@mail.com");
-//        userDtoForSaveTest.setFirstName("");
-//        userDtoForSaveTest.setLastName("TestIvan");
-//        userDtoForSaveTest.setPassword("12345");
-//        userDtoForSaveTest.setPatronymicName("Ivanovich");
-//        userDtoForSaveTest.setContactPreferences(ContactPreferencesDto.INSTAGRAM);
-//        userDtoForSaveTest.setSocialMedia("Telegram");
-//
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSaveTest);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(true);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.of(toSaveEntity));
-//
-//        assertThrows(LmsException.class, () -> userService.create(userDtoForSave));
-//    }
 
     @Test
     void getAllPositiveTest() {
@@ -303,21 +200,21 @@ class UserServiceImplTest {
         assertThrows(NotFoundException.class, () -> userService.getById(ID_NEGATIVE));
     }
 
-//    @Test
-//    void updateUserPositiveTest() {
-//        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
-//        toSaveEntity.setRole(User.Role.STUDENT);
-//        toSaveEntity.setActive(true);
-//        UserDto expected = USER_MAPPER.userToUserDto(existing);
-//
-//        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
-//        when(userRepository.findById(ID_EXISTING)).thenReturn(Optional.of(existing));
-//        when(userRepository.save(toSaveEntity)).thenReturn(existing);
-//
-//        UserDto created = userService.create(userDtoForSave);
-//
-//        assertEquals(expected, created);
-//    }
+    @Test
+    void updateUserPositiveTest() {
+        User toSaveEntity = USER_MAPPER.userDtoForSavingToUser(userDtoForSave);
+        toSaveEntity.setRole(User.Role.STUDENT);
+        toSaveEntity.setActive(true);
+        UserDto expected = USER_MAPPER.userToUserDto(existing);
+
+        when(userRepository.findByEmailActive(userDtoForSave.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.findById(ID_EXISTING)).thenReturn(Optional.of(existing));
+        when(userRepository.save(toSaveEntity)).thenReturn(existing);
+
+        UserDto created = userService.create(userDtoForSave);
+
+        assertEquals(expected, created);
+    }
 
     @Test
     void updateUserNegativeTest() {
@@ -393,7 +290,6 @@ class UserServiceImplTest {
         when(userRepository.findById(ID_NOT_EXISTING)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> userService.delete(ID_NOT_EXISTING));
-
     }
 
     @Test
@@ -401,7 +297,6 @@ class UserServiceImplTest {
         when(userRepository.findById(ID_ZERO)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> userService.delete(ID_ZERO));
-
     }
 
     @Test
@@ -409,6 +304,5 @@ class UserServiceImplTest {
         when(userRepository.findById(ID_NEGATIVE)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> userService.delete(ID_NEGATIVE));
-
     }
 }
