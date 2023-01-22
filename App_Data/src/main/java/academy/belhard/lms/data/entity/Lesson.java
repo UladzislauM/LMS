@@ -11,21 +11,21 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "lessons")
 public class Lesson {
     @Id
@@ -56,17 +56,4 @@ public class Lesson {
     @JoinColumn(name = "lesson_id")
     @ToString.Exclude
     private List<Homework> homeworks;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Lesson lesson = (Lesson) o;
-        return id != null && Objects.equals(id, lesson.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
