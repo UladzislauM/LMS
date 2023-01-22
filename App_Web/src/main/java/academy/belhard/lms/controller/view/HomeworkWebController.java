@@ -35,7 +35,8 @@ public class HomeworkWebController {
 
     @GetMapping("/createForm")
     public String createForm() {
-        return "";
+
+        return "create-homework";
     }
 
     @PostMapping("/create")
