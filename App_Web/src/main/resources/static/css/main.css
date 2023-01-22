@@ -24,6 +24,10 @@ body{
   text-align: right;
 }
 
+.main-area {
+  min-width: 800px;
+}
+
 .header {
   color: #00bfff;
   font: italic bold 40px Arial;
