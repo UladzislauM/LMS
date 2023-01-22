@@ -3,25 +3,25 @@
 <div th:fragment="pagination_fr">
 <span th:if="${not firstVer.first AND firstVer.totalPages > 0}">
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page = 0)}"
-       class="button">First </a>
+       class="">First </a>
 </span>
     <span th:if="${not firstVer.first AND firstVer.totalPages > 0}">
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.number - 1})}"
-       class="button"><-- Previous</a>
+       class=""><-- Previous</a>
 </span>
     <span th:if="${firstVer.totalPages > 0}"
-          th:each="pageNumber : ${#numbers.sequence(0, firstVer.getTotalPages - 1, 1)}">
+          th:each="pageNumber : ${#numbers.sequence(0, firstVer.getTotalPages - 1, 1)}" button-active>
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${pageNumber})}"
        th:text="${pageNumber} + 1"
-       th:class="${pageNumber==firstVer.number + 1} ? active" class="button"></a>
+       th:class="${pageNumber==firstVer.number + 1} ? active" class=""></a>
 </span>
     <span th:if="${not firstVer.last AND firstVer.totalPages > 0}">
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.number + 1})}"
-       class="button">Next --></a>
+       class="">Next --></a>
 </span>
     <span th:if="${not firstVer.last AND firstVer.totalPages > 0}">
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.totalPages - 1})}"
-       class="button"> Last</a>
+       class=""> Last</a>
 </span>
 </div>
 </html>
