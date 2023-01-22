@@ -2,6 +2,8 @@ package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Map;
 
 @RequestMapping("/homeworks")
 @RequiredArgsConstructor
@@ -24,14 +23,14 @@ public class HomeworkWebController {
     public String getAll(Model model) {
         List<HomeworkDto> homeworks = homeworkService.getAll();
         model.addAttribute("homeworks", homeworks);
-        return "homework/homeworks-list";
+        return "homeworks";
     }
 
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable Long id) {
         HomeworkDto homework = homeworkService.getById(id);
         model.addAttribute("homework", homework);
-        return "homework/homework";
+        return "homework";
     }
 
     @GetMapping("/createForm")
