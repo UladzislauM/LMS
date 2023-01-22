@@ -46,9 +46,9 @@ public class HomeworkWebController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateForm(Model model, @PathVariable Long id) {
+    public String update(@PathVariable Long id, Model model) {
         HomeworkDto toUpdate = homeworkService.getById(id);
-        model.addAttribute("update", toUpdate);
+        model.addAttribute("homework", toUpdate);
         return "update-homework";
     }
 
