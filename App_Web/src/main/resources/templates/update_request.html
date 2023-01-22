@@ -11,34 +11,42 @@
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
 
 <div class="left-side-area">
-    <h1 class="header">Create</h1>
+    <h1 class="header">Update</h1>
     <h2>Request number: <span th:text="${request.id}"></span></h2>
 </div>
 
 <div class="main-area">
-    <form method="post" th:object="${request}">
-        <ul>
-            <li th:text="*{user.firstName} + ' ' + *{user.lastName}">User</li>
-            <li><input type="text" th:field="*{course.title}" th:placeholder="*{course.title}"
-                       th:value="*{course.title}" class="input">
-                <input type="hidden" th:field="*{course.id}" th:value="*{course.id}" class="input">Title course
-            </li>
-            <li>
-                <select name="status">
+    <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}">
+        <table>
+            <tr>
+                <td>User name</td>
+                <td><input type="text" th:value="*{user.firstName} + ' ' + *{user.lastName}" disabled></td>
+            </tr>
+            <tr>
+                <td>Curse</td>
+                <td><input type="text" th:value=*{course.title} disabled></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><select name="status">
                     <option value="PROCESSING">PROCESSING
                     <option value="APPROVED">APPROVED
                     <option value="PAID">PAID
                     <option value="SATISFIED">SATISFIED
                     <option value="CANCELLED">CANCELLED
                 </select>
-                <p>Active status: <span th:text="*{status}"></span></p>
-            </li>
-        </ul>
-        <input type="submit" name="submit" value="Edit request" class="button"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Active status</td>
+                <td th:text="*{status}"></td>
+            </tr>
+        </table>
+        <input type="submit" name="submit" value="Edit request" class="button-active"/>
     </form>
 </div>
 
-<a href="#" onclick="history.back();return false;" class="button">
+<a href="#" onclick="history.back();return false;" class="button-active">
     <-Back</a>
 
 </body>
