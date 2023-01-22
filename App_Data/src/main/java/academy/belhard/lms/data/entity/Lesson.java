@@ -55,5 +55,6 @@ public class Lesson {
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     @JoinColumn(name = "lesson_id")
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Homework> homeworks;
 }
