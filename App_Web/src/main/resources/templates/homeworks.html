@@ -30,7 +30,11 @@
         <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
             <td><a th:href="@{/homeworks/__*{id}__}" class="button">E</a></td>
             <td><a th:href="@{/homeworks/update/__*{id}__}" class="button">\</a></td>
-            <td><a th:href="@{/homeworks/delete/__*{id}__}" class="button">X</a></td>
+            <td>
+                <a th:href="@{/homeworks/delete/__*{id}__}" class="button">X</a>
+
+            </td>
+
             <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">
                 Full name
             </td>

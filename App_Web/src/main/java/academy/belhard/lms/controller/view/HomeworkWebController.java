@@ -59,7 +59,7 @@ public class HomeworkWebController {
         return "redirect:/homeworks";
     }
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
         homeworkService.delete(id);
         return "redirect:/homeworks";
