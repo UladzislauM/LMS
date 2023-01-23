@@ -10,7 +10,8 @@ import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.LessonMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +25,9 @@ public class LessonServiceImpl implements LessonService {
     private final HomeworkRepository homeworkRepository;
 
     @Override
-    public List<LessonDto> getAll() {
-        return lessonRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
-                .map(lessonMapper::lessonToLessonDto)
-                .toList();
+    public Page<LessonDto> getAll(Pageable pageable) {
+        return lessonRepository.findAll(pageable)
+                .map(lessonMapper::lessonToLessonDto);
     }
 
     @Override

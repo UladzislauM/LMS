@@ -2,15 +2,15 @@ package academy.belhard.lms.service;
 
 import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.course.CourseSimpleDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CourseService {
-    List<CourseSimpleDto> getAll();
+    Page<CourseDto> getAll(Pageable pageable);
 
     CourseDto getById(Long id);
-
-    CourseSimpleDto getSimpleById(Long id);
 
     CourseDto create(CourseDto courseDto);
 

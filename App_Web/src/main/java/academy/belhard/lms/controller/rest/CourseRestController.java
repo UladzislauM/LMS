@@ -2,8 +2,8 @@ package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.dto.course.CourseDto;
-import academy.belhard.lms.service.dto.course.CourseSimpleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +22,13 @@ public class CourseRestController {
     private final CourseService courseService;
 
     @GetMapping
-    public List<CourseSimpleDto> getAll() {
-        return courseService.getAll();
+    public List<CourseDto> getAll(Pageable pageable) {
+        return courseService.getAll(pageable).getContent();
     }
 
     @GetMapping("/{id}")
-    public CourseSimpleDto getById(@PathVariable Long id) {
-        return courseService.getSimpleById(id);
+    public CourseDto getById(@PathVariable Long id) {
+        return courseService.getById(id);
     }
 
     @PostMapping

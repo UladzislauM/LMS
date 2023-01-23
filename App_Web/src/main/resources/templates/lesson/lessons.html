@@ -53,6 +53,9 @@
         </th:block>
         </tbody>
     </table>
+    <div th:insert="~{/plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${courses}">
+    </div>
 </div>
 </body>
 </html>

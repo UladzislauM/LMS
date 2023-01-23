@@ -12,6 +12,8 @@ import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.CourseMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +29,14 @@ public class CourseServiceImp implements CourseService {
     private final HomeworkRepository homeworkRepository;
 
     @Override
-    public List<CourseSimpleDto> getAll() {
-        return courseRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
-                .map(courseMapper::courseToCourseReadDto)
-                .toList();
+    public Page<CourseDto> getAll(Pageable pageable) {
+        return courseRepository.findAll(pageable)
+                .map(courseMapper::courseToCourseDto);
     }
 
     @Override
     public CourseDto getById(Long id) {
         return courseMapper.courseToCourseDto(courseRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
-    }
-
-    @Override
-    public CourseSimpleDto getSimpleById(Long id) {
-        return courseMapper.courseToCourseReadDto(courseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
     }
 

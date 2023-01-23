@@ -4,6 +4,10 @@ import academy.belhard.lms.service.LessonService;
 import academy.belhard.lms.service.dto.course.LessonDto;
 import academy.belhard.lms.service.dto.course.LessonSimpleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +25,10 @@ public class LessonWebController {
     private final LessonService lessonService;
 
     @GetMapping
-    public String getAll(Model model) {
-        List<LessonDto> lessons = lessonService.getAll();
+    public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
+        Page<LessonDto> lessons = lessonService.getAll(pageable);
         model.addAttribute("lessons", lessons);
-        return "lesson/lessons-list";
+        return "lesson/lessons";
     }
 
     @GetMapping("/{id}")
@@ -43,7 +47,7 @@ public class LessonWebController {
 
     @GetMapping("/createForm")
     public String createForm() {
-        return "lesson/create-lesson";
+        return "lesson/create_lesson";
     }
 
     @PostMapping("/create")
@@ -56,7 +60,7 @@ public class LessonWebController {
     public String updateForm(Model model, @PathVariable Long id) {
         LessonDto lessonDto = lessonService.getById(id);
         model.addAttribute("lesson", lessonDto);
-        return "lesson/update-lesson";
+        return "lesson/update_lesson";
     }
 
     @PostMapping("/update/{id}")

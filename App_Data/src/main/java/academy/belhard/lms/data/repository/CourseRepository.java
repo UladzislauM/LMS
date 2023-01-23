@@ -1,6 +1,8 @@
 package academy.belhard.lms.data.repository;
 
 import academy.belhard.lms.data.entity.Course;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,5 +17,5 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     void deleteCourseById(@Param("id") Long id);
 
     @Query("select c from Course c where c.deleted = false")
-    List<Course> findAll(Sort sort);
+    Page<Course> findAll(Pageable pageable);
 }
