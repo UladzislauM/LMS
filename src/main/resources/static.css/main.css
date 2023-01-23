@@ -1,5 +1,5 @@
-body{
-  font-family: Sans-serif, sans-serif;
+body {
+  font-family: cursive;
 }
 
 .menu {
@@ -9,13 +9,12 @@ body{
   justify-content: space-around;
   align-items: center;
   background: #00bfff;
-  margin: 0 0 50px 0;
+  margin: 0px 0px 50px 0px;
 }
 
-.left-side-area{
+.left-side-area {
   width: 20%;
-  min-width: 220px;
-  max-width: 500px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -24,91 +23,85 @@ body{
   text-align: right;
 }
 
-.main-area {
-
-}
-
 .header {
   color: #00bfff;
   font: italic bold 40px Arial;
-  margin: 15px 0 15px 0;
-}
+  margin: 15px 0px 15px 0px;
+  }
 
 .subheader {
   color: black;
-  font: italic bold 25px Arial;
-  margin: 15px 0 15px 0;
+  font: italic bold 25px  Arial;
+  margin: 15px 0px 15px 0px;
 }
 
 li {
 list-style-type: none;
 }
 
-.table{
+.table {
   border-collapse:collapse;
 }
 
-td, th{
+td, th {
   padding: 5px;
-  border-left: grey 2px solid;
+*/border-left: grey 2px solid;
 }
 
-.table-header{
+.table-header {
   background: #00bfff;
   border: grey 2px solid;
   font: bold 15px  Arial;
 }
 
-.table-data{
+.table-data {
   border: grey 2px solid;
   font: 12px  Arial;
 }
 
-.button{
+.button {
   color: black;
   border-radius: 5px;
 }
 
-
 .button-active {
-  border: 1px solid #ccc;
-  background: #eaeaea;
+  border:1px solid #ccc;
+  background:#eaeaea;
   padding: 10px 20px;
   text-decoration: none;
   color: black;
   border-radius: 5px;
-  font: 15px Arial;
-  margin: 20px 0 20px 0;
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
 }
-
 
 .button-readonly {
   border-radius: 5px;
-  font: 15px Arial;
-  margin: 20px 0 20px 0;
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
 }
 
 input {
-  font: 15px Arial;
-  margin: 20px 0 20px 0;
+  font: 15px  Arial;
+  margin: 20px 0px 20px 0px;
 }
 
-input:focus{
+input:focus {
   color: #00bfff;
 }
 
-input:disabled{
+input:disabled {
 }
 
-.text{
+.text {
   font: italic 15px  Arial;
 }
 
-.subscript{
+.subscript {
   font-size: smaller;
 }
 
-#popup{
+#popup {
   width: 200px;
   font: 13px  Arial;
   padding: 15px;
@@ -120,4 +113,12 @@ input:disabled{
 
 #popup:target {
   display: block;
+}
+
+i.fa-solid.fa-graduation-cap {
+color: #0000FF
+}
+
+i.fa-regular.fa-trash-can {
+color: #FF0000
 }

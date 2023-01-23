@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>create homework page</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav th:replace="~{/plugins/menu :: menu}"></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Create homework</h1>
+    <h1 class="subheader">Enter new data</h1>
+
+</div>
+
+<div>
+    <form action="/homeworks/create" method="post">
+        <p><label for="filelink">Add your homework file here:</label><br></p>
+        <p><input id="filelink" type="file" name="fileLink"><br></p>
+
+        <textarea placeholder="Write some comment..." name="comment" cols="60" rows="5"></textarea>
+
+        <input type="hidden" name="student"><br>
+        <p><input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

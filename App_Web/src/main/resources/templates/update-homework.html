@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update homework page</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<nav th:replace="~{plugins/menu :: menu}"></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Update homework</h1>
+    <h1 class="subheader">Changing homework information</h1>
+    <h3><a href="#" onclick="history.back();return false;" class="history-back">
+        <-Back</a></h3>
+
+</div>
+
+<div class="main-area">
+    <form th:action="'/homeworks/update/' + ${homework.id}" method="post">
+        <table>
+            <tr>
+                <td class="text" align="right" wight="20%">Full name</td>
+                <td><input type="text" th:value="${homework.student.firstName} + ' '
+                + ${homework.student.lastName} + ' '
+                + ${homework.student.patronymicName} "></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Comment</td>
+                <td><input type="text" th:value=${homework.comment} name="comment"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">File link</td>
+                <td><input type="text" th:value=${homework.fileLink} name="fileLink"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Mark</td>
+                <td><input type="text" th:value=${homework.mark} name="mark"></td>
+            </tr>
+        </table>
+        <button type="submit" class="button-active">Save</button>
+    </form>
+</div>
+
+</body>
+</html>

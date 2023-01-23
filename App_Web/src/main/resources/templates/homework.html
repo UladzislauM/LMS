@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+<div class="left-side-area">
+    <h1 class="header">Show</h1>
+    <h2>Homework</h2>
+    <h3><a href="#" onclick="history.back();return false;" class="history-back">
+        <-Back</a></h3>
+</div>
+<div class="main-area">
+    <h4>Full student name</h4>
+    <p th:text="${homework.student.firstName} + ' ' + ${homework.student.lastName} + ' ' + ${homework.student.patronymicName} ">
+        Full name</p>
+    <h4>Comment</h4>
+    <p th:text="${homework.comment}">Comment</p>
+    <h4>Filelink (temp info)</h4>
+    <p th:text="${homework.fileLink}">File link</p>
+    <h4>Homework mark</h4>
+    <p th:text="${homework.mark}">Mark</p>
+</div>
+</body>
+</html>
