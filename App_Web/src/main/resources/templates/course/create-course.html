@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{/plugins/menu :: menu}" ></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Create Course</h1>
+    <h1 class="subheader">Complete your course</h1>
+
+</div>
+<div>
+    <form action="/courses/create" method="post">
+        <table>
+            <tr>
+                <td class="text" align="right" wight="20%">Title</td>
+                <td><input type="text" placeholder="Enter title" name="title"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Description</td>
+                <td><input type="text" placeholder="Enter description" name="description"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Start date</td>
+                <td><input type="text" placeholder="Enter start date" name="startDate"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Price</td>
+                <td><input type="text" placeholder="Enter price" name="price"></td>
+            </tr>
+        </table>
+        <button type="submit" class="button-active">Create</button>
+    </form>
+</div>
+</body>
+</html>
