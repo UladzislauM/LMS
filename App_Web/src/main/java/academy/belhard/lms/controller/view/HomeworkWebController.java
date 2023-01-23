@@ -1,9 +1,9 @@
 package academy.belhard.lms.controller.view;
 
+import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.HomeworkService;
+import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
-import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @RequestMapping("/homeworks")
 @RequiredArgsConstructor
 @Controller
 public class HomeworkWebController {
     private final HomeworkService homeworkService;
+    private final FileLinkService fileLinkService;
 
     @GetMapping
     public String getAll(Model model) {
@@ -34,15 +36,17 @@ public class HomeworkWebController {
         return "homework";
     }
 
-    @GetMapping("/createForm")
+    @GetMapping("/create")
     public String createForm() {
-
         return "create-homework";
     }
 
     @PostMapping("/create")
-    public String create(Model model, @RequestParam Map<String, Object> params) {
-        return "redirect:/homeworks";
+    public String create(@ModelAttribute HomeworkDto homeworkDto) {
+        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
+        homeworkDto.setFileLink(fileLinkDto);
+        HomeworkDto created = homeworkService.create(homeworkDto);
+        return "redirect:/homeworks/" + created.getId();
     }
 
     @GetMapping("/update/{id}")
