@@ -28,13 +28,6 @@ public class CourseWebController {
         return "course/courses";
     }
 
-    @GetMapping("/read/{id}")
-    public String getSimpleById(Model model, @PathVariable Long id) {
-        CourseDto course = courseService.getById(id);
-        model.addAttribute("course", course);
-        return "course/course";
-    }
-
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable Long id) {
         CourseDto course = courseService.getById(id);
