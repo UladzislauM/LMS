@@ -8,25 +8,34 @@
 </head>
 <body>
 
-<nav th:replace="~{/plugins/menu :: menu}"></nav>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
 
 <div class="left-side-area">
     <h1 class="header">Create homework</h1>
     <h1 class="subheader">Enter new data</h1>
+    <h3><a href="#" onclick="history.back();return false;" class="history-back">
+        <-Back</a></h3>
 
 </div>
 
-<div>
+<div class="main-area">
     <form action="/homeworks/create" method="post">
-        <p><label for="filelink">Add your homework file here:</label><br></p>
-        <p><input id="filelink" type="file" name="fileLink"><br></p>
-
-        <textarea placeholder="Write some comment..." name="comment" cols="60" rows="5"></textarea>
-
-        <input type="hidden" name="student"><br>
-        <p><input type="submit" value="Submit">
-            <input type="reset" value="Reset">
-        </p>
+        <table>
+            <tr>
+                <td class="text" type="text">Student id</td>
+                <td><input type="text" name="student.id" th:value="${2}"></td>
+            </tr>
+            <tr>
+                <td class="text">Comment</td>
+                <td><input type="text" name="comment"></td>
+            </tr>
+            <tr>
+                <td class="text">File link</td>
+                <td><input type="text" name="fileLink.link"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
     </form>
 </div>
 
