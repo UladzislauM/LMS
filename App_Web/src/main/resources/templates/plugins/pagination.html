@@ -23,5 +23,6 @@
     <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.totalPages - 1})}"
        class=""> Last</a>
 </span>
+    <span th:text="'This page = ' + ${firstVer.number + 1}">This now</span>
 </div>
 </html>
