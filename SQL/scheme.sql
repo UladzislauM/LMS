@@ -1,10 +1,10 @@
- /*
- DROP TABLE IF EXISTS requests;
- DROP TABLE IF EXISTS homeworks;
- DROP TABLE IF EXISTS file_links;
- DROP TABLE IF EXISTS lessons;
- DROP TABLE IF EXISTS courses;
- DROP TABLE IF EXISTS users;
+/*
+DROP TABLE IF EXISTS requests;
+DROP TABLE IF EXISTS homeworks;
+DROP TABLE IF EXISTS file_links;
+DROP TABLE IF EXISTS lessons;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS users;
 */
 CREATE TABLE IF NOT EXISTS users
 (
@@ -20,53 +20,58 @@ CREATE TABLE IF NOT EXISTS users
     is_active           BOOLEAN                NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE IF NOT EXISTS file_links(
-    id              BIGSERIAL NOT NULL,
-    link            VARCHAR (2048),
+CREATE TABLE IF NOT EXISTS file_links
+(
+    id   BIGSERIAL NOT NULL,
+    link VARCHAR(2048),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS courses(
-    id              BIGSERIAL NOT NULL,
-    title			VARCHAR (100) NOT NULL,
-    description		VARCHAR (300),
-    price			DECIMAL (10,2) NOT NULL,
-    trainer_id      BIGINT,
-    start_date		DATE,
-    deleted         BOOLEAN DEFAULT false NOT NULL,
+CREATE TABLE IF NOT EXISTS courses
+(
+    id          BIGSERIAL             NOT NULL,
+    title       VARCHAR(100)          NOT NULL,
+    description VARCHAR(300),
+    price       DECIMAL(10, 2)        NOT NULL,
+    trainer_id  BIGINT,
+    start_date  DATE,
+    deleted     BOOLEAN DEFAULT false NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (trainer_id) REFERENCES users(id)
+    FOREIGN KEY (trainer_id) REFERENCES users (id)
 );
 
-CREATE TABLE IF NOT EXISTS lessons(
-    id              BIGSERIAL NOT NULL,
-    course_id       BIGINT,
-    title			VARCHAR (100) NOT NULL,
-    start_time	    TIMESTAMP,
-    description		VARCHAR (300),
-    content         VARCHAR (200),
-    home_task       VARCHAR (500),
-    deleted         BOOLEAN DEFAULT false NOT NULL,
+CREATE TABLE IF NOT EXISTS lessons
+(
+    id          BIGSERIAL             NOT NULL,
+    course_id   BIGINT,
+    title       VARCHAR(100)          NOT NULL,
+    start_time  TIMESTAMP,
+    description VARCHAR(300),
+    content     VARCHAR(200),
+    home_task   VARCHAR(500),
+    deleted     BOOLEAN DEFAULT false NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses (id)
 );
 
-CREATE TABLE IF NOT EXISTS homeworks(
-    id              BIGSERIAL NOT NULL,
-    student_id      BIGINT,
-    lesson_id       BIGINT,
-    comment  	    VARCHAR (300),
-    mark            SMALLINT,
-    filelink_id     BIGINT,
+CREATE TABLE IF NOT EXISTS homeworks
+(
+    id          BIGSERIAL NOT NULL,
+    student_id  BIGINT,
+    lesson_id   BIGINT,
+    comment     VARCHAR(300),
+    mark        SMALLINT,
+    filelink_id BIGINT,
     PRIMARY KEY (id),
-    FOREIGN KEY (student_id) REFERENCES users(id),
-    FOREIGN KEY (lesson_id) REFERENCES lessons(id),
-    FOREIGN KEY (filelink_id) REFERENCES file_links(id)
+    FOREIGN KEY (student_id) REFERENCES users (id),
+    FOREIGN KEY (lesson_id) REFERENCES lessons (id),
+    FOREIGN KEY (filelink_id) REFERENCES file_links (id)
 );
 
-CREATE TABLE IF NOT EXISTS requests(
-    id                  BIGSERIAL PRIMARY KEY NOT NULL,
-    course_id			BIGINT REFERENCES courses(id),
-    user_id			    BIGINT REFERENCES users(id),
-    status				CHARACTER VARYING (60)
- );
+CREATE TABLE IF NOT EXISTS requests
+(
+    id        BIGSERIAL PRIMARY KEY NOT NULL,
+    course_id BIGINT REFERENCES courses (id),
+    user_id   BIGINT REFERENCES users (id),
+    status    CHARACTER VARYING(60)
+);
