@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,8 @@ import java.util.List;
 @RequestMapping("/requests")
 @RequiredArgsConstructor
 public class RequestControllerWeb {
+    public static final int SIZE_PAGE = 10;
+    public static final String SORT_PAGE = "id";
     private final RequestService requestService;
     private final UserService userService;
     private final CourseService courseService;
@@ -46,7 +49,7 @@ public class RequestControllerWeb {
     }
 
     @GetMapping
-    public String getAll(Model model,@PageableDefault (size = 10) Pageable pageable) {
+    public String getAll(Model model,@PageableDefault (size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
         Page<RequestDto> requests = requestService.getAll(pageable);
         model.addAttribute("requests", requests);
         return "request/requests";
