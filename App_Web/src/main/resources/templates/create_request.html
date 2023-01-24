@@ -17,49 +17,31 @@
 
 <div class="main-area">
     <form action="/requests/create" method="post">
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td>User name</td>-->
-<!--                <td>-->
-<!--                    <select th:name="user.id">-->
-<!--                        <option th:each="user : ${users}" th:object="${user}" th:value="*{id}"-->
-<!--                                th:text="*{firstName} + ' ' + *{lastName}">USER-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Curse</td>-->
-<!--                <td>-->
-<!--                    <select th:name="course.id">-->
-<!--                        <option th:each="course : ${courses}" th:object="${course}" th:value="*{id}" th:text=*{title}>-->
-<!--                            COURSE-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Status</td>-->
-<!--                <td>PROCESSING</td>-->
-<!--        </table>-->
-        <input type="text" name="user.id" placeholder="Enter user id" class="input">
-        <input type="text" name="course.id" placeholder="Enter course id" class="input">
+        <table>
+            <tr>
+                <td>User name</td>
+                <td>
+                    <select th:name="user.id">
+                        <option th:each="user : ${users}" th:object="${user}" th:value="*{id}"
+                                th:text="*{firstName} + ' ' + *{lastName}">USER
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Curse</td>
+                <td>
+                    <select th:name="course.id">
+                        <option th:each="course : ${courses}" th:object="${course}" th:value="*{id}" th:text=*{title}>
+                            COURSE
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>PROCESSING</td>
+        </table>
         <button type="submit" class="button-active">Create request</button>
     </form>
 </div>
 </body>
 </html>
-
-<!--<div class="main-area">-->
-<!--    <form method="post">-->
-<!--        <ul>-->
-<!--            <li>-->
-<!--                <input type="text" name="user.id" placeholder="Enter user id" class="input">-->
-<!--            </li>-->
-<!--            <li><input type="text" name="course.id" placeholder="Enter course id" class="input">-->
-<!--            </li>-->
-<!--            <li>PROCESSING</li>-->
-<!--        </ul>-->
-<!--        <input type="submit" name="submit" value="Edit request" class="button-active"/>-->
-<!--    </form>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->

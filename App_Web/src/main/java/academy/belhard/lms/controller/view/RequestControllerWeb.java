@@ -1,12 +1,17 @@
 package academy.belhard.lms.controller.view;
 
+import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.RequestService;
+import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
+import academy.belhard.lms.service.dto.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,25 +20,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/requests")
 @RequiredArgsConstructor
 public class RequestControllerWeb {
     private final RequestService requestService;
+    private final UserService userService;
+    private final CourseService courseService;
 
     @GetMapping("/create")
-    public String createForm() {
+    public String createForm(Model model) {
+        Page<UserDto> users = userService.getAll(Pageable.unpaged());
+        model.addAttribute("users", users);
+        Page<CourseDto> courses = courseService.getAll(Pageable.unpaged());
+        model.addAttribute("courses", courses);
         return "create_request";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute RequestDtoForSave request) {
+    public String create(@ModelAttribute("request") RequestDtoForSave request) {
         RequestDto created = requestService.create(request);
         return "redirect:/requests/" + created.getId();
     }
 
     @GetMapping
-    public String getAll(Model model, Pageable pageable) {
+    public String getAll(Model model,@PageableDefault (size = 10) Pageable pageable) {
         Page<RequestDto> requests = requestService.getAll(pageable);
         model.addAttribute("requests", requests);
         return "requests";
