@@ -1,13 +1,15 @@
 <nav th:fragment="menu" class="menu">
-    <img src="logo.jpg" alt="logo" style="width:50px">
-    <p><a class="text" href="/">Home</a></p>
-    <p><a class="text" href="/users">Users</a></p>
-    <p><a class="text" href="/courses">Courses</a></p>
-    <p><a class="text" href="/requests">Requests</a></p>
-    <p><a class="text" href="/homeworks">Homeworks</a></p>
-
-    <p class="text" style="width:50%"></p>
-        <a href="/login">Sign in | </a>
-        <a href="/auth/registration">Sign up | </a>
-        <a href="/logout">Logout</a>
+    <nav class="menu-left">
+        <img src="logo.jpg" alt="logo" style="width:50px">
+        <p><a class="text" href="/">Home</a></p>
+        <p sec:authorize="hasRole('MANAGER')"><a class="text" href="/users">Users</a></p>
+        <p><a class="text" href="/courses">Courses</a></p>
+        <p sec:authorize="hasAnyRole('USER', 'TRAINER')"><a class="text" href="/courses">My courses</a></p>
+        <p sec:authorize="hasAnyRole('USER', 'MANAGER')"><a class="text" href="/requests">Requests</a></p>
+    </nav>
+    <nav class="menu-right">
+        <p sec:authorize="isAnonymous()"><a class="text" href="/login">Sign In</a></p>
+        <p sec:authorize="isAnonymous()"><a class="text" href="/auth/registration">Sign Up</a></p>
+        <p sec:authorize="isAuthenticated()"><a class="text" href="/logout">Log Out</a></p>
+    </nav>
 </nav>
