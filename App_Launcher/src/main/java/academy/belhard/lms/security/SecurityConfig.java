@@ -40,16 +40,6 @@ public class SecurityConfig {
                 .build();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-//        UserDetails manager = User.withUsername("pavel@mail.ru")
-//                .password(passwordEncoder.encode("pavel"))
-//                .roles("MANAGER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(manager);
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
