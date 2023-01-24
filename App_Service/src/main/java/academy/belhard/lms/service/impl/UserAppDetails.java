@@ -1,10 +1,12 @@
-package academy.belhard.lms.security;
+package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 @RequiredArgsConstructor
@@ -13,7 +15,7 @@ public class UserAppDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Arrays.stream(user.getRole().toString().split(",")).map(SimpleGrantedAuthority::new).toList();
     }
 
     @Override

@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +41,12 @@ class UserServiceImplTest {
     private static User existing;
     private static UserDto existingDto;
     private static UserDtoForSave userDtoForSave;
+    private static PasswordEncoder passwordEncoder;
 
     @BeforeAll
     static void beforeAll() {
         userRepository = Mockito.mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository, USER_MAPPER);
+        userService = new UserServiceImpl(userRepository, USER_MAPPER, passwordEncoder);
         existing = new User();
         existing.setId(ID_EXISTING);
         existing.setEmail("test1@mail.ru");

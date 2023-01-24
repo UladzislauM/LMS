@@ -12,6 +12,9 @@ import academy.belhard.lms.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USER_NOT_FOUND_MSG = "User not found";
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -89,5 +92,11 @@ public class UserServiceImpl implements UserService {
         entity.setActive(true);
         User created = userRepository.save(entity);
         return userMapper.userToUserDto(created);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return new UserAppDetails(userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG)));
     }
 }
