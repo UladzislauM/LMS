@@ -3,7 +3,7 @@ package academy.belhard.lms.service.mapper;
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.entity.User;
-import academy.belhard.lms.service.dto.request.CourseDto;
+import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;

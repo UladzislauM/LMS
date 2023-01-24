@@ -7,7 +7,7 @@ import academy.belhard.lms.data.repository.CourseRepository;
 import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.data.repository.UserRepository;
 import academy.belhard.lms.service.RequestService;
-import academy.belhard.lms.service.dto.request.CourseDto;
+import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
