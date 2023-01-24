@@ -36,7 +36,7 @@ public class RequestControllerWeb {
         model.addAttribute("users", users);
         Page<CourseDto> courses = courseService.getAll(Pageable.unpaged());
         model.addAttribute("courses", courses);
-        return "create_request";
+        return "request/create_request";
     }
 
     @PostMapping("/create")
@@ -49,21 +49,21 @@ public class RequestControllerWeb {
     public String getAll(Model model,@PageableDefault (size = 10) Pageable pageable) {
         Page<RequestDto> requests = requestService.getAll(pageable);
         model.addAttribute("requests", requests);
-        return "requests";
+        return "request/requests";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable Long id, Model model) {
         RequestDto request = requestService.getById(id);
         model.addAttribute("request", request);
-        return "request";
+        return "request/request";
     }
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         RequestDto toUpdate = requestService.getById(id);
         model.addAttribute("request", toUpdate);
-        return "update_request";
+        return "request/update_request";
     }
 
     @PostMapping("/update/{id}")

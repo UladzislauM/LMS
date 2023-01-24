@@ -25,6 +25,7 @@
             <option th:text="7"></option>
             <option th:text="15"></option>
         </select>
+
     </div>
 
     <table class="table">
@@ -49,7 +50,8 @@
     </table>
 
     <div th:insert="~{plugins/pagination :: pagination_fr}"
-         th:with="firstVer=${requests}"></div>
+         th:with="firstVer=${requests}">
+    </div>
 </div>
 
 </body>
