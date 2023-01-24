@@ -16,4 +16,5 @@ public interface UserService {
     UserDto update(UserDtoForUpdate dto);
 
     void delete(Long id);
-}
+
+    UserDto registration(UserDtoForSave dto);}

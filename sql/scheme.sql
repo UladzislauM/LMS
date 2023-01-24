@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users
 (
     id                  BIGSERIAL PRIMARY KEY  NOT NULL,
     email               CHARACTER VARYING(100) NOT NULL,
-    password            CHARACTER VARYING(50)  NOT NULL,
+    password            CHARACTER VARYING(150)  NOT NULL,
     first_name          CHARACTER VARYING(100) NOT NULL,
     last_name           CHARACTER VARYING(100) NOT NULL,
     patronymic_name     CHARACTER VARYING(100),

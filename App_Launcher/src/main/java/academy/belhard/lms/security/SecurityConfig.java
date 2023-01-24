@@ -1,6 +1,5 @@
-package academy.belhard.lms.service.security;
+package academy.belhard.lms.security;
 
-import academy.belhard.lms.service.UserAppDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,27 +17,31 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final UserAppDetailsService userAppDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        return http.csrf().disable()
                 .authorizeHttpRequests()
+//                .requestMatchers("/courses", "/auth/registration", "/auth/login", "/css/**").permitAll()
                 .requestMatchers("/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
-
-        return http.build();
+                .formLogin()
+                .defaultSuccessUrl("/", true).permitAll()
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .and()
+                .build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails manager = User.withUsername("Pavel@mail.ru")
-                .password(encoder.encode("pavel"))
+    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+        UserDetails manager = User.withUsername("pavel@mail.ru")
+                .password(passwordEncoder.encode("pavel"))
                 .roles("MANAGER")
                 .build();
+
         return new InMemoryUserDetailsManager(manager);
     }
 

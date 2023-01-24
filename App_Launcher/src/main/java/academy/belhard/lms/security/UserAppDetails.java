@@ -1,4 +1,4 @@
-package academy.belhard.lms.service.security;
+package academy.belhard.lms.security;
 
 import academy.belhard.lms.data.entity.User;
 import lombok.RequiredArgsConstructor;

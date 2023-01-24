@@ -2,7 +2,6 @@ package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.HomeworkService;
-import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -43,8 +42,6 @@ public class HomeworkWebController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute HomeworkDto homeworkDto) {
-        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
-        homeworkDto.setFileLink(fileLinkDto);
         HomeworkDto created = homeworkService.create(homeworkDto);
         return "redirect:/homeworks/" + created.getId();
     }

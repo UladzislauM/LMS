@@ -12,6 +12,7 @@ import academy.belhard.lms.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private static final String USER_NOT_FOUND_MSG = "User not found";
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto create(UserDtoForSave dto) {
@@ -72,5 +74,20 @@ public class UserServiceImpl implements UserService {
         }
         user.setActive(false);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDto registration(UserDtoForSave dto) {
+        Optional<User> existing = userRepository.findByEmail(dto.getEmail());
+        if (existing.isPresent()) {
+            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+        }
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        User entity = userMapper.userDtoForSavingToUser(dto);
+        entity.setPassword(encodedPassword);
+        entity.setRole(User.Role.STUDENT);
+        entity.setActive(true);
+        User created = userRepository.save(entity);
+        return userMapper.userToUserDto(created);
     }
 }

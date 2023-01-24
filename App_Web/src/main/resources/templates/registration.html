@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+    <title>Registration</title>
+</head>
+<body>
+
+<nav th:replace="~{plugins/menu :: menu}" ></nav>
+
+<div class="left-side-area">
+    <h1 class="header">Create user</h1>
+    <h1 class="subheader">Complete your user profile</h1>
+
+</div>
+
+<div>
+    <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+        <table>
+            <tr>
+                <td class="text" align="right" wight="20%">Email</td>
+                <td><input type="text" placeholder="Enter email" name="email"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Password</td>
+                <td><input type="text" placeholder="Enter password" name="password"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">First name</td>
+                <td><input type="text" placeholder="Enter first name" name="firstName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Last name</td>
+                <td><input type="text" placeholder="Enter last name" name="lastName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Patronymic name</td>
+                <td><input type="text" placeholder="Enter patronymic name" name="patronymicName"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Contact preferences</td>
+                <td><input type="text" placeholder="Enter contact preferences" name="contactPreferences"></td>
+            </tr>
+            <tr>
+                <td class="text" align="right">Social media</td>
+                <td><input type="text" placeholder="Enter social media" name="socialMedia"></td>
+            </tr>
+
+        </table>
+        <div>
+            <input type="checkbox" id="confirm" name="confirm" required>
+            <label for="confirm">Confirmation of the processing of your personal data</label>
+        </div>
+        <button type="submit" class="button-active">Sign up</button>
+    </form>
+</div>
+
+</body>
+</html>
