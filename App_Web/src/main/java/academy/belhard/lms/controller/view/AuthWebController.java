@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthWebController {
     private final UserService userService;
 
     @GetMapping("/login")
@@ -28,6 +28,6 @@ public class AuthController {
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute("user") UserDtoForSave user) {
         userService.registration(user);
-        return "redirect:/login";
+        return "redirect:/auth/login";
     }
 }

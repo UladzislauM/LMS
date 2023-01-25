@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class UserControllerWeb {
+public class UserWebController {
     private final UserService userService;
 
     @GetMapping("/create")
