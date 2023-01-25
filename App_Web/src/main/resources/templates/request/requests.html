@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Requests</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
 
@@ -39,8 +40,16 @@
             <th>Actions</th>
         </tr>
         <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
-            <td><a th:href="@{/requests/__*{id}__}" class="button">E</a></td>
-            <td><a th:href="@{/requests/update/__*{id}__}" class="button">/</a></td>
+            <td>
+                <a th:href="@{/requests/__*{id}__}" class="button">
+                    <i class="fa-solid fa-eye" title="View"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/requests/update/__*{id}__}" class="button">
+                    <i class="fa-solid fa-file-pen" title="Edit"></i>
+                </a>
+            </td>
             <td></td>
             <td><a th:href="@{/users/__*{id}__}" th:text="*{user.firstName} + ' ' + *{user.lastName}">User</a></td>
             <td><a th:href="@{/courses/__*{id}__}" th:text="*{course.title}">Course title</a></td>

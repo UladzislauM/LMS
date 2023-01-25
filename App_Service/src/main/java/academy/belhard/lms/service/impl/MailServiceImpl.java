@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
     @Override
-    public void sandEmail(String to, String subject, String text) {
+    public void sendEmail(String to, String subject, String text) {
 
     }
 }

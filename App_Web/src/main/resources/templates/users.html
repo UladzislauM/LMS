@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Users</title>
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
 
@@ -47,9 +48,21 @@
         <tbody>
         <div th:each="el: ${users}">
             <tr class="table-data">
-                <td><a th:href="'/users/' + ${el.id}">E</a></td>
-                <td><a th:href="'/users/update/' + ${el.id}">\</a></td>
-                <td><a th:href="'/users/delete/' + ${el.id}">X</a></td>
+                <td>
+                    <a th:href="'/users/' + ${el.id}">
+                        <i class="fa-solid fa-eye" title="View"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/users/update/' + ${el.id}">
+                        <i class="fa-solid fa-file-pen" title="Edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/users/delete/' + ${el.id}">
+                        <i class="fa-solid fa-trash-can" title="Delete"></i>
+                    </a>
+                </td>
                 <td><p th:text="${el.email}"></p></td>
                 <td><p th:text="${el.firstName}"></p></td>
                 <td><p th:text="${el.lastName}"></p></td>

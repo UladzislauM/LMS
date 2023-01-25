@@ -34,19 +34,22 @@
                 <tr>
                     <td>
                         <a th:href="'/courses/' + ${course.id}">
-                            <i class="fa-solid fa-eye"></i></a>
+                            <i class="fa-solid fa-eye" title="View"></i>
+                        </a>
                     </td>
                     <td>
                         <a th:href="'/courses/updateForm/' + ${course.id}">
-                            <i class="fa-solid fa-file-pen"></i>
+                            <i class="fa-solid fa-file-pen" title="Edit"></i>
                         </a>
                     </td>
                     <td>
                         <a th:href="'/courses/delete/' + ${course.id}">
-                            <i class="fa-solid fa-trash-can"></i>
+                            <i class="fa-solid fa-trash-can" title="Delete"></i>
                         </a>
                     </td>
-                    <td th:text="${course.title}"></td>
+                    <td>
+                       <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
+                    </td>
                     <td th:text="${course.price}"></td>
                     <td th:text="${course.startDate}"></td>
                     <td th:text="${course.description}"></td>
