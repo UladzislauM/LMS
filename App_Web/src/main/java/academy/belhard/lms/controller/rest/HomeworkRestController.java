@@ -2,8 +2,9 @@ package academy.belhard.lms.controller.rest;
 
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,8 @@ public class HomeworkRestController {
     private final HomeworkService homeworkService;
 
     @GetMapping
-    public List<HomeworkDto> getAll() {
-        return homeworkService.getAll();
+    public Page<HomeworkDto> getAll(Pageable pageable) {
+        return homeworkService.getAll(pageable);
     }
 
     @GetMapping("/{id}")

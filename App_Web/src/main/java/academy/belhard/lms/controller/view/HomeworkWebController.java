@@ -4,6 +4,10 @@ import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @RequestMapping("/homeworks")
 @RequiredArgsConstructor
@@ -22,8 +24,8 @@ public class HomeworkWebController {
     private final FileLinkService fileLinkService;
 
     @GetMapping
-    public String getAll(Model model) {
-        List<HomeworkDto> homeworks = homeworkService.getAll();
+    public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
+        Page<HomeworkDto> homeworks = homeworkService.getAll(pageable);
         model.addAttribute("homeworks", homeworks);
         return "homeworks";
     }

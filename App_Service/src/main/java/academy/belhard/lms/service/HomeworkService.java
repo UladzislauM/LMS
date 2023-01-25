@@ -1,11 +1,11 @@
 package academy.belhard.lms.service;
 
 import academy.belhard.lms.service.dto.course.HomeworkDto;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface HomeworkService {
-    List<HomeworkDto> getAll();
+    Page<HomeworkDto> getAll(Pageable pageable);
 
     HomeworkDto getById(Long id);
 

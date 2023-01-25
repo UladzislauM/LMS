@@ -1,15 +1,15 @@
 package academy.belhard.lms.service.impl;
 
+import academy.belhard.lms.data.entity.Homework;
 import academy.belhard.lms.data.repository.HomeworkRepository;
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.HomeworkMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -19,10 +19,9 @@ public class HomeworkServiceImpl implements HomeworkService {
     private final HomeworkMapper homeworkMapper;
 
     @Override
-    public List<HomeworkDto> getAll() {
-        return homeworkRepository.findAll(Sort.by(Sort.Direction.ASC, "id")).stream().
-                map(homeworkMapper::homeworkToHomeworkDto)
-                .toList();
+    public Page<HomeworkDto> getAll(Pageable pageable) {
+        Page<Homework> homeworks = homeworkRepository.findAll(pageable);
+        return homeworks.map(homeworkMapper::homeworkToHomeworkDto);
     }
 
     @Override

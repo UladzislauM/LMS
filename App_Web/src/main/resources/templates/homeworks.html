@@ -15,7 +15,14 @@
 </div>
 <div class="main-area">
     <div>
-        !!!! Pagination
+        <span>Size requests on page</span>
+        <select th:onchange="'window.location.href = \'' + @{/homeworks?sort=id,asc} + '&size=\' + this.value'">
+            <option th:text="@{Now: __${homeworks.getSize}__}"></option>
+            <option th:text="3"></option>
+            <option th:text="5"></option>
+            <option th:text="7"></option>
+            <option th:text="15"></option>
+        </select>
     </div>
     <table class="table">
         <h2>Homeworks list</h2>
@@ -53,6 +60,8 @@
             <td th:text="*{mark}">mark</td>
         </tr>
     </table>
+    <div th:insert="~{plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${homeworks}"></div>
 </div>
 </body>
 </html>
