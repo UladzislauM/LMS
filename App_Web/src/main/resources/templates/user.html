@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -8,53 +8,54 @@
 </head>
 <body>
 
-<nav th:replace="~{plugins/menu :: menu}" ></nav>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
 
-<div class="left-side-area">
-    <h1 class="header">User</h1>
-    <h1 class="subheader">Information about the user</h1>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">User</h1>
+        <h1 class="subheader">Information<br> about the user</h1>
 
-    <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
+        <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
 
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <td class="text-left-column">Email</td>
+                <td><input type="text" th:value=${user.email} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">First name</td>
+                <td><input type="text" th:value=${user.firstName} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Last name</td>
+                <td><input type="text" th:value=${user.lastName} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Patronymic name</td>
+                <td><input type="text" th:value=${user.patronymicName} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Contact preferences</td>
+                <td><input type="text" th:value=${user.contactPreferences} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Social media</td>
+                <td><input type="text" th:value=${user.socialMedia} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Role</td>
+                <td><input type="text" th:value=${user.role} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Is active</td>
+                <td><input type="text" th:value=${user.isActive} disabled></td>
+            </tr>
+
+        </table>
+    </div>
 </div>
-
-<div>
-    <table>
-        <tr>
-            <td class="text" align="right" wight="20%">Email</td>
-            <td><input type="text" th:value=${user.email} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">First name</td>
-            <td><input type="text" th:value=${user.firstName} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Last name</td>
-            <td><input type="text" th:value=${user.lastName} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Patronymic name</td>
-            <td><input type="text" th:value=${user.patronymicName} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Contact preferences</td>
-            <td><input type="text" th:value=${user.contactPreferences} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Social media</td>
-            <td><input type="text" th:value=${user.socialMedia} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Role</td>
-            <td><input type="text" th:value=${user.role} disabled></td>
-        </tr>
-        <tr>
-            <td class="text" align="right">Is active</td>
-            <td><input type="text" th:value=${user.isActive} disabled></td>
-        </tr>
-
-    </table>
-</div>
-
 </body>
 </html>

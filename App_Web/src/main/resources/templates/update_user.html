@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -8,58 +8,59 @@
 </head>
 <body>
 
-<nav th:replace="~{plugins/menu :: menu}" ></nav>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
 
-<div class="left-side-area">
-    <h1 class="header">Edit user</h1>
-    <h1 class="subheader">Changing user information</h1>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Edit User</h1>
+        <h1 class="subheader">Change user<br> information</h1>
 
+    </div>
+
+    <div>
+        <form th:action="'/users/update/' + ${user.id}" method="post">
+            <table>
+                <tr>
+                    <td class="text-left-column">Email</td>
+                    <td><input type="text" th:value=${user.email} name="email"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">First name</td>
+                    <td><input type="text" th:value=${user.firstName} name="firstName"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Last name</td>
+                    <td><input type="text" th:value=${user.lastName} name="lastName"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Patronymic name</td>
+                    <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Contact preferences</td>
+                    <td><input type="text" th:value=${user.contactPreferences} name="contactPreferences"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Social media</td>
+                    <td><input type="text" th:value=${user.socialMedia} name="socialMedia"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Role</td>
+                    <td><input type="text" th:value=${user.role} name="role"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Is active</td>
+                    <td><input type="text" th:value=${user.isActive} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column" hidden>Password</td>
+                    <td><input type="text" th:value=${user.password} name="password" hidden></td>
+                </tr>
+
+            </table>
+            <button type="submit" class="button-active">Save</button>
+        </form>
+    </div>
 </div>
-
-<div>
-    <form th:action="'/users/update/' + ${user.id}" method="post">
-        <table>
-            <tr>
-                <td class="text" align="right" wight="20%">Email</td>
-                <td><input type="text" th:value=${user.email} name="email"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">First name</td>
-                <td><input type="text" th:value=${user.firstName} name="firstName"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Last name</td>
-                <td><input type="text" th:value=${user.lastName} name="lastName"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Patronymic name</td>
-                <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Contact preferences</td>
-                <td><input type="text" th:value=${user.contactPreferences} name="contactPreferences"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Social media</td>
-                <td><input type="text" th:value=${user.socialMedia} name="socialMedia"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Role</td>
-                <td><input type="text" th:value=${user.role} name="role"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Is active</td>
-                <td><input type="text" th:value=${user.isActive} disabled></td>
-            </tr>
-            <tr>
-                <td class="text" align="right" hidden>Password</td>
-                <td><input type="text" th:value=${user.password} name="password" hidden></td>
-            </tr>
-
-        </table>
-        <button type="submit" class="button-active">Save</button>
-    </form>
-</div>
-
 </body>
 </html>

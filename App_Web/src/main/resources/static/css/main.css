@@ -27,9 +27,14 @@ body{
   align-items: center;
 }
 
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
 .left-side-area{
   width: 20%;
-  min-width: 220px;
+  min-width: 230px;
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -116,6 +121,13 @@ input:disabled{
 
 .text{
   font: italic 15px  Arial;
+  margin: 0 15px 0 15px;
+}
+
+.text-left-column{
+  font: italic 15px  Arial;
+  text-align: right;
+  min-width: 100px;
   margin: 0 15px 0 15px;
 }
 
