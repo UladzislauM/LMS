@@ -7,6 +7,8 @@ import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +35,7 @@ public class UserControllerWeb {
     }
 
     @GetMapping
-    public String getAll(Model model, Pageable pageable) {
+    public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
         Page<UserDto> users = userService.getAll(pageable);
         model.addAttribute("users", users);
         return "users";
