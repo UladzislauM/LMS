@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
@@ -28,11 +29,20 @@
             <th>Mark</th>
         </tr>
         <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
-            <td><a th:href="@{/homeworks/__*{id}__}" class="button">E</a></td>
-            <td><a th:href="@{/homeworks/update/__*{id}__}" class="button">\</a></td>
             <td>
-                <a th:href="@{/homeworks/delete/__*{id}__}" class="button">X</a>
-
+                <a th:href="@{/homeworks/__*{id}__}" class="button">
+                    <i class="fa-solid fa-eye" title="View"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/homeworks/update/__*{id}__}" class="button">
+                    <i class="fa-solid fa-file-pen" title="Edit"></i>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/homeworks/delete/__*{id}__}" class="button">
+                    <i class="fa-solid fa-trash-can" title="Delete"></i>
+                </a>
             </td>
 
             <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">

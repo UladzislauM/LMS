@@ -37,7 +37,7 @@ public class HomeworkWebController {
 
     @GetMapping("/create")
     public String createForm() {
-        return "create-homework";
+        return "create_homework";
     }
 
     @PostMapping("/create")
@@ -50,7 +50,7 @@ public class HomeworkWebController {
     public String update(@PathVariable Long id, Model model) {
         HomeworkDto toUpdate = homeworkService.getById(id);
         model.addAttribute("homework", toUpdate);
-        return "update-homework";
+        return "update_homework";
     }
 
     @PostMapping("/update/{id}")
