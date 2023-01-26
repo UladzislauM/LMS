@@ -92,7 +92,11 @@ public class RequestServiceImpl implements RequestService {
     }
 
     private void validateUpdate(RequestDtoForUpdate dto) {
-        CourseDto newCourseDto = dto.getCourse();
+        Course course = courseRepository.findById(dto.getCourse().getId())
+                .orElseThrow(() -> {
+                    throw new NotFoundException(COURSE_IS_NOT_FOUND);
+                });
+        CourseDto newCourseDto = requestMapper.courseDto(course);
         StatusDto newStatusDto = dto.getStatus();
         RequestDto oldRequest = getById(dto.getId());
         StatusDto oldStatusDto = oldRequest.getStatus();
@@ -153,17 +157,10 @@ public class RequestServiceImpl implements RequestService {
                 .orElseThrow(() -> new NotFoundException(REQUEST_IS_NOT_FOUND));
         StatusDto statusDto = requestDto.getStatus();
         request.setStatus(Request.Status.valueOf(statusDto.toString()));
-        Course course;
         CourseDto courseDto = requestDto.getCourse();
-        if(courseDto != null){//FixMe Herman please, because I don't got how do it different...
-            course = courseRepository.findById(requestDto.getCourse().getId())
-                    .orElseThrow(() -> {
-                throw new NotFoundException(COURSE_IS_NOT_FOUND);
-            });
-        }else {
-            course = request.getCourse();
-        }
-        request.setCourse(course);
+        request.setCourse(courseRepository.findById(courseDto.getId()).orElseThrow(() -> {
+            throw new LmsException(COURSE_IS_NOT_FOUND);
+        }));
         return request;
     }
 }
