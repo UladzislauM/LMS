@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @ControllerAdvice
 @RequestMapping("/error")
-public class Error {
+public class ErrorController {
     @GetMapping
     public String error() {
         return "error";
