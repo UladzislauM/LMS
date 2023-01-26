@@ -50,7 +50,7 @@ public class Lesson {
     private String homeTask;
 
     @Column(name = "deleted", columnDefinition = "boolean default false")
-    private Boolean deleted = false;
+    private boolean deleted;
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     @JoinColumn(name = "lesson_id")

@@ -12,9 +12,13 @@ import java.util.UUID;
 @Service("linkService")
 @RequiredArgsConstructor
 public class EmailLinkServiceImpl implements EmailLinkService {
+    private static final int TOKEN_ACTIVITY_TIME = 60 * 60;
+    private static final String EMAIL_SUBJECT = "Password confirmation";
+
     private final EmailLinkRepository emailLinkRepository;
+
     @Override
-    public String generate(int seconds) {
+    public String generateToken(int seconds) {
         EmailLink emailLink = setEmailLink(seconds);
         emailLinkRepository.save(emailLink);
         return emailLink.getEmailToken();
@@ -34,14 +38,16 @@ public class EmailLinkServiceImpl implements EmailLinkService {
         return uuid;
     }
 
-
     @Override
-    public void activate(String link) {
-
+    public void activate(String emailToken) {
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken);
+        emailLink.setActive(true);
+        emailLinkRepository.save(emailLink);
     }
 
     @Override
-    public boolean isActivated(String link) {
-        return false;
+    public boolean isActivated(String emailToken) {
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken);
+        return emailLink.isActive();
     }
 }

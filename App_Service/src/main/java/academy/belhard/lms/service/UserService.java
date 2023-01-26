@@ -1,5 +1,6 @@
 package academy.belhard.lms.service;
 
+import academy.belhard.lms.data.entity.EmailLink;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
@@ -17,4 +18,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    UserDto registration(UserDtoForSave dto);}
+    void registerUser(UserDtoForSave dto);
+
+    void activate(Long userId, String emailToken);
+}

@@ -53,7 +53,7 @@ public class Course {
     private LocalDate startDate;
 
     @Column(name = "deleted", columnDefinition = "boolean default false")
-    private Boolean deleted = false;
+    private boolean deleted;
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "course_id")
