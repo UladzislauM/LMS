@@ -1,30 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
     <meta charset="UTF-8">
-    <link href="/css/main.css" rel="stylesheet">
+    <title>Course</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
 
 <nav th:replace="~{plugins/menu :: menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Course</h1>
+        <h1 class="subheader">Information<br> about the course</h1>
+        <a sec:authorize="hasAuthority('MANAGER')" th:href="'/courses/updateForm/' + ${course.id}"
+           class="button-active">Edit course</a>
+        <h1 class="text" sec:authorize="hasAuthority('STUDENT')">Enroll in a course</h1>
+        <a sec:authorize="hasAuthority('STUDENT')" th:href="'/requests/create'"
+           class="button-active">Enroll</a>
+    </div>
 
-<div class="left-side-area">
-    <h1 class="header">Course</h1>
-    <h1 class="subheader">Information about the course</h1>
-    <a th:href="'/courses/updateForm/' + ${course.id}" class="button-active">Edit</a>
-</div>
-<div>
-    <i class="fa-solid fa-graduation-cap"></i>
-    <p hidden th:text="${course.id}">ID</p>
-    <p th:text="${course.title}">Title</p>
-    <p th:text="${course.startDate}">Start date</p>
-    <p th:text="${course.description}">Description</p>
-    <p th:text="${course.price}">Price</p>
-    <a href="#" onclick="history.back();return false;" class="button">
-        <-Back</a>
-</div>
+    <div class="main-area">
+        <h1 class="subheader" th:text="${course.title}"></h1>
+        <h1 class="text" th:text="${course.description}"></h1>
 
+        <table>
+            <tr>
+                <td class="text-left-column">Start</td>
+                <td><input type="text" th:value=${course.startDate} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Price</td>
+                <td><input type="text" th:value=${course.price} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Trainer</td>
+                <td><input type="text" th:value="${course.trainer.firstName}+' '+${course.trainer.lastName}" disabled>
+                </td>
+            </tr>
+        </table>
+
+        <h1 class="text">Lessons of course</h1>
+        <table class="table">
+            <thead>
+            <tr class="table-header">
+                <th></th>
+                <th sec:authorize="hasAnyAuthority('USER', 'MANAGER')"></th>
+                <th sec:authorize="hasAuthority('MANAGER')"></th>
+                <th>Title</th>
+                <th>Start time</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="el: ${course.getLessons}">
+                <tr class="table-data">
+                    <td><a th:href="'/lessons/' + ${el.id}">
+                        <i class="fa-solid fa-eye" title="View"></i>
+                    </a>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('USER', 'MANAGER')"><a th:href="'/lessons/update/' + ${el.id}">
+                        <i class="fa-solid fa-file-pen" title="Edit"></i>
+                    </a>
+                    </td>
+                    <td sec:authorize="hasAuthority('MANAGER')"><a th:href="'/lessons/delete/' + ${el.id}">
+                        <i class="fa-solid fa-trash-can" title="Delete"></i>
+                    </a>
+                    </td>
+                    <td><p th:text="${el.title}"></p></td>
+                    <td><p th:text="${el.startTime}"></p></td>
+                    <td><p th:text="${el.description}"></p></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+        <br>
+        <h1 sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')" class="text">Users of course</h1>
+        <table sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')" class="table">
+            <thead>
+            <tr class="table-header">
+                <th sec:authorize="hasAuthority('MANAGER')"></th>
+                <th>Email</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Patronymic name</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <div th:each="el: ${users}">
+                <tr class="table-data">
+                    <td sec:authorize="hasAuthority('MANAGER')"><a th:href="'/users/' + ${el.id}">
+                        <i class="fa-solid fa-eye" title="View"></i>
+                    </a>
+                    </td>
+                    <td><p th:text="${el.email}"></p></td>
+                    <td><p th:text="${el.firstName}"></p></td>
+                    <td><p th:text="${el.lastName}"></p></td>
+                    <td><p th:text="${el.patronymicName}"></p></td>
+                </tr>
+
+            </div>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
 </body>
-
 </html>

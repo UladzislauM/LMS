@@ -1,7 +1,9 @@
 package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.CourseService;
+import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.course.CourseDto;
+import academy.belhard.lms.service.dto.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CourseWebController {
     private final CourseService courseService;
+    private final UserService userService;
 
     @GetMapping
     public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
@@ -29,9 +32,11 @@ public class CourseWebController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable Long id) {
+    public String getById(Model model, @PathVariable Long id, @PageableDefault @SortDefault("id") Pageable pageable) {
         CourseDto course = courseService.getById(id);
         model.addAttribute("course", course);
+        Page<UserDto> users = userService.getAllByCourseAndRequestStatus(id, pageable);
+        model.addAttribute("users", users);
         return "course/course";
     }
 

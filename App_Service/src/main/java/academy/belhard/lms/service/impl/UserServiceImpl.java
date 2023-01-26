@@ -88,6 +88,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Page<UserDto> getAllByCourseAndRequestStatus(Long id,Pageable  pageable) {
+        Page<User> users = userRepository.findAllByCourseAndRequestStatus(id, pageable);
+        return users.map(userMapper::userToUserDto);
+    }
+
+    @Override
     public void registerUser(UserDtoForSave dto) {
         Optional<User> existing = userRepository.findByEmail(dto.getEmail());
         if (existing.isPresent()) {

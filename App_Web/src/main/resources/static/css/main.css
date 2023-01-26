@@ -127,7 +127,7 @@ input:disabled{
 .text-left-column{
   font: italic 15px  Arial;
   text-align: right;
-  min-width: 100px;
+  min-width: 50px;
   margin: 0 15px 0 15px;
 }
 

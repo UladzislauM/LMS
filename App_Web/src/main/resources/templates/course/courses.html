@@ -8,17 +8,27 @@
 <body>
 
 <nav th:replace="~{plugins/menu :: menu}" ></nav>
-
+<div class="main">
 <div class="left-side-area">
     <h1 class="header">Courses</h1>
-    <h1 class="subheader">List Of All Courses</h1>
+    <h1 class="subheader">List<br> of all courses</h1>
     <a href="/courses/createForm" class="button-active">Create</a>
 </div>
-<div align="center">
-    <div align="centre">
-        <table>
+<div>
+    <div>
+        <span>Size requests on page</span>
+        <select th:onchange="'window.location.href = \'' + @{/courses?sort=id,asc} + '&size=\' + this.value'">
+            <option th:text="@{Now: __${courses.getSize}__}"></option>
+            <option th:text="3"></option>
+            <option th:text="5"></option>
+            <option th:text="7"></option>
+            <option th:text="15"></option>
+        </select>
+    </div>
+    <div>
+        <table class="table">
             <thead>
-            <tr>
+            <tr class="table-header">
                 <th></th>
                 <th></th>
                 <th></th>
@@ -30,7 +40,7 @@
             </thead>
             <tbody>
             <th:block th:each="course : ${courses}">
-                <tr>
+                <tr class="table-data">
                     <td>
                         <a th:href="'/courses/' + ${course.id}">
                             <i class="fa-solid fa-eye" title="View"></i>
@@ -60,6 +70,7 @@
              th:with="firstVer=${courses}">
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

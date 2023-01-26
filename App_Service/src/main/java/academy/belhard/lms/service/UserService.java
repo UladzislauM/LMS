@@ -18,6 +18,8 @@ public interface UserService {
 
     void delete(Long id);
 
+    Page<UserDto> getAllByCourseAndRequestStatus(Long id, Pageable pageable);
+
     void registerUser(UserDtoForSave dto);
 
     void activate(Long userId, String emailToken);
