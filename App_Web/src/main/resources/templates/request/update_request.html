@@ -21,10 +21,12 @@
             <tr>
                 <td>User name</td>
                 <td><input type="text" th:value="*{user.firstName} + ' ' + *{user.lastName}" disabled></td>
+                <input type="hidden" name="user.id" th:value="*{user.id}">
             </tr>
             <tr>
                 <td>Curse</td>
                 <td><input type="text" th:value=*{course.title} disabled></td>
+                <input type="hidden" name="course.id" th:value="*{course.id}">
             </tr>
             <tr>
                 <td>Status</td>
@@ -45,9 +47,6 @@
         <input type="submit" name="submit" value="Edit request" class="button-active"/>
     </form>
 </div>
-
-<a href="#" onclick="history.back();return false;" class="button-active">
-    <-Back</a>
 
 </body>
 </html>
