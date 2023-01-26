@@ -2,6 +2,7 @@ dependencies {
     implementation(project(':App_Platform'))
     implementation(project(':App_Data'))
 
+    implementation 'org.springframework.boot:spring-boot-starter-mail:3.0.2'
     implementation 'jakarta.enterprise:jakarta.enterprise.cdi-api:4.0.1'
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 
