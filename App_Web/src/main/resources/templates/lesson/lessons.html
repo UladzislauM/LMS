@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-<div align="center">
-    <table border="1">
-        <caption><h2>List of Lessons</h2></caption>
-        <thead>
-        <tr>
-            <th>ID</th>
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+<div class="left-side-area">
+    <h1 class="header">Show</h1>
+    <h2>Lessons</h2>
+</div>
+<div class="main-area">
+    <div>
+        <span>Size requests on page</span>
+        <select th:onchange="'window.location.href = \'' + @{/lessons?sort=id,asc} + '&size=\' + this.value'">
+            <option th:text="@{Now: __${lessons.getSize}__}"></option>
+            <option th:text="3"></option>
+            <option th:text="5"></option>
+            <option th:text="7"></option>
+            <option th:text="15"></option>
+        </select>
+    </div>
+    <table class="table">
+        <h2>List of Lessons</h2>
+        <tr class="table-header">
             <th>Title</th>
             <th>Start time</th>
             <th>Description</th>
@@ -19,11 +33,8 @@
             <th>Home task</th>
             <th>Home works</th>
         </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="lesson : ${lessons}">
+        <th:block th:each="lesson : ${lessons}" th:object="${lesson}" class="table-data">
             <tr>
-                <td th:text="${lesson.id}"></td>
                 <td th:text="${lesson.title}"></td>
                 <td th:text="${lesson.startTime}"></td>
                 <td th:text="${lesson.description}"></td>
@@ -38,23 +49,20 @@
                                 <th>Student</th>
                             </tr>
                             </thead>
-                            <tbody>
                             <th:block th:each="homework : ${lesson.getHomeworks()}">
                                 <tr>
                                     <td th:text="${homework.id}"></td>
                                     <td th:text="${homework.student.firstName} + ' ' + ${homework.student.lastName}"></td>
                                 </tr>
                             </th:block>
-                            </tbody>
                         </table>
                     </div>
                 </td>
             </tr>
         </th:block>
-        </tbody>
     </table>
-    <div th:insert="~{/plugins/pagination :: pagination_fr}"
-         th:with="firstVer=${courses}">
+    <div th:insert="~{plugins/pagination :: pagination_fr}"
+         th:with="firstVer=${lessons}">
     </div>
 </div>
 </body>
