@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS file_links;
 DROP TABLE IF EXISTS lessons;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS email_links;
 */
 CREATE TABLE IF NOT EXISTS users
 (
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS file_links
 (
     id   BIGSERIAL NOT NULL,
-    link VARCHAR(2048),
+    link VARCHAR(40),
     PRIMARY KEY (id)
 );
 
@@ -75,3 +76,11 @@ CREATE TABLE IF NOT EXISTS requests
     user_id   BIGINT REFERENCES users (id),
     status    CHARACTER VARYING(60)
 );
+
+CREATE TABLE IF NOT EXISTS email_links(
+    id                  BIGSERIAL PRIMARY KEY NOT NULL,
+    email_token			CHARACTER VARYING (40) NOT NULL,
+    active_time			BIGINT,
+    create_time	   		TIMESTAMP,
+    is_active			BOOLEAN DEFAULT false NOT NULL
+ );
