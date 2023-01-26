@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="START" type="Application" factoryName="Application">
+    <envs>
+      <env name="SPRING_MAIL_PASSWORD" value="Wcs7v5Q()S" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="academy.belhard.lms.LmsApplication" />
     <module name="lms.App_Launcher.main" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=development" />
