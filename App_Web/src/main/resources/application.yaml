@@ -11,6 +11,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+  mail:
+    host: mail.javaclass.online
+    port: 2525
+    username: lms@javaclass.online
 server:
   port: 8080
   error:
