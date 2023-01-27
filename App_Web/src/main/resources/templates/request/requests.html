@@ -51,8 +51,8 @@
                 </a>
             </td>
             <td></td>
-            <td><a th:href="@{/users/__*{id}__}" th:text="*{user.firstName} + ' ' + *{user.lastName}">User</a></td>
-            <td><a th:href="@{/courses/__*{id}__}" th:text="*{course.title}">Course title</a></td>
+            <td><a th:href="@{/users/__*{user.id}__}" th:text="*{user.firstName} + ' ' + *{user.lastName}">User</a></td>
+            <td><a th:href="@{/courses/__*{course.id}__}" th:text="*{course.title}">Course title</a></td>
             <td th:text="*{status}"></td>
             <td></td>
         </tr>
