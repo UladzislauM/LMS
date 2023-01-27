@@ -10,30 +10,30 @@
 
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
 
-<div class="left-side-area">
-    <h1 class="header">View</h1>
-    <h2>Request number: <span th:text="${request.id}"></span></h2>
-    <a th:href="@{/requests/update/__${request.id}__}" class="button-active">Edit request</a>
-</div>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">View</h1>
+        <h2>Request number: <span th:text="${request.id}"></span></h2>
+        <a th:href="@{/requests/update/__${request.id}__}" class="button-active">Edit request</a>
+    </div>
 
-<div class="main-area">
-    <table>
-        <tr>
-            <td>User name</td>
-            <td><input type="text" th:value="${request.user.firstName} + ' ' + ${request.user.lastName}" disabled></td>
-        </tr>
-        <tr>
-            <td>Curse</td>
-            <td><input type="text" th:value=${request.course.title} disabled></td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td><input type="text" th:value=${request.status} disabled></td>
-        </tr>
-    </table>
+    <div class="main-area">
+        <table>
+            <tr>
+                <td>User name</td>
+                <td><input type="text" th:value="${request.user.firstName} + ' ' + ${request.user.lastName}" disabled>
+                </td>
+            </tr>
+            <tr>
+                <td>Curse</td>
+                <td><input type="text" th:value=${request.course.title} disabled></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td><input type="text" th:value=${request.status} disabled></td>
+            </tr>
+        </table>
+    </div>
 </div>
-
-<a href="#" onclick="history.back();return false;" class="button-active">
-    <-Back</a>
 </body>
 </html>

@@ -10,43 +10,43 @@
 
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
 
-<div class="left-side-area">
-    <h1 class="header">Update</h1>
-    <h2>Request number: <span th:text="${request.id}"></span></h2>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Update</h1>
+        <h2>Request number: <span th:text="${request.id}"></span></h2>
+    </div>
+    <div>
+        <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}">
+            <table>
+                <tr>
+                    <td>User name</td>
+                    <td><input type="text" th:value="*{user.firstName} + ' ' + *{user.lastName}" disabled></td>
+                    <input type="hidden" name="user.id" th:value="*{user.id}">
+                </tr>
+                <tr>
+                    <td>Curse</td>
+                    <td><input type="text" th:value=*{course.title} disabled></td>
+                    <input type="hidden" name="course.id" th:value="*{course.id}">
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td><select name="status">
+                        <option value="PROCESSING">PROCESSING
+                        <option value="APPROVED">APPROVED
+                        <option value="PAID">PAID
+                        <option value="SATISFIED">SATISFIED
+                        <option value="CANCELLED">CANCELLED
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Active status</td>
+                    <td th:text="*{status}"></td>
+                </tr>
+            </table>
+            <input type="submit" name="submit" value="Save" class="button-active"/>
+        </form>
+    </div>
 </div>
-
-<div class="main-area">
-    <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}">
-        <table>
-            <tr>
-                <td>User name</td>
-                <td><input type="text" th:value="*{user.firstName} + ' ' + *{user.lastName}" disabled></td>
-                <input type="hidden" name="user.id" th:value="*{user.id}">
-            </tr>
-            <tr>
-                <td>Curse</td>
-                <td><input type="text" th:value=*{course.title} disabled></td>
-                <input type="hidden" name="course.id" th:value="*{course.id}">
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td><select name="status">
-                    <option value="PROCESSING">PROCESSING
-                    <option value="APPROVED">APPROVED
-                    <option value="PAID">PAID
-                    <option value="SATISFIED">SATISFIED
-                    <option value="CANCELLED">CANCELLED
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Active status</td>
-                <td th:text="*{status}"></td>
-            </tr>
-        </table>
-        <input type="submit" name="submit" value="Edit request" class="button-active"/>
-    </form>
-</div>
-
 </body>
 </html>
