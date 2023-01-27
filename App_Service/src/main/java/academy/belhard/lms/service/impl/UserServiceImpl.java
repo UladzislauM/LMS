@@ -104,18 +104,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         entity.setRole(User.Role.STUDENT);
         entity.setActive(false);
         User created = userRepository.save(entity);
-        String emailLink = emailLinkService.getEmailLink(created.getId());
+        String emailLink = emailLinkService.getRegisterLink(created.getId());
         mailService.sendEmail(created.getEmail(), emailLink);
     }
 
     @Override
-    public void activate(Long userId, String token) {
-        if(!emailLinkService.isActivated(token)) {
-            throw new LmsException("The token is not active. Reauthorize, please.");
+    public void activateUser(Long userId, String emailToken) {
+        if(!emailLinkService.isActivated(emailToken)) {
+            throw new LmsException("Link time expired. Please repeat authorization or recovery account");
         }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         user.setActive(true);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void recoveryPassword(String email) {
+        User existing = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));;
+        String emailLink = emailLinkService.getRecoveryPassLink(existing.getId());
+        mailService.sendEmail(email, emailLink);
+    }
+
+    @Override
+    public void changePassword(Long userId, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
         userRepository.save(user);
     }
 

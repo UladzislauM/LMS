@@ -13,20 +13,27 @@ import java.util.UUID;
 @Service("linkService")
 @RequiredArgsConstructor
 public class EmailLinkServiceImpl implements EmailLinkService {
-    private static final int TOKEN_ACTIVITY_TIME = 60 * 60;
-    private static final String EMAIL_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
-    public static final String TOKEN_NOT_FOUND = "Email token not found";
+    private static final int REGISTER_TOKEN_ACTIVITY_SECONDS = 60 * 60;
+    private static final int RECOVERY_TOKEN_ACTIVITY_SECONDS = 5 * 60;
+    private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
+    private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/recoveryPass/%s/%s";
+    private static final String TOKEN_NOT_FOUND = "Email token not found";
 
     private final EmailLinkRepository emailLinkRepository;
 
     @Override
-    public String getEmailLink(Long userId) {
-        return String.format(EMAIL_LINK_PATTERN, saveEmailToken(TOKEN_ACTIVITY_TIME), userId);
+    public String getRegisterLink(Long userId) {
+        return String.format(ACTIVATE_LINK_PATTERN, createEmailToken(REGISTER_TOKEN_ACTIVITY_SECONDS), userId);
+    }
+
+    @Override
+    public String getRecoveryPassLink(Long userId) {
+        return String.format(RECOVERY_PASS_LINK_PATTERN, createEmailToken(RECOVERY_TOKEN_ACTIVITY_SECONDS), userId);
     }
 
     @Override
     public void activate(String emailToken) {
-        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() ->{
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() -> {
             throw new NotFoundException(TOKEN_NOT_FOUND);
         });
         emailLink.setActive(true);
@@ -35,13 +42,14 @@ public class EmailLinkServiceImpl implements EmailLinkService {
 
     @Override
     public boolean isActivated(String emailToken) {
-        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() ->{
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() -> {
             throw new NotFoundException(TOKEN_NOT_FOUND);
         });
-        return emailLink.isActive();
+        LocalDateTime expirationTime = emailLink.getCreateTime().plusSeconds(emailLink.getActiveTime());
+        return expirationTime.isAfter(LocalDateTime.now());
     }
 
-    private String saveEmailToken(int seconds) {
+    private String createEmailToken(int seconds) {
         EmailLink emailLink = setEmailLink(seconds);
         emailLinkRepository.save(emailLink);
         return emailLink.getEmailToken();

@@ -10,7 +10,7 @@
 
 <h1>Please Log In</h1>
 
-<form th:action="@{/login}" method="post">
+<form th:action="@{/login}" method="POST">
     <div>
         <input type="email" name="username" placeholder="Email" required/>
     </div>
@@ -22,6 +22,9 @@
     <div th:if="${param.error}" style="color: red">
         Bad credentials
     </div>
+</form>
+<form th:action="@{/auth/recoveryPass}" method="GET">
+    <button>Forgot your password?</button>
 </form>
 </body>
 </html>

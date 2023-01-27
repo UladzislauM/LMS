@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-27T10:04:03+0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.5 (Eclipse Adoptium)"
+    date = "2023-01-27T10:21:35+0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.3.1 (Oracle Corporation)"
 )
 @Component
 public class RequestMapperImpl implements RequestMapper {
@@ -103,7 +103,7 @@ public class RequestMapperImpl implements RequestMapper {
         course.setTitle( courseDto.getTitle() );
         course.setDescription( courseDto.getDescription() );
         course.setPrice( courseDto.getPrice() );
-        course.setTrainer( courseDto.getTrainer() );
+        course.setTrainer( user( courseDto.getTrainer() ) );
         course.setStartDate( courseDto.getStartDate() );
         course.setLessons( lessonDtoListToLessonList( courseDto.getLessons() ) );
 
@@ -122,7 +122,7 @@ public class RequestMapperImpl implements RequestMapper {
         courseDto.setTitle( course.getTitle() );
         courseDto.setPrice( course.getPrice() );
         courseDto.setStartDate( course.getStartDate() );
-        courseDto.setTrainer( course.getTrainer() );
+        courseDto.setTrainer( userDto( course.getTrainer() ) );
         courseDto.setDescription( course.getDescription() );
         courseDto.setLessons( lessonListToLessonDtoList( course.getLessons() ) );
 
@@ -287,7 +287,7 @@ public class RequestMapperImpl implements RequestMapper {
         Homework homework = new Homework();
 
         homework.setId( homeworkDto.getId() );
-        homework.setStudent( homeworkDto.getStudent() );
+        homework.setStudent( user( homeworkDto.getStudent() ) );
         homework.setComment( homeworkDto.getComment() );
         homework.setFileLink( fileLinkDtoToFileLink( homeworkDto.getFileLink() ) );
         homework.setMark( homeworkDto.getMark() );
@@ -360,7 +360,7 @@ public class RequestMapperImpl implements RequestMapper {
         HomeworkDto homeworkDto = new HomeworkDto();
 
         homeworkDto.setId( homework.getId() );
-        homeworkDto.setStudent( homework.getStudent() );
+        homeworkDto.setStudent( userDto( homework.getStudent() ) );
         homeworkDto.setComment( homework.getComment() );
         homeworkDto.setFileLink( fileLinkToFileLinkDto( homework.getFileLink() ) );
         homeworkDto.setMark( homework.getMark() );
