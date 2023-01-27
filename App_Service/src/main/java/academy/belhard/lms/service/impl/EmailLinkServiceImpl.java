@@ -3,6 +3,7 @@ package academy.belhard.lms.service.impl;
 import academy.belhard.lms.data.entity.EmailLink;
 import academy.belhard.lms.data.repository.EmailLinkRepository;
 import academy.belhard.lms.service.EmailLinkService;
+import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class EmailLinkServiceImpl implements EmailLinkService {
     private static final int TOKEN_ACTIVITY_TIME = 60 * 60;
     private static final String EMAIL_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
+    public static final String TOKEN_NOT_FOUND = "Email token not found";
 
     private final EmailLinkRepository emailLinkRepository;
 
@@ -24,14 +26,18 @@ public class EmailLinkServiceImpl implements EmailLinkService {
 
     @Override
     public void activate(String emailToken) {
-        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken);
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() ->{
+            throw new NotFoundException(TOKEN_NOT_FOUND);
+        });
         emailLink.setActive(true);
         emailLinkRepository.save(emailLink);
     }
 
     @Override
     public boolean isActivated(String emailToken) {
-        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken);
+        EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken).orElseThrow(() ->{
+            throw new NotFoundException(TOKEN_NOT_FOUND);
+        });
         return emailLink.isActive();
     }
 

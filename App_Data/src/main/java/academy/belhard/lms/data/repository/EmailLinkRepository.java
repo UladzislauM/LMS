@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface EmailLinkRepository extends JpaRepository<EmailLink, Long> {
 
     @Query("select e from EmailLink e where e.emailToken = :emailToken")
-    EmailLink findByEmailToken(@Param("emailToken") String emailToken);
+    Optional<EmailLink> findByEmailToken(@Param("emailToken") String emailToken);
 }
