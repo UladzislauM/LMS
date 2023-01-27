@@ -46,7 +46,7 @@ class UserServiceImplTest {
     @BeforeAll
     static void beforeAll() {
         userRepository = Mockito.mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository, USER_MAPPER, passwordEncoder);
+        userService = new UserServiceImpl(userRepository, USER_MAPPER, passwordEncoder, null, null);//FIXME update test
         existing = new User();
         existing.setId(ID_EXISTING);
         existing.setEmail("test1@mail.ru");
