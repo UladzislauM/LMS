@@ -13,29 +13,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmailLinkServiceImpl implements EmailLinkService {
     private static final int TOKEN_ACTIVITY_TIME = 60 * 60;
-    private static final String EMAIL_SUBJECT = "Password confirmation";
+    private static final String EMAIL_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
 
     private final EmailLinkRepository emailLinkRepository;
 
     @Override
-    public String generateToken(int seconds) {
-        EmailLink emailLink = setEmailLink(seconds);
-        emailLinkRepository.save(emailLink);
-        return emailLink.getEmailToken();
-    }
-
-    private EmailLink setEmailLink(int seconds) {
-        EmailLink emailLink = new EmailLink();
-        emailLink.setEmailToken(generateToken());
-        emailLink.setActiveTime(seconds);
-        emailLink.setCreateTime(LocalDateTime.now());
-        emailLink.setActive(true);
-        return emailLink;
-    }
-
-    private String generateToken() {
-        String uuid = UUID.randomUUID().toString();
-        return uuid;
+    public String getEmailLink(Long userId) {
+        return String.format(EMAIL_LINK_PATTERN, saveEmailToken(TOKEN_ACTIVITY_TIME), userId);
     }
 
     @Override
@@ -49,5 +33,25 @@ public class EmailLinkServiceImpl implements EmailLinkService {
     public boolean isActivated(String emailToken) {
         EmailLink emailLink = emailLinkRepository.findByEmailToken(emailToken);
         return emailLink.isActive();
+    }
+
+    private String saveEmailToken(int seconds) {
+        EmailLink emailLink = setEmailLink(seconds);
+        emailLinkRepository.save(emailLink);
+        return emailLink.getEmailToken();
+    }
+
+    private EmailLink setEmailLink(int seconds) {
+        EmailLink emailLink = new EmailLink();
+        emailLink.setEmailToken(generateEmailToken());
+        emailLink.setActiveTime(seconds);
+        emailLink.setCreateTime(LocalDateTime.now());
+        emailLink.setActive(true);
+        return emailLink;
+    }
+
+    private String generateEmailToken() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
     }
 }

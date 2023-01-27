@@ -27,8 +27,6 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USER_NOT_FOUND_MSG = "User not found";
     private static final String USER_NOT_ACTIVATED_MSG = "User not activated";
-    private static final int TOKEN_ACTIVITY_TIME = 60 * 60;
-    private static final String EMAIL_SUBJECT = "Password confirmation";
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -106,10 +104,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         entity.setRole(User.Role.STUDENT);
         entity.setActive(false);
         User created = userRepository.save(entity);
-        String token = emailLinkService.generateToken(TOKEN_ACTIVITY_TIME);
-        mailService.sendEmail(created.getEmail(), EMAIL_SUBJECT,
-                "Please, visit link: http://localhost:8080/auth/activate/" + token +
-                "/" + created.getId());
+        String emailLink = emailLinkService.getEmailLink(created.getId());
+        mailService.sendEmail(created.getEmail(), emailLink);
     }
 
     @Override

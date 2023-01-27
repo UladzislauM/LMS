@@ -1,7 +1,7 @@
 package academy.belhard.lms.service;
 
 public interface EmailLinkService {
-    String generateToken(int seconds);
+    String getEmailLink(Long userId);
 
     void activate(String token);
 
