@@ -22,14 +22,16 @@
             <span>Size requests on page</span>
             <select th:onchange="'window.location.href = \'' + @{/lessons?sort=id,asc} + '&size=\' + this.value'">
                 <option th:text="@{Now: __${lessons.getSize}__}"></option>
-                <option th:text="3"></option>
                 <option th:text="5"></option>
-                <option th:text="7"></option>
+                <option th:text="10"></option>
                 <option th:text="15"></option>
+                <option th:text="20"></option>
             </select>
         </div>
         <table class="table">
             <tr class="table-header">
+                <th></th>
+                <th></th>
                 <th></th>
                 <th>Title</th>
                 <th>Start time</th>
@@ -41,6 +43,16 @@
                     <td>
                         <a>
                             <i class="fa-solid fa-eye" title="View"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            <i class="fa-solid fa-file-pen" title="Edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a>
+                            <i class="fa-solid fa-trash-can" title="Delete"></i>
                         </a>
                     </td>
                     <td th:text="${lesson.title}"></td>
