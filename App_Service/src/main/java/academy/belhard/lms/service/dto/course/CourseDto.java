@@ -1,6 +1,7 @@
 package academy.belhard.lms.service.dto.course;
 
 import academy.belhard.lms.data.entity.User;
+import academy.belhard.lms.service.dto.user.UserDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class CourseDto {
     private String title;
     private BigDecimal price;
     private LocalDate startDate;
-    private User trainer;
+    private UserDto trainer;
     private String description;
     private List<LessonDto> lessons;
 }
