@@ -3,46 +3,46 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>update homework page</title>
+    <title>Update homework</title>
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
 
 <nav th:replace="~{plugins/menu :: menu}"></nav>
 
-<div class="left-side-area">
-    <h1 class="header">Update homework</h1>
-    <h1 class="subheader">Changing homework information</h1>
-    <h3><a href="#" onclick="history.back();return false;" class="history-back">
-        <-Back</a></h3>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Update homework</h1>
+        <h1 class="subheader">Change homework<br> information</h1>
+        <h3><a href="#" onclick="history.back();return false;" class="history-back">
+            <-Back</a></h3>
+    </div>
 
+    <div>
+        <form th:action="'/homeworks/update/' + ${homework.id}" method="post">
+            <table>
+                <tr>
+                    <td class="text-left-column">Full name</td>
+                    <td><input type="text" th:value="${homework.student.firstName} + ' '
+                        + ${homework.student.lastName} + ' '
+                        + ${homework.student.patronymicName} "></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column" hidden>Student ID</td>
+                    <td><input type="text" th:value=${homework.student.id} name="student.id" hidden></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Comment</td>
+                    <td><input type="text" th:value=${homework.comment} name="comment"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Mark</td>
+                    <td><input type="text" th:value=${homework.mark} name="mark"></td>
+                </tr>
+            </table>
+            <button type="submit" class="button-active">Save</button>
+        </form>
+    </div>
 </div>
-
-<div class="main-area">
-    <form th:action="'/homeworks/update/' + ${homework.id}" method="put">
-        <table>
-            <tr>
-                <td class="text">Full name</td>
-                <td><input type="text" th:value="${homework.student.firstName} + ' '
-                + ${homework.student.lastName} + ' '
-                + ${homework.student.patronymicName} "></td>
-            </tr>
-            <tr>
-                <td class="text">Comment</td>
-                <td><input type="text" th:value=${homework.comment} name="comment"></td>
-            </tr>
-            <tr>
-                <td class="text">File link</td>
-                <td><input type="text" th:value=${homework.fileLink.link} name="fileLink"></td>
-            </tr>
-            <tr>
-                <td class="text">Mark</td>
-                <td><input type="text" th:value=${homework.mark} name="mark"></td>
-            </tr>
-        </table>
-        <button type="submit" class="button-active">Save</button>
-    </form>
-</div>
-
 </body>
 </html>

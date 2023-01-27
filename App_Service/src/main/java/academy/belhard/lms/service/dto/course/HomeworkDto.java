@@ -1,6 +1,5 @@
 package academy.belhard.lms.service.dto.course;
 
-import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import lombok.Data;
