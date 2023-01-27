@@ -5,7 +5,7 @@
         <p sec:authorize="hasAuthority('MANAGER')"><a class="text" href="/users">Users</a></p>
         <p><a class="text" href="/courses">Courses</a></p>
         <p sec:authorize="hasAnyAuthority('USER', 'TRAINER')"><a class="text" href="/courses">My courses</a></p>
-        <p sec:authorize="hasAnyAuthority('USER', 'MANAGER')"><a class="text" href="/requests">Requests</a></p>
+        <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" href="/requests">Requests</a></p>
     </nav>
     <nav class="menu-right">
         <p sec:authorize="isAnonymous()"><a class="text" href="/auth/login">Sign In</a></p>
