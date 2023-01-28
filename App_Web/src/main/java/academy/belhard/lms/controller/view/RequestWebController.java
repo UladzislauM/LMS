@@ -42,7 +42,11 @@ public class RequestWebController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute("request") RequestDtoForSave request) {
+    public String create(@ModelAttribute RequestDtoForSave request) {
+        if(request.getUser().getEmail() != null){
+            UserDto user = userService.getByEmail(request.getUser().getEmail());
+            request.setUser(user);
+        }
         RequestDto created = requestService.create(request);
         return "redirect:/requests/" + created.getId();
     }
