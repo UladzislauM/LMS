@@ -47,10 +47,6 @@
                 <td th:if="${request.status.toString()} == 'CANCELLED'">Cancelled</td>
             </tr>
         </table>
-
-        <div th:insert="~{plugins/pagination :: pagination_fr}"
-             th:with="firstVer=${requests}">
-        </div>
     </div>
 </div>
 </body>
