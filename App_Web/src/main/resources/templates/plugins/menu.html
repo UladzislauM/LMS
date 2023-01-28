@@ -4,7 +4,7 @@
         <p><a class="text" href="/">Home</a></p>
         <p sec:authorize="hasAuthority('MANAGER')"><a class="text" href="/users">Users</a></p>
         <p><a class="text" href="/courses">Courses</a></p>
-        <p sec:authorize="hasAnyAuthority('USER', 'TRAINER')"><a class="text" href="/courses">My courses</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" href="/courses">My courses</a></p>
         <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" href="/requests">Requests</a></p>
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:href="@{/requests/student/__${#authentication.name}__}">My requests</a></p>
     </nav>
