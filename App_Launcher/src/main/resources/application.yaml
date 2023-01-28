@@ -33,7 +33,6 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/lms
-    username: postgres
   jpa:
     show-sql: true
     hibernate:
@@ -41,7 +40,7 @@ spring:
   mail:
     host: mail.javaclass.online
     port: 2525
-    username: noreply.lms@javaclass.online //fQ&3xA8)Xf
+    username: noreply.lms@javaclass.online
 server:
   port: 8080
   error:
