@@ -30,3 +30,25 @@ spring:
   config:
     activate:
       on-profile: production
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/lms
+    username: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  mail:
+    host: mail.javaclass.online
+    port: 2525
+    username: noreply.lms@javaclass.online //fQ&3xA8)Xf
+server:
+  port: 8080
+  error:
+    path: /error
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 10240
+app:
+  host: http://185.203.153.109
