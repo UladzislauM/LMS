@@ -14,15 +14,11 @@ import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.RequestMapper;
-import academy.belhard.lms.service.mapper.UserMapper;
 import academy.belhard.lms.service.dto.request.StatusDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service("requestService")
 @RequiredArgsConstructor
@@ -71,6 +67,12 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Page<RequestDto> getAll(Pageable pageable) {
         Page<Request> requests = requestRepository.findAll(pageable);
+        return requests.map(requestMapper::requestDto);
+    }
+
+    @Override
+    public Page<RequestDto> getAllForStudent(Pageable pageable, Long id) {
+        Page<Request> requests = requestRepository.findByStudent(pageable, id);
         return requests.map(requestMapper::requestDto);
     }
 
