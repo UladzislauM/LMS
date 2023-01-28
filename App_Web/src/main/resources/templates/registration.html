@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
     <title>Registration</title>
+    <script defer src="/js/jquery-3.6.1.js"></script>
+    <script type="module" src="/js/password-confirmation.js"></script>
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
@@ -21,11 +23,11 @@
                 </tr>
                 <tr>
                     <td class="text">Password</td>
-                    <td><input type="password" placeholder="Enter password" name="password" required></td>
+                    <td><input id="input-password" type="password" placeholder="Enter password" name="password" required></td>
                 </tr>
                 <tr>
                     <td class="text">Confirm password</td>
-                    <td><input type="password" placeholder="Confirm password" name="confirmPassword" required></td>
+                    <td><input id="input-confirm-password" type="password" placeholder="Confirm password" name="confirmPassword" required></td>
                 </tr>
                 <tr>
                     <td class="text">First name</td>
@@ -62,7 +64,7 @@
                 <input type="checkbox" id="confirm" name="confirm" required>
                 <label for="confirm">Confirmation of the processing of your personal data</label>
             </div>
-            <button type="submit" class="button-active">Sign up</button>
+            <button id="input-submit" type="submit" class="button-active">Sign up</button>
         </form>
     </div>
 </div>
