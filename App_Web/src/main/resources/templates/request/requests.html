@@ -36,8 +36,8 @@
                 <th></th>
                 <th>Users</th>
                 <th>Courses</th>
-                <th sec:authorize="hasAuthority('MANAGER')">Status</th>
-                <th sec:authorize="hasAuthority('MANAGER')">Actions</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
             <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
                 <td>
@@ -54,9 +54,9 @@
                 <td><a th:href="@{/users/__*{user.id}__}" th:text="*{user.firstName} + ' ' + *{user.lastName}">User</a>
                 </td>
                 <td><a th:href="@{/courses/__*{course.id}__}" th:text="*{course.title}">Course title</a></td>
-                <td sec:authorize="hasAuthority('MANAGER')" th:text="*{status}"></td>
+                <td th:text="*{status}"></td>
                 <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}">
-                    <td sec:authorize="hasAuthority('MANAGER')">
+                    <td>
                         <input type="hidden" name="user.id" th:value="*{user.id}">
                         <input type="hidden" name="course.id" th:value="*{course.id}">
                         <input type="hidden" name="status" th:value="CANCELLED">
