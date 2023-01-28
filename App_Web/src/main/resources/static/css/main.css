@@ -5,7 +5,7 @@ body {
 }
 
 .menu {
-    height: 10%;
+    height: 80px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,7 +15,7 @@ body {
 }
 
 .logo {
-    width: 50px;
+    width: 68px;
 }
 
 .menu-left {
