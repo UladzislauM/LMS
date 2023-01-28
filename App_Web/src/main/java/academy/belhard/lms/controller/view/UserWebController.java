@@ -25,7 +25,7 @@ public class UserWebController {
 
     @GetMapping("/create")
     public String createForm() {
-        return "create_user";
+        return "registration";
     }
 
     @PostMapping("/create")
