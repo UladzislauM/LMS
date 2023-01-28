@@ -61,6 +61,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserDto getByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+        return userMapper.userToUserDto(user);
+    }
+
+    @Override
     public UserDto update(UserDtoForUpdate dto) {
         Optional<User> existing = userRepository.findByEmailActive(dto.getEmail());
         if (existing.isPresent() && !existing.get().getId().equals(dto.getId())) {
