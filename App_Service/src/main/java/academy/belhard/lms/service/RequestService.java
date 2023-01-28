@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 public interface RequestService {
     Page<RequestDto> getAll(Pageable pageable);
 
+    Page<RequestDto> getAllForStudent(Pageable pageable, Long Id);
+
     RequestDto getById(Long id);
 
     RequestDto create(RequestDtoForSave dto);
