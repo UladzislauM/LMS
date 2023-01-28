@@ -8,14 +8,17 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-<nav th:replace="~{plugins/menu::menu}"></nav>
+
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Show</h1>
         <h2>Lessons</h2>
     </div>
+
     <div class="main-area">
-        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
+        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${lessons}"></div>
         <table class="table">
             <tr class="table-header">
                 <th></th>
@@ -24,28 +27,30 @@
                 <th>Title</th>
                 <th>Start time</th>
                 <th>Description</th>
+
             </tr>
             <tbody>
             <th:block th:each="lesson : ${lessons}" th:object="${lesson}" class="table-data">
                 <tr class="table-data">
                     <td>
-                        <a th:href="'/lessons/' + ${lesson.id}">
+                        <a>
                             <i class="fa-solid fa-eye" title="View"></i>
                         </a>
                     </td>
                     <td>
-                        <a th:href="'/lessons/updateForm/' + ${lesson.id}">
+                        <a>
                             <i class="fa-solid fa-file-pen" title="Edit"></i>
                         </a>
                     </td>
                     <td>
-                        <a th:href="'/lessons/delete/' + ${lesson.id}">
+                        <a>
                             <i class="fa-solid fa-trash-can" title="Delete"></i>
                         </a>
                     </td>
                     <td th:text="${lesson.title}"></td>
                     <td th:text="${lesson.startTime}"></td>
                     <td th:text="${lesson.description}"></td>
+
                 </tr>
             </th:block>
             </tbody>
