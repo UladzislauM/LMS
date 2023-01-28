@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
+<body>
+<nav th:replace="~{plugins/menu::menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Edit lesson</h1>
+        <h2 class="subheader">Changing lesson information</h2>
+
+    </div>
+    <div class="main-area">
+        <form th:action="'/lessons/update/' + ${lesson.id}" method="post">
+            <table>
+                <tr>
+                    <td class="text-left-column" type="hidden"></td>
+                    <td><input type="hidden" th:value=${lesson.id} name="id" disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Title</td>
+                    <td><input type="text" th:value=${lesson.title} name="title"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Start time</td>
+                    <td><input type="text" th:value=${lesson.startTime} name="startTime"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Description</td>
+                    <td>
+                        <div class="scrolling">
+                            <input type="text" th:value=${lesson.description} name="description">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Content</td>
+                    <td><input type="text" th:value=${lesson.content} name="content"></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Home task</td>
+                    <td><input type="text" th:value=${lesson.homeTask} name="homeTask"></td>
+                </tr>
+            </table>
+            <a th:href="'/lessons'" class="button-active">Back</a>
+            <button type="reset" class="button-active">Reset</button>
+            <button type="submit" class="button-active">Save changes</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

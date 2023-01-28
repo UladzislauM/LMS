@@ -13,16 +13,7 @@
         <h1 class="header">Lesson</h1>
         <h1 class="subheader">Information<br> about the lesson</h1>
 
-        <a th:href="'/lessons/update/' + ${lesson.id}" class="button-active">Edit</a>
-
     </div>
-
-    <!--<p th:text="${lesson.id}">ID</p>
-    <p th:text="${lesson.title}">Title</p>
-    <p th:text="${lesson.startTime}">Start time</p>
-    <p th:text="${lesson.description}">Description</p>
-    <p th:text="${lesson.content}">Content</p>
-    <p th:text="${lesson.homeTask}">Home task</p> FIXME POTENTIONAL DELETE THIS ROWS-->
 
     <div>
         <table>
@@ -54,8 +45,9 @@
                 <td class="text-left-column">Home task</td>
                 <td><input type="text" th:value=${lesson.homeTask} disabled></td>
             </tr>
-
         </table>
+        <a th:href="'/lessons'" class="button-active">Back</a>
+        <a th:href="'/lessons/updateForm/' + ${lesson.id}" class="button-active">Edit</a>
     </div>
 </div>
 </body>

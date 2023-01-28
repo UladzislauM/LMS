@@ -65,7 +65,7 @@ public class LessonWebController {
     public String update(@PathVariable Long id, @ModelAttribute("lesson") LessonDto newLesson) {
         newLesson.setId(id);
         lessonService.update(newLesson);
-        return "redirect:/lesson/" + id;
+        return "redirect:/lessons/" + id;
     }
 
     @GetMapping("/delete/{id}")
