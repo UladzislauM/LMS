@@ -66,6 +66,7 @@ li {
 
 .table {
     border-collapse: collapse;
+    max-width: 1000px;
 }
 
 td, th {
