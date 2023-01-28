@@ -17,6 +17,8 @@
         <h1 class="subheader">Information<br> about the course</h1>
         <a sec:authorize="hasAuthority('MANAGER')" th:href="'/courses/updateForm/' + ${course.id}"
            class="button-active">Edit course</a>
+        <a sec:authorize="hasAuthority('MANAGER')" th:href="'/lessons/createForm'"
+           class="button-active">Add lesson</a>
         <h1 class="text" sec:authorize="hasAuthority('STUDENT')">Enroll in a course</h1>
         <form action="/requests/create" method="post" sec:authorize="hasAuthority('STUDENT')">
             <input type="hidden" name="user.email" th:value="${#authentication.name}">
@@ -50,8 +52,8 @@
         <table class="table">
             <thead>
             <tr class="table-header">
-                <th></th>
-                <th sec:authorize="hasAnyAuthority('USER', 'MANAGER')"></th>
+                <th sec:authorize="isAuthenticated()"></th>
+                <th sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"></th>
                 <th sec:authorize="hasAuthority('MANAGER')"></th>
                 <th>Title</th>
                 <th>Start time</th>
@@ -61,11 +63,11 @@
             <tbody>
             <div th:each="el: ${course.getLessons}">
                 <tr class="table-data">
-                    <td><a th:href="'/lessons/' + ${el.id}">
+                    <td sec:authorize="isAuthenticated()"><a th:href="'/lessons/' + ${el.id}">
                         <i class="fa-solid fa-eye" title="View"></i>
                     </a>
                     </td>
-                    <td sec:authorize="hasAnyAuthority('USER', 'MANAGER')"><a th:href="'/lessons/update/' + ${el.id}">
+                    <td sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"><a th:href="'/lessons/updateForm/' + ${el.id}">
                         <i class="fa-solid fa-file-pen" title="Edit"></i>
                     </a>
                     </td>
