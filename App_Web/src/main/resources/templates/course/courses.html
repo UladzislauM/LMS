@@ -8,7 +8,7 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-<nav th:replace="~{plugins/menu :: menu}"></nav>
+<nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Courses</h1>
@@ -16,7 +16,7 @@
         <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active">Create</a>
     </div>
     <div class="main-area">
-        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
+        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
         <table class="table">
             <thead>
             <tr class="table-header">

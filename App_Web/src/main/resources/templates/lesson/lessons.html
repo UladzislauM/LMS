@@ -8,14 +8,14 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-<nav th:replace="~{plugins/menu :: menu}"></nav>
+<nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Show</h1>
         <h2>Lessons</h2>
     </div>
     <div class="main-area">
-        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
+        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
         <table class="table">
             <tr class="table-header">
                 <th></th>
