@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Requests</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Show</h1>
+        <h2>Requests</h2>
+        <h3><a th:href="@{/courses}" class="button-active">Sign up for a course</a></h3>
+    </div>
+    <div class="main-area">
+        <div>
+            <span>Size requests on page</span>
+            <select th:onchange="'window.location.href = \'' + @{/requests?sort=id,asc} + '&size=\' + this.value'">
+                <option th:text="@{Now: __${requests.getSize}__}"></option>
+                <option th:text="3"></option>
+                <option th:text="5"></option>
+                <option th:text="7"></option>
+                <option th:text="15"></option>
+            </select>
+
+        </div>
+
+        <table class="table">
+            <tr class="table-header">
+                <th>Courses</th>
+                <th>Subscription</th>
+            </tr>
+            <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
+                <td><a th:href="@{/courses/__*{course.id}__}" th:text="*{course.title}">Course title</a></td>
+            <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}" th:unless = "${#strings.toString(request.status)} == 'CANCELLED')">
+                <td>
+                    <input type="hidden" name="user.id" th:value="*{user.id}">
+                    <input type="hidden" name="course.id" th:value="*{course.id}">
+                    <input type="hidden" name="status" th:value="CANCELLED">
+                    <input type="submit" value="Cancel subscription" class="button-active"/>
+                </td>
+            </form>
+            </tr>
+        </table>
+
+        <div th:insert="~{plugins/pagination :: pagination_fr}"
+             th:with="firstVer=${requests}">
+        </div>
+    </div>
+</div>
+</body>
+</html>
