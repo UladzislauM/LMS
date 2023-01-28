@@ -1,5 +1,7 @@
 body {
     font-family: Sans-serif, sans-serif;
+    background: bisque;
+    margin: 0;
 }
 
 .menu {
@@ -30,6 +32,12 @@ body {
 .main {
     display: flex;
     flex-direction: row;
+}
+
+.home-background {
+    margin: 5px;
+    width: 98%;
+    height: 100%;
 }
 
 .left-side-area {
