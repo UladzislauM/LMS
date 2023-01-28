@@ -9,7 +9,6 @@ import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
 import academy.belhard.lms.service.dto.user.UserDto;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -43,7 +42,7 @@ public class RequestWebController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute RequestDtoForSave request) {
-        if(request.getUser().getEmail() != null){
+        if (request.getUser().getEmail() != null) {
             UserDto user = userService.getByEmail(request.getUser().getEmail());
             request.setUser(user);
         }
@@ -52,14 +51,14 @@ public class RequestWebController {
     }
 
     @GetMapping
-    public String getAll(Model model,@PageableDefault (size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
+    public String getAll(Model model, @PageableDefault(size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
         Page<RequestDto> requests = requestService.getAll(pageable);
         model.addAttribute("requests", requests);
         return "request/requests";
     }
 
     @GetMapping("/student/{name}")
-    public String getAllForStudent(@PathVariable String name, Model model, @PageableDefault (size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
+    public String getAllForStudent(@PathVariable String name, Model model, @PageableDefault(size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
         UserDto user = userService.getByEmail(name);
         Page<RequestDto> requests = requestService.getAllForStudent(pageable, user.getId());
         model.addAttribute("requests", requests);

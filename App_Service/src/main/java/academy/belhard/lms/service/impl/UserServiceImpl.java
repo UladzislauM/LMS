@@ -2,8 +2,8 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.UserRepository;
-import academy.belhard.lms.service.TokenLinkService;
 import academy.belhard.lms.service.MailService;
+import academy.belhard.lms.service.TokenLinkService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Page<UserDto> getAllByCourseAndRequestStatus(Long id,Pageable  pageable) {
+    public Page<UserDto> getAllByCourseAndRequestStatus(Long id, Pageable pageable) {
         Page<User> users = userRepository.findAllByCourseAndRequestStatus(id, pageable);
         return users.map(userMapper::userToUserDto);
     }

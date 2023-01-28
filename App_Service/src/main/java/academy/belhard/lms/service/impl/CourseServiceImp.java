@@ -7,14 +7,12 @@ import academy.belhard.lms.data.repository.HomeworkRepository;
 import academy.belhard.lms.data.repository.LessonRepository;
 import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.dto.course.CourseDto;
-import academy.belhard.lms.service.dto.course.CourseSimpleDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.CourseMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
