@@ -520,7 +520,7 @@ VALUES ((SELECT id FROM courses WHERE title = 'course_1'), (SELECT id FROM users
        ((SELECT id FROM courses WHERE title = 'course_70'),
         (SELECT id FROM users WHERE email = 'Alberto_Isaacson@web.be'), 'PROCESSING');
 
-INSERT INTO email_links (email_token, active_time, create_time)
+INSERT INTO token_links (token, active_time, create_time)
 VALUES ('b10b8b1e-4416-471b-9868-7c48ac8307e5', '2163', '2023-01-07 10:02:46'),
         ('59ad2045-d06e-4e39-b044-3f5f1fe8fe74', '3289', '2023-12-23 23:43:31'),
         ('0db372f4-0f00-43de-a98c-cf90fb2a866f', '1197', '2023-09-13 09:08:39'),

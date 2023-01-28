@@ -23,7 +23,7 @@ public interface UserService {
 
     void registerUser(UserDtoForSave dto);
 
-    void activateUser(Long userId, String emailToken);
+    void activateUser(Long userId);
 
     void recoveryPassword(String email);
 

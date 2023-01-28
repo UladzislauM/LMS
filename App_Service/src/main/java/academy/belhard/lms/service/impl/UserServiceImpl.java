@@ -2,7 +2,7 @@ package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.User;
 import academy.belhard.lms.data.repository.UserRepository;
-import academy.belhard.lms.service.EmailLinkService;
+import academy.belhard.lms.service.TokenLinkService;
 import academy.belhard.lms.service.MailService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDto;
@@ -27,12 +27,18 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USER_NOT_FOUND_MSG = "User not found";
     private static final String USER_NOT_ACTIVATED_MSG = "User not activated";
+    private static final int REGISTER_TOKEN_ACTIVITY_SECONDS = 60 * 60;
+    private static final int RECOVERY_TOKEN_ACTIVITY_SECONDS = 5 * 60;
+    private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
+    private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/recoveryPass/%s/%s";
+    private static final String USER_CONFIRM_SUBJECT = "User confirmation";
+    private static final String USER_RECOVERY_SUBJECT = "Recovery password confirmation";
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
-    private final EmailLinkService emailLinkService;
+    private final TokenLinkService tokenLinkService;
 
     @Override
     public UserDto create(UserDtoForSave dto) {
@@ -111,15 +117,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         entity.setRole(User.Role.STUDENT);
         entity.setActive(false);
         User created = userRepository.save(entity);
-        String emailLink = emailLinkService.getRegisterLink(created.getId());
-        mailService.sendEmail(created.getEmail(), emailLink);
+        String token = tokenLinkService.generateToken(REGISTER_TOKEN_ACTIVITY_SECONDS);
+        mailService.sendEmail(created.getEmail(), USER_CONFIRM_SUBJECT,
+                String.format(ACTIVATE_LINK_PATTERN, token, created.getId()));
     }
 
     @Override
-    public void activateUser(Long userId, String emailToken) {
-        if(!emailLinkService.isActivated(emailToken)) {
-            throw new LmsException("Link time expired. Please repeat authorization or recovery account");
-        }
+    public void activateUser(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         user.setActive(true);
@@ -129,9 +133,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void recoveryPassword(String email) {
         User existing = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));;
-        String emailLink = emailLinkService.getRecoveryPassLink(existing.getId());
-        mailService.sendEmail(email, emailLink);
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+        String token = tokenLinkService.generateToken(RECOVERY_TOKEN_ACTIVITY_SECONDS);
+        mailService.sendEmail(email, USER_RECOVERY_SUBJECT,
+                String.format(RECOVERY_PASS_LINK_PATTERN, token, existing.getId()));
     }
 
     @Override

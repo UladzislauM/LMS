@@ -10,18 +10,17 @@ import org.springframework.stereotype.Service;
 @Service("mailService")
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
-    private static final String EMAIL_SUBJECT = "Password confirmation";
-
     private final JavaMailSender emailSender;
+
     @Value("${spring.mail.username}")
     private String fromEmail;
 
     @Override
-    public void sendEmail(String to, String text) {
+    public void sendEmail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(to);
-        message.setSubject(EMAIL_SUBJECT);
+        message.setSubject(subject);
         message.setText(text);
         emailSender.send(message);
     }

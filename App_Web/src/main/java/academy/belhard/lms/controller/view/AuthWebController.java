@@ -1,6 +1,6 @@
 package academy.belhard.lms.controller.view;
 
-import academy.belhard.lms.service.EmailLinkService;
+import academy.belhard.lms.service.TokenLinkService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.exception.LmsException;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthWebController {
+    private static final String CONFIRMATION_MESSAGE = "An email has been sent to your email address with a confirmation link.";
     private final UserService userService;
-    private final EmailLinkService emailLinkService;
+    private final TokenLinkService tokenLinkService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -35,19 +34,20 @@ public class AuthWebController {
 
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute UserDtoForSave user,
-                                      @RequestParam("password") String password,
-                                      @RequestParam("confirmPassword") String confirmPassword) {
-        if (!password.equals(confirmPassword)) {
+                                      @RequestParam String confirmPassword,
+                                      Model model) {
+        if (!user.getPassword().equals(confirmPassword)) {
             throw new LmsException("Password doesn't match.");
         }
         userService.registerUser(user);
+        model.addAttribute("message", CONFIRMATION_MESSAGE);
         return "info";
     }
 
     @GetMapping("/activate/{token}/{userId}")
     public String activateUser(@PathVariable String token, @PathVariable Long userId) {
-        emailLinkService.activate(token);
-        userService.activateUser(userId, token);
+        tokenLinkService.activate(token);
+        userService.activateUser(userId);
         return "redirect:/auth/login";
     }
 
@@ -57,24 +57,23 @@ public class AuthWebController {
     }
 
     @PostMapping("/recoveryPass")
-    public String performRecoveryPass(@RequestParam("email") String email) {
+    public String performRecoveryPass(@RequestParam String email, Model model) {
         userService.recoveryPassword(email);
+        model.addAttribute("message", CONFIRMATION_MESSAGE);
         return "info";
     }
 
     @GetMapping("/recoveryPass/{token}/{userId}")
     public String recoveryPass(Model model, @PathVariable String token, @PathVariable Long userId) {
-        if(!emailLinkService.isActivated(token)) {
-            throw new LmsException("Link time expired. Please repeat authorization or recovery account");
-        }
+        tokenLinkService.activate(token);
         model.addAttribute("userId", userId);
         return "new_password";
     }
 
-    @PostMapping("/auth/changePassword")
-    public String changePassword(@RequestParam("userId") Long userId,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword) {
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestParam Long userId,
+                                 @RequestParam String newPassword,
+                                 @RequestParam String confirmPassword) {
         if (!newPassword.equals(confirmPassword)) {
             throw new LmsException("Password doesn't match.");
         }

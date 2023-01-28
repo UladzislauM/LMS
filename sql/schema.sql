@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS file_links;
 DROP TABLE IF EXISTS lessons;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS email_links;
+DROP TABLE IF EXISTS token_links;
 */
 CREATE TABLE IF NOT EXISTS users
 (
@@ -77,9 +77,9 @@ CREATE TABLE IF NOT EXISTS requests
     status    CHARACTER VARYING(60)
 );
 
-CREATE TABLE IF NOT EXISTS email_links(
+CREATE TABLE IF NOT EXISTS token_links(
     id                  BIGSERIAL PRIMARY KEY NOT NULL,
-    email_token			CHARACTER VARYING (40) NOT NULL,
+    token			    CHARACTER VARYING (40) NOT NULL,
     active_time			BIGINT,
     create_time	   		TIMESTAMP,
     is_active			BOOLEAN DEFAULT false NOT NULL

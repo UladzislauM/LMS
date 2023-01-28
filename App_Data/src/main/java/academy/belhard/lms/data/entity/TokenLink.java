@@ -22,15 +22,15 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Entity
 @EqualsAndHashCode
-@Table(name = "email_links")
-public class EmailLink {
+@Table(name = "token_links")
+public class TokenLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email_token")
-    private String emailToken;
+    @Column(name = "token")
+    private String token;
 
     @Column(name = "active_time")
     private Integer activeTime;
