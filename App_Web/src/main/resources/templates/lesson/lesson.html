@@ -2,15 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="/css/main.css" rel="stylesheet">
-    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+    <link href="/../static/css/main.css" rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link href="/../css/fontawesome/icons.css" rel="stylesheet" th:href="@{/css/fontawesome/main.css}">
 </head>
+
 <body>
-<p th:text="${lesson.id}">ID</p>
-<p th:text="${lesson.title}">Title</p>
-<p th:text="${lesson.startTime}">Start time</p>
-<p th:text="${lesson.description}">Description</p>
-<p th:text="${lesson.content}">Content</p>
-<p th:text="${lesson.homeTask}">Home task</p>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Lesson</h1>
+        <h1 class="subheader">Information<br> about the lesson</h1>
+
+        <a th:href="'/lessons/update/' + ${lesson.id}" class="button-active">Edit</a>
+
+    </div>
+
+    <!--<p th:text="${lesson.id}">ID</p>
+    <p th:text="${lesson.title}">Title</p>
+    <p th:text="${lesson.startTime}">Start time</p>
+    <p th:text="${lesson.description}">Description</p>
+    <p th:text="${lesson.content}">Content</p>
+    <p th:text="${lesson.homeTask}">Home task</p> FIXME POTENTIONAL DELETE THIS ROWS-->
+
+    <div>
+        <table>
+            <tr>
+                <td class="text-left-column" type="hidden"></td>
+                <td><input type="hidden" th:value=${lesson.id} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Title</td>
+                <td><input type="text" th:value=${lesson.title} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Start time</td>
+                <td><input type="text" th:value=${lesson.startTime} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Description</td>
+                <td>
+                    <div class="scrolling">
+                        <input type="text" th:value=${lesson.description} disabled>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Content</td>
+                <td><input type="text" th:value=${lesson.content} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Home task</td>
+                <td><input type="text" th:value=${lesson.homeTask} disabled></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
 </body>
 </html>

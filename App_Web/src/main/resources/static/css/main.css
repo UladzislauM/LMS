@@ -208,3 +208,11 @@ input:disabled {
 #popup:target {
     display: block;
 }
+
+.scrolling {
+    height: 100px;
+    width: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #fff;
+}
