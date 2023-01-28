@@ -30,18 +30,51 @@
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td><select name="status">
-                        <option value="PROCESSING">PROCESSING
-                        <option value="APPROVED">APPROVED
-                        <option value="PAID">PAID
-                        <option value="SATISFIED">SATISFIED
-                        <option value="CANCELLED">CANCELLED
-                    </select>
+                    <td th:if="${#strings.toString(request.status)} == 'PROCESSING'">
+                        <select name="status">
+                            <option value="PROCESSING" selected>PROCESSING
+                            <option value="APPROVED">APPROVED
+                            <option value="PAID" disabled>PAID
+                            <option value="SATISFIED" disabled>SATISFIED
+                            <option value="CANCELLED">CANCELLED
+                        </select>
                     </td>
-                </tr>
-                <tr>
-                    <td>Active status</td>
-                    <td th:text="*{status}"></td>
+                    <td th:if="${#strings.toString(request.status)} == 'APPROVED'">
+                        <select name="status">
+                            <option value="PROCESSING" disabled>PROCESSING
+                            <option value="APPROVED" selected>APPROVED
+                            <option value="PAID">PAID
+                            <option value="SATISFIED" disabled>SATISFIED
+                            <option value="CANCELLED">CANCELLED
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(request.status)} == 'PAID'">
+                        <select name="status">
+                            <option value="PROCESSING" disabled>PROCESSING
+                            <option value="APPROVED" disabled>APPROVED
+                            <option value="PAID" selected>PAID
+                            <option value="SATISFIED">SATISFIED
+                            <option value="CANCELLED">CANCELLED
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(request.status)} == 'SATISFIED'">
+                        <select name="status">
+                            <option value="PROCESSING" disabled>PROCESSING
+                            <option value="APPROVED" disabled>APPROVED
+                            <option value="PAID" disabled>PAID
+                            <option value="SATISFIED" selected>SATISFIED
+                            <option value="CANCELLED">CANCELLED
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(request.status)} == 'CANCELLED'">
+                        <select name="status">
+                            <option value="PROCESSING" disabled>PROCESSING
+                            <option value="APPROVED" disabled>APPROVED
+                            <option value="PAID" disabled>PAID
+                            <option value="SATISFIED" disabled>SATISFIED
+                            <option value="CANCELLED" selected>CANCELLED
+                        </select>
+                    </td>
                 </tr>
             </table>
             <input type="submit" name="submit" value="Save" class="button-active"/>
