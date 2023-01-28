@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -13,7 +13,7 @@
 <h1 class="header">Start page</h1>
 
 <ul>
-    <li><a th:href="@{/requests?page=0&size=5&sort=id,asc}" class="button"> - All requests - </a></li>
+    <li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/requests}" class="button"> - All requests - </a></li>
 </ul>
 
 </body>
