@@ -18,6 +18,43 @@ body {
     width: 68px;
 }
 
+.notification {
+    background: white;
+    min-height: 100px;
+    width: 300px;
+    position: absolute;
+    margin-left: 40%;
+    margin-top: 20%;
+    border: solid black 1px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px grey;
+    z-index: 10000;
+}
+
+.notification_title {
+    background: #00bfff;
+    border: solid black 1px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 100%;
+    text-align: center;
+    margin: -1px;
+}
+
+.notification_content {
+    text-align: center;
+    margin-top: 10px;
+    padding-bottom: 50px;
+}
+
+.notification_ok {
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    margin-top: -35px;
+    margin-left: 125px;
+}
+
 .menu-left {
     display: flex;
     flex-direction: row;
