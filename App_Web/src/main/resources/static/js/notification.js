@@ -1,4 +1,4 @@
-import {isClickOutside} from "./util";
+import {isClickOutside} from "./util.js";
 
 export const getNotification = (message, title='Information') => {
   const $notification = $(`
