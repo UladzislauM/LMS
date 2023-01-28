@@ -68,7 +68,10 @@ VALUES ('ivan99@gmail.com', 'jfhd86', 'Ivan', 'Ivanov', 'Ivanovich', 'TELEGRAM',
        ('Curt_Wang@cox.km', '1717d883b20fc0191d399ab9e1ae570630072160', 'Curt', 'Wang', 'Wang', 'CELLPHONE', 'STUDENT', '+1 (834) 941-767'),
        ('Trey_Vann@rediffmail.pr', '37f83c5515af4e744c15f0d94aace53f951ebddf', 'Trey', 'Vann', 'Vann', 'CELLPHONE', 'STUDENT', '+1 (780) 293-288'),
        ('Darrell_Raymond@yandex.eh', '930f495afce22ea95e82aec0f2e6cace3e9dcd6', 'Darrell', 'Raymond', 'Raymond', 'CELLPHONE', 'STUDENT', '+1 (628) 866-445'),
-       ('Alberto_Isaacson@web.be', '4c57771f332a682cd6e67a77286f6db99d46f379', 'Alberto', 'Isaacson', 'Isaacson', 'CELLPHONE', 'MANAGER', '+1 (860) 783-789');
+       ('Alberto_Isaacson@web.be', '4c57771f332a682cd6e67a77286f6db99d46f379', 'Alberto', 'Isaacson', 'Isaacson', 'CELLPHONE', 'MANAGER', '+1 (860) 783-789'),
+       ('student@mail.com', '$2a$10$hS.PIYq9kqnMq/CJjnoo4u9205wV.HJMkQQlLiM3Msjkd0nRLtjku', 'Nick', 'Nixon', NULL, 'TELEGRAM', 'STUDENT', '@nick_1234'),   -- password 1234
+       ('trainer@mail.com', '$2a$10$hS.PIYq9kqnMq/CJjnoo4u9205wV.HJMkQQlLiM3Msjkd0nRLtjku', 'Mike', 'Mikeson', NULL, 'TELEGRAM', 'TRAINER', '@mike_1234'), -- password 1234
+       ('manager@mail.com', '$2a$10$hS.PIYq9kqnMq/CJjnoo4u9205wV.HJMkQQlLiM3Msjkd0nRLtjku', 'Bark', 'Barkson', NULL, 'TELEGRAM', 'MANAGER', '@bark_1234'); -- password 1234
 
 INSERT INTO file_links (link)
 VALUES ('link_1'),
