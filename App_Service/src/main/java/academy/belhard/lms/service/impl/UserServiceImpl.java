@@ -12,6 +12,7 @@ import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,10 +30,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private static final String USER_NOT_ACTIVATED_MSG = "User not activated";
     private static final int REGISTER_TOKEN_ACTIVITY_SECONDS = 60 * 60;
     private static final int RECOVERY_TOKEN_ACTIVITY_SECONDS = 5 * 60;
-    private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/activate/%s/%s";
-    private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: http://localhost:8080/auth/recoveryPass/%s/%s";
+    private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: %s/auth/activate/%s/%s";
+    private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: %s/auth/recoveryPass/%s/%s";
     private static final String USER_CONFIRM_SUBJECT = "User confirmation";
     private static final String USER_RECOVERY_SUBJECT = "Recovery password confirmation";
+
+    @Value("${app.host}")
+    private String host;
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -119,7 +123,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User created = userRepository.save(entity);
         String token = tokenLinkService.generateToken(REGISTER_TOKEN_ACTIVITY_SECONDS);
         mailService.sendEmail(created.getEmail(), USER_CONFIRM_SUBJECT,
-                String.format(ACTIVATE_LINK_PATTERN, token, created.getId()));
+                String.format(ACTIVATE_LINK_PATTERN, host, token, created.getId()));
     }
 
     @Override
@@ -136,7 +140,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
         String token = tokenLinkService.generateToken(RECOVERY_TOKEN_ACTIVITY_SECONDS);
         mailService.sendEmail(email, USER_RECOVERY_SUBJECT,
-                String.format(RECOVERY_PASS_LINK_PATTERN, token, existing.getId()));
+                String.format(RECOVERY_PASS_LINK_PATTERN, host, token, existing.getId()));
     }
 
     @Override
