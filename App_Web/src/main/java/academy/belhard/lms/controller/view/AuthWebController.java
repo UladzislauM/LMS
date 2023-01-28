@@ -3,7 +3,6 @@ package academy.belhard.lms.controller.view;
 import academy.belhard.lms.service.TokenLinkService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
-import academy.belhard.lms.service.exception.LmsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,12 +32,7 @@ public class AuthWebController {
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute UserDtoForSave user,
-                                      @RequestParam String confirmPassword,
-                                      Model model) {
-        if (!user.getPassword().equals(confirmPassword)) {
-            throw new LmsException("Password doesn't match.");
-        }
+    public String performRegistration(@ModelAttribute UserDtoForSave user, Model model) {
         userService.registerUser(user);
         model.addAttribute("message", CONFIRMATION_MESSAGE);
         return "info";
@@ -71,12 +65,7 @@ public class AuthWebController {
     }
 
     @PostMapping("/changePassword")
-    public String changePassword(@RequestParam Long userId,
-                                 @RequestParam String newPassword,
-                                 @RequestParam String confirmPassword) {
-        if (!newPassword.equals(confirmPassword)) {
-            throw new LmsException("Password doesn't match.");
-        }
+    public String changePassword(@RequestParam Long userId, @RequestParam String newPassword) {
         userService.changePassword(userId, newPassword);
         return "redirect:/auth/login";
     }
