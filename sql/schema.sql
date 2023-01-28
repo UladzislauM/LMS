@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS users
 (
     id                  BIGSERIAL PRIMARY KEY  NOT NULL,
     email               CHARACTER VARYING(100) NOT NULL,
-    password            CHARACTER VARYING(150)  NOT NULL,
+    "password"          CHARACTER VARYING(150) NOT NULL,
     first_name          CHARACTER VARYING(100) NOT NULL,
     last_name           CHARACTER VARYING(100) NOT NULL,
     patronymic_name     CHARACTER VARYING(100),
     contact_preferences CHARACTER VARYING(50)  NOT NULL,
     social_media        CHARACTER VARYING(50),
-    role                CHARACTER VARYING(50)  NOT NULL,
+    "role"              CHARACTER VARYING(50)  NOT NULL,
     is_active           BOOLEAN                NOT NULL DEFAULT TRUE
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS courses
     price       DECIMAL(10, 2)        NOT NULL,
     trainer_id  BIGINT,
     start_date  DATE,
-    deleted     BOOLEAN DEFAULT false NOT NULL,
+    deleted     BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (trainer_id) REFERENCES users (id)
 );
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS lessons
     description VARCHAR(300),
     content     VARCHAR(200),
     home_task   VARCHAR(500),
-    deleted     BOOLEAN DEFAULT false NOT NULL,
+    deleted     BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (course_id) REFERENCES courses (id)
 );
@@ -77,10 +77,11 @@ CREATE TABLE IF NOT EXISTS requests
     status    CHARACTER VARYING(60)
 );
 
-CREATE TABLE IF NOT EXISTS token_links(
-    id                  BIGSERIAL PRIMARY KEY NOT NULL,
-    token			    CHARACTER VARYING (40) NOT NULL,
-    active_time			BIGINT,
-    create_time	   		TIMESTAMP,
-    is_active			BOOLEAN DEFAULT false NOT NULL
- );
+CREATE TABLE IF NOT EXISTS token_links
+(
+    id          BIGSERIAL PRIMARY KEY NOT NULL,
+    token       CHARACTER VARYING(40) NOT NULL,
+    active_time BIGINT,
+    create_time TIMESTAMP,
+    is_active   BOOLEAN DEFAULT FALSE NOT NULL
+);
