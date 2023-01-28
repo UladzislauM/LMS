@@ -1,6 +1,6 @@
 <nav th:fragment="menu" class="menu" xmlns:sec="http://www.springframework.org/schema/security">
     <nav class="menu-left">
-        <img src="/images/logo.jpg" alt="logo" style="width:50px">
+        <img class="logo" th:src="@{/images/logo.jpg}" alt="logo">
         <p><a class="text" href="/">Home</a></p>
         <p sec:authorize="hasAuthority('MANAGER')"><a class="text" href="/users">Users</a></p>
         <p><a class="text" href="/courses">Courses</a></p>
