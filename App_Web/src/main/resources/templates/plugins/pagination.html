@@ -1,28 +1,10 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="pagination_fr">
-<span th:if="${not firstVer.first AND firstVer.totalPages > 0}">
-    <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page = 0)}"
-       class="">First </a>
-</span>
-    <span th:if="${not firstVer.first AND firstVer.totalPages > 0}">
-    <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.number - 1})}"
-       class=""><-- Previous</a>
-</span>
-    <span th:if="${firstVer.totalPages > 0}"
-          th:each="pageNumber : ${#numbers.sequence(0, firstVer.getTotalPages - 1, 1)}" button-active>
-    <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${pageNumber})}"
-       th:text="${pageNumber} + 1"
-       th:class="${pageNumber==firstVer.number + 1} ? active" class=""></a>
-</span>
-    <span th:if="${not firstVer.last AND firstVer.totalPages > 0}">
-    <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.number + 1})}"
-       class="">Next --></a>
-</span>
-    <span th:if="${not firstVer.last AND firstVer.totalPages > 0}">
-    <a th:href="@{__${#ctx.springRequestContext.requestUri}__(size=${firstVer.size}, page=${firstVer.totalPages - 1})}"
-       class=""> Last</a>
-</span>
-    <span th:text="'This page = ' + ${firstVer.number + 1}">This now</span>
+<div class="pagination" th:fragment="pagination" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <div class="hidden meta" th:attr="first=${firstVer.first},last=${firstVer.last},total=${firstVer.totalPages},number=${firstVer.number},url=${#ctx.springRequestContext.requestUri}"></div>
+  <button class="first">First</button>
+  <button class="prev">Prev</button>
+  <button class="current"></button>
+  <button class="next">Next</button>
+  <button class="last">Last</button>
+  <script defer src="/js/jquery-3.6.1.js"></script>
+  <script defer src="/js/pagination.js"></script>
 </div>
-</html>

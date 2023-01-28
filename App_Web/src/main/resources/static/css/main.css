@@ -72,6 +72,10 @@ td, th {
     padding: 5px;
 }
 
+.pagination {
+    margin: 3px 5px 3px 5px;
+}
+
 .table-header {
     background: #00bfff;
     border: grey 2px solid;

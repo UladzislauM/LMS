@@ -17,61 +17,47 @@
         <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active">Create</a>
     </div>
     <div>
-        <div>
-            <span>Size requests on page</span>
-            <select th:onchange="'window.location.href = \'' + @{/courses?sort=id,asc} + '&size=\' + this.value'">
-                <option th:text="@{Now: __${courses.getSize}__}"></option>
-                <option th:text="3"></option>
-                <option th:text="5"></option>
-                <option th:text="7"></option>
-                <option th:text="15"></option>
-            </select>
-        </div>
-        <div>
-            <table class="table">
-                <thead>
-                <tr class="table-header">
-                    <th></th>
-                    <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
-                    <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Start Date</th>
-                    <th>Description</th>
+        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
+        <table class="table">
+            <thead>
+            <tr class="table-header">
+                <th></th>
+                <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
+                <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="course : ${courses}">
+                <tr class="table-data">
+                    <td>
+                        <a th:href="'/courses/' + ${course.id}">
+                            <i class="fa-solid fa-eye" title="View"></i>
+                        </a>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('MANAGER')">
+                        <a th:href="'/courses/updateForm/' + ${course.id}">
+                            <i class="fa-solid fa-file-pen" title="Edit"></i>
+                        </a>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('MANAGER')">
+                        <a th:href="'/courses/delete/' + ${course.id}">
+                            <i class="fa-solid fa-trash-can" title="Delete"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
+                    </td>
+                    <td th:text="${course.price}"></td>
+                    <td th:text="${course.startDate}"></td>
+                    <td th:text="${course.description}"></td>
                 </tr>
-                </thead>
-                <tbody>
-                <th:block th:each="course : ${courses}">
-                    <tr class="table-data">
-                        <td>
-                            <a th:href="'/courses/' + ${course.id}">
-                                <i class="fa-solid fa-eye" title="View"></i>
-                            </a>
-                        </td>
-                        <td sec:authorize="hasAnyAuthority('MANAGER')">
-                            <a th:href="'/courses/updateForm/' + ${course.id}">
-                                <i class="fa-solid fa-file-pen" title="Edit"></i>
-                            </a>
-                        </td>
-                        <td sec:authorize="hasAnyAuthority('MANAGER')">
-                            <a th:href="'/courses/delete/' + ${course.id}">
-                                <i class="fa-solid fa-trash-can" title="Delete"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
-                        </td>
-                        <td th:text="${course.price}"></td>
-                        <td th:text="${course.startDate}"></td>
-                        <td th:text="${course.description}"></td>
-                    </tr>
-                </th:block>
-                </tbody>
-            </table>
-            <div th:insert="~{plugins/pagination :: pagination_fr}"
-                 th:with="firstVer=${courses}">
-            </div>
-        </div>
+            </th:block>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

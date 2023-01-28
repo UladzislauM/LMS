@@ -17,18 +17,7 @@
         <h3><a th:href="@{requests/create}" class="button-active">Create request</a></h3>
     </div>
     <div class="main-area">
-        <div>
-            <span>Size requests on page</span>
-            <select th:onchange="'window.location.href = \'' + @{/requests?sort=id,asc} + '&size=\' + this.value'">
-                <option th:text="@{Now: __${requests.getSize}__}"></option>
-                <option th:text="3"></option>
-                <option th:text="5"></option>
-                <option th:text="7"></option>
-                <option th:text="15"></option>
-            </select>
-
-        </div>
-
+        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
         <table class="table">
             <tr class="table-header">
                 <th></th>
@@ -65,10 +54,6 @@
                 </form>
             </tr>
         </table>
-
-        <div th:insert="~{plugins/pagination :: pagination_fr}"
-             th:with="firstVer=${requests}">
-        </div>
     </div>
 </div>
 </body>
