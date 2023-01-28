@@ -8,17 +8,14 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Users</h1>
-        <h1 class="subheader">List<br> of all users</h1>
+        <h2 class="subheader">List<br> of all users</h2>
         <a href="/users/create" class="button-active">Create</a>
     </div>
-
-    <div>
+    <div class="main-area">
         <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
         <table class="table">
             <thead>

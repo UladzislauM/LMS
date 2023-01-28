@@ -7,35 +7,34 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
-<div class="left-side-area">
-    <h1 class="header">Edit Course</h1>
-    <h1 class="subheader">Changing course information</h1>
-
-</div>
-
-<div>
-    <form th:action="'/courses/update/' + ${course.id}" method="post">
-        <table>
-            <tr>
-                <td class="text" align="right" wight="20%">Title</td>
-                <td><input type="text" th:value=${course.title} name="title"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Description</td>
-                <td><input type="text" th:value=${course.description} name="description"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Price</td>
-                <td><input type="text" th:value=${course.price} name="price"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Start date</td>
-                <td><input type="text" th:value=${course.startDate} name="startDate"></td>
-            </tr>
-        </table>
-        <button type="submit" class="button-active">Save</button>
-    </form>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Edit Course</h1>
+        <h2 class="subheader">Changing course information</h2>
+    </div>
+    <div class="main-area">
+        <form th:action="'/courses/update/' + ${course.id}" method="post">
+            <table>
+                <tr>
+                    <td class="text" align="right" wight="20%">Title</td>
+                    <td><input type="text" th:value=${course.title} name="title"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Description</td>
+                    <td><input type="text" th:value=${course.description} name="description"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Price</td>
+                    <td><input type="text" th:value=${course.price} name="price"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Start date</td>
+                    <td><input type="text" th:value=${course.startDate} name="startDate"></td>
+                </tr>
+            </table>
+            <button type="submit" class="button-active">Save</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

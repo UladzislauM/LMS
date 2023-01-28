@@ -7,9 +7,16 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<h1 class="header">Sorry, Error...</h1>
-<h3 th:text="${message} == null ? 'Something went wrong...' : ${message}"></h3>
-<a href="#" onclick="history.back();return false;" class="button-active">
-    <-Back</a>
+<nav th:replace="~{plugins/menu :: menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Error</h1>
+        <h2 class="subheader">We are sorry, but there is an error</h2>
+    </div>
+    <div class="main-area">
+        <h2 class="header">Sorry, Error...</h2>
+        <h3 th:text="${message} == null ? 'Something went wrong...' : ${message}"></h3>
+    </div>
+</div>
 </body>
 </html>

@@ -9,12 +9,11 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}"></nav>
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Course</h1>
-        <h1 class="subheader">Information<br> about the course</h1>
+        <h2 class="subheader">Information<br> about the course</h2>
         <a sec:authorize="hasAuthority('MANAGER')" th:href="'/courses/updateForm/' + ${course.id}"
            class="button-active">Edit course</a>
         <a sec:authorize="hasAuthority('MANAGER')" th:href="'/lessons/createForm'"
@@ -27,7 +26,6 @@
             <button type="submit" class="button-active">Enroll</button>
         </form>
     </div>
-
     <div class="main-area">
         <h1 class="subheader" th:text="${course.title}"></h1>
         <h1 class="text" th:text="${course.description}"></h1>

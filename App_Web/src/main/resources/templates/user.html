@@ -7,19 +7,14 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">User</h1>
-        <h1 class="subheader">Information<br> about the user</h1>
-
+        <h2 class="subheader">Information<br> about the user</h2>
         <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
-
     </div>
-
-    <div>
+    <div class="main-area">
         <table>
             <tr>
                 <td class="text-left-column">Email</td>

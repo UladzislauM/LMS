@@ -8,49 +8,51 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
-<div class="left-side-area">
-    <h1 class="header">Show</h1>
-    <h2>Homeworks</h2>
-    <h3><a th:href="@{/homeworks/create}" class="button">Create homework</a></h3>
-</div>
-<div class="main-area">
-    <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
-    <table class="table">
-        <h2>Homeworks list</h2>
-        <tr class="table-header">
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Users</th>
-            <th>Comment</th>
-            <th>File link</th>
-            <th>Mark</th>
-        </tr>
-        <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
-            <td>
-                <a th:href="@{/homeworks/__*{id}__}" class="button">
-                    <i class="fa-solid fa-eye" title="View"></i>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/homeworks/update/__*{id}__}" class="button">
-                    <i class="fa-solid fa-file-pen" title="Edit"></i>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/homeworks/delete/__*{id}__}" class="button">
-                    <i class="fa-solid fa-trash-can" title="Delete"></i>
-                </a>
-            </td>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Homeworks</h1>
+        <h2 class="subheader">List of all homeworks</h2>
+        <h3><a th:href="@{/homeworks/create}" class="button">Create homework</a></h3>
+    </div>
+    <div class="main-area">
+        <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${courses}"></div>
+        <table class="table">
+            <h2>Homeworks list</h2>
+            <tr class="table-header">
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Users</th>
+                <th>Comment</th>
+                <th>File link</th>
+                <th>Mark</th>
+            </tr>
+            <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
+                <td>
+                    <a th:href="@{/homeworks/__*{id}__}" class="button">
+                        <i class="fa-solid fa-eye" title="View"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/homeworks/update/__*{id}__}" class="button">
+                        <i class="fa-solid fa-file-pen" title="Edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/homeworks/delete/__*{id}__}" class="button">
+                        <i class="fa-solid fa-trash-can" title="Delete"></i>
+                    </a>
+                </td>
 
-            <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">
-                Full name
-            </td>
-            <td th:text="*{comment}">comment</td>
-            <td th:text="*{fileLink}">filelink</td>
-            <td th:text="*{mark}">mark</td>
-        </tr>
-    </table>
+                <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">
+                    Full name
+                </td>
+                <td th:text="*{comment}">comment</td>
+                <td th:text="*{fileLink}">filelink</td>
+                <td th:text="*{mark}">mark</td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

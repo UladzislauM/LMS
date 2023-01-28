@@ -7,18 +7,13 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Update homework</h1>
-        <h1 class="subheader">Change homework<br> information</h1>
-        <h3><a href="#" onclick="history.back();return false;" class="history-back">
-            <-Back</a></h3>
+        <h2 class="subheader">Change homework<br> information</h2>
     </div>
-
-    <div>
+    <div class="main-area">
         <form th:action="'/homeworks/update/' + ${homework.id}" method="post">
             <table>
                 <tr>

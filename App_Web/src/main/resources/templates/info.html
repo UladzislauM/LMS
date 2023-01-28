@@ -8,8 +8,15 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
-<h4 th:text="${message}"></h4>
-
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Information</h1>
+        <h2 class="subheader">Display User Information Message</h2>
+    </div>
+    <div class="main-area">
+        <h2 class="header">User Information Message</h2>
+        <h3 th:text="${message}"></h3>
+    </div>
+</div>
 </body>
 </html>

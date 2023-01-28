@@ -6,67 +6,65 @@
     <title>Registration</title>
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Create user</h1>
+        <h2 class="subheader">Complete your user profile</h2>
+    </div>
+    <div class="main-area">
+        <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+            <table>
+                <tr>
+                    <td class="text" wight="20%">Email</td>
+                    <td><input type="email" placeholder="Enter email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td class="text">Password</td>
+                    <td><input type="password" placeholder="Enter password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td class="text">Confirm password</td>
+                    <td><input type="password" placeholder="Confirm password" name="confirmPassword" required></td>
+                </tr>
+                <tr>
+                    <td class="text">First name</td>
+                    <td><input type="text" placeholder="Enter first name" name="firstName"></td>
+                </tr>
+                <tr>
+                    <td class="text">Last name</td>
+                    <td><input type="text" placeholder="Enter last name" name="lastName"></td>
+                </tr>
+                <tr>
+                    <td class="text">Patronymic name</td>
+                    <td><input type="text" placeholder="Enter patronymic name" name="patronymicName"></td>
+                </tr>
+                <tr>
+                    <td class="text">Contact preferences</td>
+                    <td>
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM" selected>TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text">Social media</td>
+                    <td><input type="text" placeholder="Enter social media" name="socialMedia"></td>
+                </tr>
 
-<div class="left-side-area">
-    <h1 class="header">Create user</h1>
-    <h1 class="subheader">Complete your user profile</h1>
+            </table>
+            <div>
+                <input type="checkbox" id="confirm" name="confirm" required>
+                <label for="confirm">Confirmation of the processing of your personal data</label>
+            </div>
+            <button type="submit" class="button-active">Sign up</button>
+        </form>
+    </div>
 </div>
-
-<div>
-    <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
-        <table>
-            <tr>
-                <td class="text" wight="20%">Email</td>
-                <td><input type="email" placeholder="Enter email" name="email" required></td>
-            </tr>
-            <tr>
-                <td class="text">Password</td>
-                <td><input type="password" placeholder="Enter password" name="password" required></td>
-            </tr>
-            <tr>
-                <td class="text">Confirm password</td>
-                <td><input type="password" placeholder="Confirm password" name="confirmPassword" required></td>
-            </tr>
-            <tr>
-                <td class="text">First name</td>
-                <td><input type="text" placeholder="Enter first name" name="firstName"></td>
-            </tr>
-            <tr>
-                <td class="text">Last name</td>
-                <td><input type="text" placeholder="Enter last name" name="lastName"></td>
-            </tr>
-            <tr>
-                <td class="text">Patronymic name</td>
-                <td><input type="text" placeholder="Enter patronymic name" name="patronymicName"></td>
-            </tr>
-            <tr>
-                <td class="text">Contact preferences</td>
-                <td>
-                    <select name="contactPreferences">
-                        <option value="TELEGRAM" selected>TELEGRAM
-                        <option value="INSTAGRAM">INSTAGRAM
-                        <option value="VIBER">VIBER
-                        <option value="WHATSAPP">WHATSAPP
-                        <option value="EMAIL">EMAIL
-                        <option value="CELLPHONE">CELLPHONE
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="text">Social media</td>
-                <td><input type="text" placeholder="Enter social media" name="socialMedia"></td>
-            </tr>
-
-        </table>
-        <div>
-            <input type="checkbox" id="confirm" name="confirm" required>
-            <label for="confirm">Confirmation of the processing of your personal data</label>
-        </div>
-        <button type="submit" class="button-active">Sign up</button>
-    </form>
-</div>
-
 </body>
 </html>

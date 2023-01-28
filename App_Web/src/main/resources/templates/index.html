@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>LMS - Main Page</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-
 <div th:replace="~{plugins/menu :: menu}" class="manu"></div>
-
-<h1 class="header">Start page</h1>
-
-<ul>
-    <li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/requests}" class="button"> - All requests - </a></li>
-</ul>
-
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Learning Management System</h1>
+        <h2 class="subheader">Welcome to the Learning Management System. Wish you a happy journey!</h2>
+    </div>
+    <div class="main-area"></div>
+</div>
 </body>
 </html>

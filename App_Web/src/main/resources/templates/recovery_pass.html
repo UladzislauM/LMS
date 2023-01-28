@@ -7,18 +7,23 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
-<h1>Please enter email for confirm to change password</h1>
-
-<form th:action="@{/auth/recoveryPass}" method="POST">
-    <table>
-        <tr>
-            <td class="text" wight="20%">Email</td>
-            <td><input type="email" placeholder="Enter email" name="email" required></td>
-        </tr>
-    </table>
-    <h4>A link to reset your password will be sent to your email address.</h4>
-    <input type="submit" value="Submit"/>
-</form>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Password Recovery</h1>
+        <h2 class="subheader">Type your email to receive recovery link</h2>
+    </div>
+    <div class="main-area">
+        <form th:action="@{/auth/recoveryPass}" method="POST">
+            <table>
+                <tr>
+                    <td class="text" wight="20%">Email</td>
+                    <td><input type="email" placeholder="Enter email" name="email" required></td>
+                </tr>
+            </table>
+            <h4>A link to reset your password will be sent to your email address.</h4>
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>

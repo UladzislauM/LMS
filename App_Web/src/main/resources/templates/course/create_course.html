@@ -7,34 +7,34 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
-
-<div class="left-side-area">
-    <h1 class="header">Create Course</h1>
-    <h1 class="subheader">Complete your course</h1>
-
-</div>
-<div>
-    <form action="/courses/create" method="post">
-        <table>
-            <tr>
-                <td class="text" align="right" wight="20%">Title</td>
-                <td><input type="text" placeholder="Enter title" name="title"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Description</td>
-                <td><input type="text" placeholder="Enter description" name="description"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Start date</td>
-                <td><input type="text" placeholder="Enter start date" name="startDate"></td>
-            </tr>
-            <tr>
-                <td class="text" align="right">Price</td>
-                <td><input type="text" placeholder="Enter price" name="price"></td>
-            </tr>
-        </table>
-        <button type="submit" class="button-active">Create</button>
-    </form>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Create Course</h1>
+        <h2 class="subheader">Complete your course</h2>
+    </div>
+    <div class="main-area">
+        <form action="/courses/create" method="post">
+            <table>
+                <tr>
+                    <td class="text" align="right" wight="20%">Title</td>
+                    <td><input type="text" placeholder="Enter title" name="title"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Description</td>
+                    <td><input type="text" placeholder="Enter description" name="description"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Start date</td>
+                    <td><input type="text" placeholder="Enter start date" name="startDate"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Price</td>
+                    <td><input type="text" placeholder="Enter price" name="price"></td>
+                </tr>
+            </table>
+            <button type="submit" class="button-active">Create</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
