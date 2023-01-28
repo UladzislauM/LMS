@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Requests</title>
@@ -36,15 +36,15 @@
             </tr>
             <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
                 <td><a th:href="@{/courses/__*{course.id}__}" th:text="*{course.title}">Course title</a></td>
-            <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}" th:unless = "${request.status.toString()} == 'CANCELLED'">
-                <td>
-                    <input type="hidden" name="user.id" th:value="*{user.id}">
-                    <input type="hidden" name="course.id" th:value="*{course.id}">
-                    <input type="hidden" name="status" th:value="CANCELLED">
-                    <input type="submit" value="Cancel subscription" class="button-active"/>
-                </td>
-            </form>
-                <td th:if = "${request.status.toString()} == 'CANCELLED'">Cancelled</td>
+                <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}" th:unless="${request.status.toString()} == 'CANCELLED'">
+                    <td>
+                        <input type="hidden" name="user.id" th:value="*{user.id}">
+                        <input type="hidden" name="course.id" th:value="*{course.id}">
+                        <input type="hidden" name="status" th:value="CANCELLED">
+                        <input type="submit" value="Cancel subscription" class="button-active"/>
+                    </td>
+                </form>
+                <td th:if="${request.status.toString()} == 'CANCELLED'">Cancelled</td>
             </tr>
         </table>
 

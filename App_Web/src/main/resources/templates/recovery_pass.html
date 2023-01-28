@@ -11,14 +11,14 @@
 <h1>Please enter email for confirm to change password</h1>
 
 <form th:action="@{/auth/recoveryPass}" method="POST">
-        <table>
-            <tr>
-                <td class="text" wight="20%">Email</td>
-                <td><input type="email" placeholder="Enter email" name="email" required></td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <td class="text" wight="20%">Email</td>
+            <td><input type="email" placeholder="Enter email" name="email" required></td>
+        </tr>
+    </table>
     <h4>A link to reset your password will be sent to your email address.</h4>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>
