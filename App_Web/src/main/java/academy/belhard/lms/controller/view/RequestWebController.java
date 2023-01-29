@@ -47,7 +47,7 @@ public class RequestWebController {
             request.setUser(user);
         }
         RequestDto created = requestService.create(request);
-        return "redirect:/requests/" + created.getId();
+        return "redirect:/requests/student/" + created.getUser().getEmail();
     }
 
     @GetMapping
