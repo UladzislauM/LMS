@@ -38,9 +38,11 @@ public class RequestServiceImpl implements RequestService {
         User user = requestMapper.user(request.getUser());
         requestRepository.findByUser(user)
                 .ifPresent(r -> {
-                    Request.Status status = r.getStatus();
-                    if (status != Request.Status.CANCELLED) {
-                        throw new LmsException(String.format(REQUEST_EXITING_EXCEPTION, status));
+                    if(r.getCourse() == requestMapper.course(request.getCourse())) {
+                        Request.Status status = r.getStatus();
+                        if (status != Request.Status.CANCELLED) {
+                            throw new LmsException(String.format(REQUEST_EXITING_EXCEPTION, status));
+                        }
                     }
                 });
     }
