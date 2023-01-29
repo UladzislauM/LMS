@@ -382,7 +382,7 @@ VALUES (50, 1, 'comment_1', 8, 1),
        (52, 50, 'comment_50', 1, 50);
 
 INSERT INTO requests (course_id, user_id, status)
-VALUES ((SELECT id FROM courses WHERE title = 'course_1'), (SELECT id FROM users WHERE email = 'ivan99@gmail.com'), 'PROCESSING'),
+VALUES ((SELECT id FROM courses WHERE title = 'Программирование на Java. Начальный уровень'), (SELECT id FROM users WHERE email = 'ivan99@gmail.com'), 'PROCESSING'),
        ((SELECT id FROM courses WHERE title = 'course_2'), (SELECT id FROM users WHERE email = 'petr48@gmail.com'), 'PROCESSING'),
        ((SELECT id FROM courses WHERE title = 'course_3'), (SELECT id FROM users WHERE email = 'sidor@gmail.com'), 'PROCESSING'),
        ((SELECT id FROM courses WHERE title = 'course_4'), (SELECT id FROM users WHERE email = 'jek94@gmail.com'), 'PROCESSING'),
