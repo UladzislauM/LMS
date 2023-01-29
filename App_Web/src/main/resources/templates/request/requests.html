@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Requests</title>
@@ -9,7 +9,7 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu::menu}"></nav>
-<div class="main">
+<div class="main"  sec:authorize="hasAnyAuthority('MANAGER')">
     <div class="left-side-area">
         <h1 class="header">Show</h1>
         <h2>Requests</h2>
@@ -57,6 +57,12 @@
                 </form>
             </tr>
         </table>
+    </div>
+</div>
+<div class="main" sec:authorize="hasAnyAuthority('STUDENT')">
+    <div class="left-side-area">
+        <h1 class="header">Update</h1>
+        <h2>Student go on you Pages! -> <span><a href="/" class="button-active">HOME</a></span></h2>
     </div>
 </div>
 </body>
