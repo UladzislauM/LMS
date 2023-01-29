@@ -16,7 +16,7 @@
         <h3><a th:href="@{requests/create}" class="button-active">Create request</a></h3>
     </div>
     <div class="main-area">
-        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
+        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${requests}"></div>
         <table class="table">
             <tr class="table-header">
                 <th></th>
@@ -40,16 +40,17 @@
                 </td>
                 <td></td>
                 <td>
-                    <a th:href="@{/users/__${request.user.id}__}" th:text="${request.user.firstName} + ' ' + ${request.user.lastName}">User</a>
+                    <a th:href="@{/users/__${request.user.id}__}"
+                       th:text="${request.user.firstName} + ' ' + ${request.user.lastName}">User</a>
                 </td>
                 <td>
-<!--                    <a th:href="@{/courses/__${request.course.id}__}" th:text="${request.course.title}">Course title</a>-->
+                    <a th:href="@{/courses/__${request.course.id}__}" th:text="${request.course.title}">Course title</a>
                 </td>
                 <td th:text="${request.status}"></td>
                 <form th:action="'/requests/update/' + ${request.id}" method="post">
                     <td>
                         <input type="hidden" name="user.id" th:value="${request.user.id}">
-<!--                        <input type="hidden" name="course.id" th:value="${request.course.id}">-->
+                        <input type="hidden" name="course.id" th:value="${request.course.id}">
                         <input type="hidden" name="status" th:value="CANCELLED">
                         <input type="submit" value="Deactivate" class="button-active"/>
                     </td>
