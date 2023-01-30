@@ -1,12 +1,3 @@
-/*
-DROP TABLE IF EXISTS requests;
-DROP TABLE IF EXISTS homeworks;
-DROP TABLE IF EXISTS file_links;
-DROP TABLE IF EXISTS lessons;
-DROP TABLE IF EXISTS courses;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS token_links;
-*/
 CREATE TABLE IF NOT EXISTS users
 (
     id                  BIGSERIAL PRIMARY KEY  NOT NULL,
