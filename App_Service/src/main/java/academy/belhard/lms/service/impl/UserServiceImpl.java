@@ -153,6 +153,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void updatePassword(Long userId, String oldPassword, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new LmsException("Wrong old password");
+        }
+        String EncodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(EncodedPassword);
+        userRepository.save(user);
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return new UserAppDetails(userRepository.findByEmailActive(email)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_ACTIVATED_MSG)));

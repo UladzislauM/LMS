@@ -28,4 +28,6 @@ public interface UserService {
     void recoveryPassword(String email);
 
     void changePassword(Long userId, String newPassword);
+
+    void updatePassword(Long userId, String oldPassword, String newPassword);
 }

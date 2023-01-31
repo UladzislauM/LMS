@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 <nav th:replace="~{plugins/menu::menu}"></nav>
@@ -13,6 +13,7 @@
         <h1 class="header">User</h1>
         <h2 class="subheader">Information<br> about the user</h2>
         <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
+        <a th:href="'/auth/updatePassword/' + ${user.id}" class="button-active">Change password</a>
     </div>
     <div class="main-area">
         <table>
