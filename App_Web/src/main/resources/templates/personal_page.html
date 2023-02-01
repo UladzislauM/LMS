@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal page</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{plugins/menu::menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">[[${user.firstName}]] Personal Page</h1>
+        <h2 class="subheader">Information<br> about the user</h2>
+        <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
+        <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork">Homeworks</a>
+        <a th:href="'/homeworks/create'" class="button-active">Create homework</a>
+        <a th:href="@{/requests/student/__${#authentication.name}__}"  class="button-active">My requests</a>
+    </div>
+    <div class="main-area">
+        <table>
+            <h3 class="subheader">Courses:</h3>
+            <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
+            <table class="table">
+                <thead>
+                <tr class="table-header">
+                    <th></th>
+                    <th>Title</th>
+                    <th>Start Date</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="course : ${courses}">
+                    <tr class="table-data">
+                        <td>
+                            <a th:href="'/courses/' + ${course.id}">
+                                <i class="fa-solid fa-eye" title="View"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
+                        </td>
+                        <td th:text="${course.startDate}"></td>
+                        <td th:text="${course.description}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+
+            <table>
+                <tr>
+                    <td class="text-left-column">Email</td>
+                    <td><input type="text" th:value=${user.email} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">First name</td>
+                    <td><input type="text" th:value=${user.firstName} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Last name</td>
+                    <td><input type="text" th:value=${user.lastName} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Patronymic name</td>
+                    <td><input type="text" th:value=${user.patronymicName} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Contact preferences</td>
+                    <td><input type="text" th:value=${user.contactPreferences} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Social media</td>
+                    <td><input type="text" th:value=${user.socialMedia} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Role</td>
+                    <td><input type="text" th:value=${user.role} disabled></td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Is active</td>
+                    <td><input type="text" th:value=${user.isActive} disabled></td>
+                </tr>
+
+            </table>
+    </div>
+</div>
+</body>
+</html>
