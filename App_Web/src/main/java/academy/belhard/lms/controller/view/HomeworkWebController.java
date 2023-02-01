@@ -36,6 +36,13 @@ public class HomeworkWebController {
         return "homeworks";
     }
 
+    @GetMapping("/student/{id}")
+    public String getAllByStudentId(@PathVariable Long id, Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
+        Page<HomeworkDto> homeworks = homeworkService.getAllByStudentId(id, pageable);
+        model.addAttribute("homeworks", homeworks);
+        return "homeworks";
+    }
+
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable Long id) {
         HomeworkDto homework = homeworkService.getById(id);

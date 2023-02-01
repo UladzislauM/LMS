@@ -25,6 +25,12 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
+    public Page<HomeworkDto> getAllByStudentId(Long id, Pageable pageable) {
+        Page<Homework> homeworks = homeworkRepository.findAllByStudentId(id, pageable);
+        return homeworks.map(homeworkMapper::homeworkToHomeworkDto);
+    }
+
+    @Override
     public HomeworkDto getById(Long id) {
         return homeworkMapper.homeworkToHomeworkDto(homeworkRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(HOMEWORK_NOT_FOUND_MSG, id))));
