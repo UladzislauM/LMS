@@ -24,11 +24,6 @@ public class CourseWebController {
     private final CourseService courseService;
     private final UserService userService;
 
-    @RequestMapping("/locale")
-    public String locale() {
-        return "locale";
-    }
-
     @GetMapping
     public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
         Page<CourseDto> courses = courseService.getAll(pageable);
