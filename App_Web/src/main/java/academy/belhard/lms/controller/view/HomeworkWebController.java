@@ -3,6 +3,7 @@ package academy.belhard.lms.controller.view;
 import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.impl.UserAppDetails;
@@ -60,6 +61,10 @@ public class HomeworkWebController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute HomeworkDto homeworkDto) {
+        UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
+        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
+        homeworkDto.setFileLink(fileLinkDto);
+        homeworkDto.setStudent(userDto);
         HomeworkDto created = homeworkService.create(homeworkDto);
         return "redirect:/homeworks/" + created.getId();
     }
