@@ -10,8 +10,9 @@
 <div th:replace="~{plugins/menu::menu}"></div>
 <div class="main">
     <div class="left-side-area">
-        <h1 class="header">Learning Management System</h1>
-        <h2 class="subheader">Welcome to the Learning Management System. Wish you a happy journey!</h2>
+        <h1 class="header" th:text="#{LMS.text}">Learning Management System</h1>
+        <h2 class="subheader" th:text="#{Welcome.text}">Welcome to the Learning Management System. Wish you a happy
+            journey!</h2>
     </div>
     <div class="main-area">
         <img class="home-background" th:src="@{/images/home/home_background.png}" alt="Man and woman with laptops"/>
