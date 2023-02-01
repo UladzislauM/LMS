@@ -210,8 +210,8 @@ input:disabled {
 }
 
 .scrolling {
-    height: 50px;
-    width: 200px;
+    height: 100px;
+    width: 500px;
     overflow-y: scroll;
     overflow-x: hidden;
     background: #fff;
