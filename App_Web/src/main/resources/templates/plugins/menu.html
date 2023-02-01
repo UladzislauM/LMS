@@ -7,6 +7,7 @@
         <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" href="/courses">My courses</a></p>
         <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" href="/requests">Requests</a></p>
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:href="@{/requests/student/__${#authentication.name}__}">My requests</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:href="@{/users/personal}">Personal Page</a></p>
     </nav>
     <nav class="menu-right">
         <p sec:authorize="isAnonymous()"><a class="text" href="/auth/login">Sign In</a></p>
