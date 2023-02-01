@@ -14,4 +14,6 @@ public interface HomeworkService {
     HomeworkDto update(HomeworkDto homeworkDto);
 
     void delete(Long id);
+
+    Page<HomeworkDto> getAllByStudentId(Long id, Pageable pageable);
 }

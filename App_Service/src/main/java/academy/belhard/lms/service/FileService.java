@@ -1,7 +1,12 @@
 package academy.belhard.lms.service;
 
-public interface FileService {
-    void writeToFile(String fileAddress, String content);
+import academy.belhard.lms.data.entity.FileLink;
+import academy.belhard.lms.service.dto.FileLinkDto;
 
-    String getFileContent(String fileAddress);
+import java.io.InputStream;
+
+public interface FileService {
+    FileLinkDto save(InputStream is);
+
+    InputStream get(FileLink fileLink);
 }

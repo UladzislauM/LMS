@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .and()
                 .userDetailsService(userService)
                 .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/", true).permitAll()
+                .defaultSuccessUrl("/users/personal", true).permitAll()
                 .failureUrl("/auth/login?error").permitAll()
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login")

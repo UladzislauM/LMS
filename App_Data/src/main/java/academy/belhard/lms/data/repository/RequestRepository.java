@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
-    Optional<Request> findByUser(User user);
+    List<Optional<Request>> findByUser(User user);
 
     @Query(value = "SELECT * FROM requests r WHERE r.user_id =:id", nativeQuery = true)
     Page<Request> findByStudent(Pageable pageable, @Param("id") Long id);

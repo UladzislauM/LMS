@@ -20,6 +20,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service("requestService")
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService {
@@ -36,15 +39,17 @@ public class RequestServiceImpl implements RequestService {
 
     public void validate(RequestDtoForSave request) {
         User user = requestMapper.user(request.getUser());
-        requestRepository.findByUser(user)
-                .ifPresent(r -> {
-                    if(r.getCourse() == requestMapper.course(request.getCourse())) {
-                        Request.Status status = r.getStatus();
-                        if (status != Request.Status.CANCELLED) {
-                            throw new LmsException(String.format(REQUEST_EXITING_EXCEPTION, status));
-                        }
+        List<Optional<Request>> requests = requestRepository.findByUser(user);
+        requests.forEach(req -> {
+            req.ifPresent(r -> {
+                if (r.getCourse().getId().equals(request.getCourse().getId())) {
+                    Request.Status status = r.getStatus();
+                    if (status != Request.Status.CANCELLED) {
+                        throw new LmsException(String.format(REQUEST_EXITING_EXCEPTION, status));
                     }
-                });
+                }
+            });
+        });
     }
 
     @Override

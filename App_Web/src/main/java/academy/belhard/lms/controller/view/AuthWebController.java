@@ -69,4 +69,17 @@ public class AuthWebController {
         userService.changePassword(userId, newPassword);
         return "redirect:/auth/login";
     }
+
+    @GetMapping("/updatePassword/{userId}")
+    public String updatePasswordForm( @PathVariable Long userId) {
+        return "update_password";
+    }
+
+    @PostMapping("/updatePassword/{userId}")
+    public String updatePassword( @PathVariable Long userId,
+                                  @RequestParam String oldPassword,
+                                  @RequestParam String newPassword) {
+        userService.updatePassword(userId, oldPassword, newPassword);
+        return "redirect:/auth/login";
+    }
 }

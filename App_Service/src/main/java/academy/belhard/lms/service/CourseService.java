@@ -9,6 +9,8 @@ public interface CourseService {
 
     CourseDto getById(Long id);
 
+    Page<CourseDto> getByStudentId(Pageable pageable, Long id);
+
     CourseDto create(CourseDto courseDto);
 
     CourseDto update(CourseDto courseDto);

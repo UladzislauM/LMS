@@ -1,10 +1,12 @@
 package academy.belhard.lms.service.impl;
 
+import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Homework;
 import academy.belhard.lms.data.entity.Lesson;
 import academy.belhard.lms.data.repository.CourseRepository;
 import academy.belhard.lms.data.repository.HomeworkRepository;
 import academy.belhard.lms.data.repository.LessonRepository;
+import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.exception.NotFoundException;
@@ -22,6 +24,7 @@ import java.util.List;
 public class CourseServiceImp implements CourseService {
     private static final String COURSE_NOT_FOUND_MSG = "Course with id=%s not found";
     private final CourseRepository courseRepository;
+    private final RequestRepository requestRepository;
     private final CourseMapper courseMapper;
     private final LessonRepository lessonRepository;
     private final HomeworkRepository homeworkRepository;
@@ -36,6 +39,13 @@ public class CourseServiceImp implements CourseService {
     public CourseDto getById(Long id) {
         return courseMapper.courseToCourseDto(courseRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(COURSE_NOT_FOUND_MSG, id))));
+    }
+
+    @Override
+    public Page<CourseDto> getByStudentId(Pageable pageable, Long id) {
+        Page<Course> courses = courseRepository.findCourseByStudentId(pageable, id);
+        return courses
+                .map(courseMapper::courseToCourseDto);
     }
 
     @Override

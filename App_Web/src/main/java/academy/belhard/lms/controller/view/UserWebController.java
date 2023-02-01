@@ -1,14 +1,18 @@
 package academy.belhard.lms.controller.view;
 
+import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.UserService;
+import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
+import academy.belhard.lms.service.impl.UserAppDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserWebController {
+    public static final int SIZE_PAGE = 10;
+    public static final String SORT_PAGE = "id";
     private final UserService userService;
+    private final CourseService courseService;
 
     @GetMapping("/create")
     public String createForm() {
@@ -46,6 +53,17 @@ public class UserWebController {
         UserDto dto = userService.getById(id);
         model.addAttribute("user", dto);
         return "user";
+    }
+
+    @GetMapping("/personal")
+    public String getPersonalPageById(Model model, @PageableDefault(size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
+        UserAppDetails userAppDetails = (UserAppDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id =  userAppDetails.getId();
+        UserDto user = userService.getById(id);
+        model.addAttribute("user", user);
+        Page<CourseDto> courses = courseService.getByStudentId(pageable, (id));
+        model.addAttribute("courses", courses);
+        return "personal_page";
     }
 
     @GetMapping("/update/{id}")

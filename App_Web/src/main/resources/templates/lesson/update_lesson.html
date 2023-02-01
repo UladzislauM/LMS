@@ -9,7 +9,7 @@
 <nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
-        <h1 class="header">Edit lesson</h1>
+        <h1 class="header">Edit Lesson</h1>
         <h2 class="subheader">Changing lesson information</h2>
 
     </div>
@@ -31,21 +31,26 @@
                 <tr>
                     <td class="text-left-column">Description</td>
                     <td>
-                        <div class="scrolling">
-                            <input type="text" th:value=${lesson.description} name="description">
-                        </div>
+                        <textarea class="scrolling" th:text=${lesson.description} type="text"
+                                  name="description"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td class="text-left-column">Content</td>
-                    <td><input type="text" th:value=${lesson.content} name="content"></td>
+                    <td>
+                        <textarea class="scrolling" th:text=${lesson.content} type="text"
+                                  name="content"></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-left-column">Home task</td>
-                    <td><input type="text" th:value=${lesson.homeTask} name="homeTask"></td>
+                    <td>
+                        <textarea class="scrolling" th:text=${lesson.homeTask} type="text"
+                                  name="homeTask"></textarea>
+                    </td>
                 </tr>
             </table>
-            <a th:href="'/lessons'" class="button-active">Back</a>
+            <a th:href="'/lessons/' + ${id}" class="button-active">Back</a>
             <button type="reset" class="button-active">Reset</button>
             <button type="submit" class="button-active">Save changes</button>
         </form>

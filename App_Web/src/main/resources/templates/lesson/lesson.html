@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="/../static/css/main.css" rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
@@ -32,22 +32,28 @@
             <tr>
                 <td class="text-left-column">Description</td>
                 <td>
-                    <div class="scrolling">
-                        <input type="text" th:value=${lesson.description} disabled>
-                    </div>
+                    <textarea class="scrolling" th:text=${lesson.description} type="text"
+                              name="description" disabled></textarea>
                 </td>
             </tr>
             <tr>
                 <td class="text-left-column">Content</td>
-                <td><input type="text" th:value=${lesson.content} disabled></td>
+                <td>
+                    <textarea class="scrolling" th:text=${lesson.content} type="text"
+                              name="content" disabled></textarea>
+                </td>
             </tr>
             <tr>
                 <td class="text-left-column">Home task</td>
-                <td><input type="text" th:value=${lesson.homeTask} disabled></td>
+                <td>
+                    <textarea class="scrolling" th:text=${lesson.homeTask} type="text"
+                              name="homeTask" disabled></textarea>
+                </td>
             </tr>
         </table>
-        <a th:href="'/lessons'" class="button-active">Back</a>
-        <a th:href="'/lessons/updateForm/' + ${lesson.id}" class="button-active">Edit</a>
+        <a th:href="'/courses/' + ${id}" class="button-active">Back</a>
+        <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER')"
+           class="button-active">Edit</a>
     </div>
 </div>
 </body>
