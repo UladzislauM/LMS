@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Upload</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
+<nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
+
 <td>
     <form action="/uploader" method="post" enctype="multipart/form-data">
-        <input type="file" name="file"/>
+        <input type="file" name="file_upload"/>
         <input type="submit" value="Upload">
     </form>
 </td>
