@@ -15,13 +15,13 @@
         <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
         <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork">Homeworks</a>
         <a th:href="'/homeworks/create'" class="button-active">Create homework</a>
-        <a th:href="@{/requests/student/__${#authentication.name}__}"  class="button-active">My requests</a>
+        <a th:href="@{/requests/student/__${#authentication.name}__}" class="button-active">My requests</a>
     </div>
     <div class="main-area">
         <table>
             <h3 class="subheader">Courses:</h3>
             <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
-            <table class="table">
+            <table class="table" th:unless="${courses.empty}">
                 <thead>
                 <tr class="table-header">
                     <th></th>
@@ -47,7 +47,6 @@
                 </th:block>
                 </tbody>
             </table>
-
             <table>
                 <tr>
                     <td class="text-left-column">Email</td>
@@ -83,6 +82,7 @@
                 </tr>
 
             </table>
+        </table>
     </div>
 </div>
 </body>
