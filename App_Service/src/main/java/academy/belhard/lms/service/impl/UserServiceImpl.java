@@ -159,8 +159,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new LmsException("Wrong old password");
         }
-        String EncodedPassword = passwordEncoder.encode(newPassword);
-        user.setPassword(EncodedPassword);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
         userRepository.save(user);
 
     }

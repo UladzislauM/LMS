@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>My courses</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/fontawesome/icons.css" rel="stylesheet">
+</head>
+<body>
+<nav th:replace="~{plugins/menu::menu}"></nav>
+<div class="main">
+    <div class="left-side-area">
+        <h1 class="header">Courses</h1>
+        <h2 class="subheader">All your courses</h2>
+    </div>
+    <div class="main-area">
+        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
+        <table class="table">
+            <thead>
+            <tr class="table-header">
+                <th></th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Start Date</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="course : ${courses}">
+                <tr class="table-data">
+                    <td>
+                        <a th:href="'/courses/' + ${course.id}">
+                            <i class="fa-solid fa-eye" title="View"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
+                    </td>
+                    <td th:text="${course.price}"></td>
+                    <td th:text="${course.startDate}"></td>
+                    <td th:text="${course.description}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

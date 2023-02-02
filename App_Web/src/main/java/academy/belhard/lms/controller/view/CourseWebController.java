@@ -4,11 +4,13 @@ import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.user.UserDto;
+import academy.belhard.lms.service.impl.UserAppDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,15 @@ public class CourseWebController {
         Page<CourseDto> courses = courseService.getAll(pageable);
         model.addAttribute("courses", courses);
         return "course/courses";
+    }
+
+    @GetMapping("/student")
+    public String getAllForStudent(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
+        UserAppDetails userAppDetails = (UserAppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id =  userAppDetails.getId();
+        Page<CourseDto> courses = courseService.getByStudentId(pageable, id);
+        model.addAttribute("courses", courses);
+        return "course/student_courses";
     }
 
     @GetMapping("/{id}")

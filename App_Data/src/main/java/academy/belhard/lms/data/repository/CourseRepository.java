@@ -16,6 +16,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("select c from Course c where c.deleted = false")
     Page<Course> findAll(Pageable pageable);
 
-    @Query(value = "select c from Course c join Request r on r.course = c.id where r.user.id =:id and c.deleted = false")
+    @Query(value = "select c from Course c join Request r on r.course = c.id where r.user.id =:id " +
+            "and c.deleted = false and r.status not in ('CANCELLED')")
     Page<Course> findCourseByStudentId(Pageable pageable, @Param("id") Long id);
 }
