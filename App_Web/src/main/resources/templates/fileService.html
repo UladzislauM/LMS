@@ -9,12 +9,10 @@
 </head>
 <body>
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
-
-<td>
-    <form action="/uploader" method="post" enctype="multipart/form-data">
-        <input type="file" name="file_upload"/>
-        <input type="submit" value="Upload">
-    </form>
-</td>
+<form action="/uploader" method="post" enctype="multipart/form-data">
+    <input type="file" name="file_upload"/>
+    <input type="submit" value="Upload">
+</form>
+<p><a href="/files/Server.txt" download>Download file</a>
 </body>
 </html>

@@ -6,7 +6,7 @@ import academy.belhard.lms.service.dto.FileLinkDto;
 import java.io.InputStream;
 
 public interface FileService {
-    FileLinkDto save(InputStream is);
+    FileLinkDto save(InputStream is, String extension);
 
     InputStream get(FileLink fileLink);
 }

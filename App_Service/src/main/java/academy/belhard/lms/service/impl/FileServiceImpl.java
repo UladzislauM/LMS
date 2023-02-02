@@ -20,9 +20,9 @@ public class FileServiceImpl implements FileService {
     private final FileLinkRepository fileLinkRepository;
     private final FileLinkMapper fileLinkMapper;
 
-    public FileLinkDto save(InputStream is) {
+    public FileLinkDto save(InputStream is, String extension) {
         try {
-            String name = System.currentTimeMillis() + ".txt";
+            String name = System.currentTimeMillis() + "." + extension;
             Path path = Path.of(LOCAL_STORAGE_PATH, name);
             Files.copy(is, path);
             FileLinkDto fileLinkDto = new FileLinkDto();

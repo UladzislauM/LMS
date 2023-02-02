@@ -21,21 +21,24 @@ public class FileServiceWebController {
     public static final String FILE_UPLOAD_ERROR = "File upload error";
     private final FileService fileService;
 
+
     @GetMapping()
     public String uploadForm() {
         return "fileService";
     }
 
     @PostMapping()
-    public String upload(@RequestParam("file") MultipartFile multipartFile) {
+    public String upload(@RequestParam("file_upload") MultipartFile multipartFile) {
         try {
+            String originalFilename = multipartFile.getOriginalFilename();
+            String[] strings = originalFilename.split("\\.");
+            String extension = strings[strings.length - 1];
             byte[] bytes = multipartFile.getBytes();
             InputStream stream = new ByteArrayInputStream(bytes);
-            fileService.save(stream);
+            fileService.save(stream, extension);
         } catch (IOException e) {
             throw new NotFoundException(FILE_UPLOAD_ERROR);
         }
         return "redirect:/";
-
     }
 }
