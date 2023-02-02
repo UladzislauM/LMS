@@ -11,6 +11,8 @@ public interface CourseService {
 
     Page<CourseDto> getByStudentId(Pageable pageable, Long id);
 
+    Page<CourseDto> getByTrainerId(Pageable pageable, Long id);
+
     CourseDto create(CourseDto courseDto);
 
     CourseDto update(CourseDto courseDto);
