@@ -12,7 +12,7 @@
     <div class="left-side-area">
         <h1 class="header">Homeworks</h1>
         <h2 class="subheader">List of all homeworks</h2>
-        <h3><a th:href="@{/homeworks/create}" class="button-active">Create homework</a></h3>
+        <h3><a  sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create}" class="button-active">Create homework</a></h3>
     </div>
     <div class="main-area">
         <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${homeworks}"></div>
