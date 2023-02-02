@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/fontawesome/main.css}">
 </head>
+
 <body>
 <nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Homework</h1>
         <h2 class="subheader">Homework Detail Info</h2>
+
     </div>
-    <div class="main-area">
-        <h4>Full student name</h4>
-        <p th:text="${homework.student.firstName} + ' ' + ${homework.student.lastName} + ' ' + ${homework.student.patronymicName} ">
-            Full name</p>
-        <h4>Comment</h4>
-        <p th:text="${homework.comment}">Comment</p>
-        <h4>Filelink (temp info)</h4>
-        <p th:text="${homework.fileLink}">File link</p>
-        <h4>Homework mark</h4>
-        <p th:text="${homework.mark}">Mark</p>
+
+    <div>
+        <table>
+            <tr>
+                <td class="text-left-column">Comment</td>
+                <td><input type="text" th:value=${homework.comment} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Filelink (temp info)</td>
+                <td><input type="text" th:value=${homework.fileLink.link} disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Homework mark</td>
+                <td><input type="text" th:value=${homework.mark} disabled></td>
+            </tr>
+        </table>
+        <a th:href="'/homeworks/student/' + ${homework.student.id}" class="button-active">To homeworks</a>
+        <a th:href="'/homeworks/update/' + ${homework.id}"
+           sec:authorize="hasAnyAuthority('TRAINER', 'STUDENT', 'MANAGER')"
+           class="button-active">Edit</a>
     </div>
 </div>
 </body>
