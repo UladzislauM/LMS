@@ -52,7 +52,7 @@
             </tr>
         </table>
         <a th:href="'/courses/' + ${id}" class="button-active">Back</a>
-        <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER')"
+        <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"
            class="button-active">Edit</a>
     </div>
 </div>
