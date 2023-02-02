@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
+    <title th:text="#{Title_Courses.text}">Courses - main page</title>
 </head>
 <body>
 <nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
-        <h1 class="header">Courses</h1>
+        <h1 class="header" th:text="#{Courses.text}">Courses</h1>
         <h2 class="subheader" th:text="#{List_of_courses.text}">List <br> of all courses</h2>
         <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active">Create</a>
     </div>
@@ -23,10 +24,10 @@
                 <th></th>
                 <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
                 <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Start Date</th>
-                <th>Description</th>
+                <th th:text="#{Title.text}">Title</th>
+                <th th:text="#{Price.text}">Price</th>
+                <th th:text="#{Start_Date.text}">Start Date</th>
+                <th th:text="#{Description.text}">Description</th>
             </tr>
             </thead>
             <tbody>
@@ -34,17 +35,17 @@
                 <tr class="table-data">
                     <td>
                         <a th:href="'/courses/' + ${course.id}">
-                            <i class="fa-solid fa-eye" title="View"></i>
+                            <i class="fa-solid fa-eye" title="View" th:attr="title=#{View.text}"></i>
                         </a>
                     </td>
                     <td sec:authorize="hasAnyAuthority('MANAGER')">
                         <a th:href="'/courses/updateForm/' + ${course.id}">
-                            <i class="fa-solid fa-file-pen" title="Edit"></i>
+                            <i class="fa-solid fa-file-pen" title="Edit" th:attr="title=#{Edit.text}"></i>
                         </a>
                     </td>
                     <td sec:authorize="hasAnyAuthority('MANAGER')">
                         <a th:href="'/courses/delete/' + ${course.id}">
-                            <i class="fa-solid fa-trash-can" title="Delete"></i>
+                            <i class="fa-solid fa-trash-can" title="Delete" th:attr="title=#{Delele.text}"></i>
                         </a>
                     </td>
                     <td>
