@@ -42,6 +42,7 @@
                     <td><input type="text" th:value=${homework.mark} name="mark"></td>
                 </tr>
             </table>
+            <a th:href="'/homeworks/student/' + ${homework.student.id}" class="button-active">To homeworks</a>
             <button type="submit" class="button-active">Save</button>
         </form>
     </div>
