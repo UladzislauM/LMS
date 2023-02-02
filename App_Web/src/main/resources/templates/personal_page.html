@@ -14,8 +14,8 @@
         <h2 class="subheader">Information<br> about the user</h2>
         <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
         <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork">Homeworks</a>
-        <a th:href="'/homeworks/create'" class="button-active">Create homework</a>
-        <a th:href="@{/requests/student/__${#authentication.name}__}" class="button-active">My requests</a>
+        <a  sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/homeworks/create'" class="button-active">Create homework</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/requests/student/__${#authentication.name}__}" class="button-active">My requests</a>
     </div>
     <div class="main-area">
         <table>
@@ -28,6 +28,7 @@
                     <th>Title</th>
                     <th>Start Date</th>
                     <th>Description</th>
+                    <th sec:authorize="hasAnyAuthority('TRAINER')">Users on course</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,11 @@
                         </td>
                         <td th:text="${course.startDate}"></td>
                         <td th:text="${course.description}"></td>
+                        <td sec:authorize="hasAnyAuthority('TRAINER')">
+                            <a th:href="'/users/' + ${request.user.id}" th:each="request: ${requests}"
+                               th:if="${request.course.id == course.id}"
+                               th:text="${request.user.firstName} + ' ' + ${request.user.lastName} + ' | '"></a>
+                        </td>
                     </tr>
                 </th:block>
                 </tbody>
