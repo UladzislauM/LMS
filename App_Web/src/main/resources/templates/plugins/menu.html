@@ -5,7 +5,8 @@
         <p><a class="text" th:text="#{Home.text}" href="/">Home</a></p>
         <p sec:authorize="hasAuthority('MANAGER')"><a class="text" href="/users">Users</a></p>
         <p><a class="text" th:text="#{Courses.text}" href="/courses">Courses</a></p>
-        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" href="/courses/student">My courses</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" th:text="#{My_Courses.text}"
+                                                                    href="/courses/student">My courses</a></p>
         <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" th:text="#{Requests.text}" href="/requests">Requests</a>
         </p>
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{My_Requests.text}"
@@ -21,6 +22,6 @@
         <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_In.text}" href="/auth/login">Sign In</a></p>
         <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_Up.text}" href="/auth/registration">Sign Up</a>
         </p>
-        <p sec:authorize="isAuthenticated()"><a class="text" href="/logout">Log Out</a></p>
+        <p sec:authorize="isAuthenticated()"><a class="text" th:text="#{Log_Out.text}" href="/logout">Log Out</a></p>
     </nav>
 </nav>
