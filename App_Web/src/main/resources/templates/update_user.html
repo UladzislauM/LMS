@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Edit user</title>
@@ -33,24 +33,87 @@
                     <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
                 </tr>
                 <tr>
-                    <td class="text-left-column">Contact preferences</td>
-                    <td><input type="text" th:value=${user.contactPreferences} name="contactPreferences"></td>
+                    <td class="text">Contact preferences</td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'TELEGRAM'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM" selected>TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'INSTAGRAM'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM">TELEGRAM
+                            <option value="INSTAGRAM" selected>INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'VIBER'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM">TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER" selected>VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'WHATSAPP'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM">TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP" selected>WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'EMAIL'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM">TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL" selected>EMAIL
+                            <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.contactPreferences)} == 'CELLPHONE'">
+                        <select name="contactPreferences">
+                            <option value="TELEGRAM">TELEGRAM
+                            <option value="INSTAGRAM">INSTAGRAM
+                            <option value="VIBER">VIBER
+                            <option value="WHATSAPP">WHATSAPP
+                            <option value="EMAIL">EMAIL
+                            <option value="CELLPHONE" selected>CELLPHONE
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-left-column">Social media</td>
                     <td><input type="text" th:value=${user.socialMedia} name="socialMedia"></td>
                 </tr>
-                <tr>
+                <tr sec:authorize="hasAnyAuthority('MANAGER')">
                     <td class="text-left-column">Role</td>
                     <td><input type="text" th:value=${user.role} name="role"></td>
                 </tr>
-                <tr>
+                <tr sec:authorize="hasAnyAuthority('MANAGER')">
                     <td class="text-left-column">Is active</td>
                     <td><input type="text" th:value=${user.isActive} disabled></td>
                 </tr>
                 <tr>
                     <td class="text-left-column" hidden>Password</td>
                     <td><input type="text" th:value=${user.password} name="password" hidden></td>
+                </tr>
+                <tr sec:authorize="hasAnyAuthority('STUDENT')">
+                    <td><input type="text" th:value=${user.role} name="role" hidden></td>
+                    <td><input type="text" th:value=${user.isActive} hidden></td>
                 </tr>
 
             </table>
