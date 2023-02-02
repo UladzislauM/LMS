@@ -16,25 +16,15 @@
         <h3><a th:href="@{/courses}" class="button-active">Sign up for a course</a></h3>
     </div>
     <div class="main-area">
-        <div>
-            <span>Size requests on page</span>
-            <select th:onchange="'window.location.href = \'' + @{/requests?sort=id,asc} + '&size=\' + this.value'">
-                <option th:text="@{Now: __${requests.getSize}__}"></option>
-                <option th:text="3"></option>
-                <option th:text="5"></option>
-                <option th:text="7"></option>
-                <option th:text="15"></option>
-            </select>
-
-        </div>
-
         <table class="table">
             <tr class="table-header">
                 <th>Courses</th>
+                <th>Status</th>
                 <th>Subscription</th>
             </tr>
             <tr th:each="request : ${requests}" th:object="${request}" class="table-data">
                 <td><a th:href="@{/courses/__*{course.id}__}" th:text="*{course.title}">Course title</a></td>
+                <td th:text="${request.status}"></td>
                 <form th:action="'/requests/update/' + ${request.id}" method="post" th:object="${request}" th:unless="${request.status.toString()} == 'CANCELLED'">
                     <td>
                         <input type="hidden" name="user.id" th:value="*{user.id}">
@@ -43,7 +33,7 @@
                         <input type="submit" value="Cancel subscription" class="button-active"/>
                     </td>
                 </form>
-                <td th:if="${request.status.toString()} == 'CANCELLED'">Cancelled</td>
+                <td th:if="${request.status.toString()} == 'CANCELLED'"></td>
             </tr>
         </table>
     </div>
