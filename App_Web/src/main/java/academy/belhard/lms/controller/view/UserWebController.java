@@ -1,8 +1,10 @@
 package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.CourseService;
+import academy.belhard.lms.service.RequestService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.course.CourseDto;
+import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.dto.user.UserDtoForSave;
 import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
@@ -29,6 +31,7 @@ public class UserWebController {
     public static final String SORT_PAGE = "id";
     private final UserService userService;
     private final CourseService courseService;
+    private final RequestService requestService;
 
     @GetMapping("/create")
     public String createForm() {
@@ -61,9 +64,28 @@ public class UserWebController {
         Long id =  userAppDetails.getId();
         UserDto user = userService.getById(id);
         model.addAttribute("user", user);
-        Page<CourseDto> courses = courseService.getByStudentId(pageable, (id));
-        model.addAttribute("courses", courses);
+        switch (user.getRole()) {
+            case STUDENT -> addToStudentPersonal(model, pageable, id);
+            case TRAINER -> addToTrainerPersonal(model, pageable, id);
+            case MANAGER -> addToManagerPersonal(model, pageable, id);
+        }
         return "personal_page";
+    }
+
+    private void addToTrainerPersonal(Model model, Pageable pageable, Long id) {
+        Page<RequestDto> requests = requestService.getAll(Pageable.unpaged());
+        model.addAttribute("requests", requests);
+        Page<CourseDto> courses = courseService.getByTrainerId(pageable, id);
+        model.addAttribute("courses", courses);
+    }
+
+    private void addToStudentPersonal(Model model, Pageable pageable, Long id) {
+        Page<CourseDto> courses = courseService.getByStudentId(pageable, id);
+        model.addAttribute("courses", courses);
+    }
+
+    private void addToManagerPersonal(Model model, Pageable pageable, Long id) {
+
     }
 
     @GetMapping("/update/{id}")
