@@ -79,13 +79,15 @@ public class HomeworkWebController {
     @PostMapping("/update/{id}")
     public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto) {
         homeworkDto.setId(id);
+        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
+        homeworkDto.setFileLink(fileLinkDto);
         homeworkService.update(homeworkDto);
-        return "redirect:/homeworks";
+        return "redirect:/homeworks/" + id;
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
         homeworkService.delete(id);
-        return "redirect:/homeworks";
+        return "redirect:/homeworks/student/" + id;
     }
 }
