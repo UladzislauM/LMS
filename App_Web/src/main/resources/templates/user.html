@@ -12,8 +12,8 @@
     <div class="left-side-area">
         <h1 class="header">User</h1>
         <h2 class="subheader">Information<br> about the user</h2>
-        <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
-        <a th:href="'/auth/updatePassword/' + ${user.id}" class="button-active">Change password</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT', 'MANAGER')" th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/auth/updatePassword/' + ${user.id}" class="button-active">Change password</a>
     </div>
     <div class="main-area">
         <table>
