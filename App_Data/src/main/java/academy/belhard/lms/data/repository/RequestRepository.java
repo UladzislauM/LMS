@@ -16,4 +16,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @Query(value = "SELECT * FROM requests r WHERE r.user_id =:id", nativeQuery = true)
     Page<Request> findByStudent(Pageable pageable, @Param("id") Long id);
+
+    @Query(value = "SELECT * FROM requests r WHERE r.status = 'PROCESSING'", nativeQuery = true)
+    Page<Request> findWithProcessingStatus(Pageable pageable);
 }
