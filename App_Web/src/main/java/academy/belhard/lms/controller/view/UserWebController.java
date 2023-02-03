@@ -85,7 +85,10 @@ public class UserWebController {
     }
 
     private void addToManagerPersonal(Model model, Pageable pageable, Long id) {
-
+        Page<RequestDto> requests = requestService.getAllWithProcessingStatus(pageable);
+        model.addAttribute("requests", requests);
+        Page<CourseDto> courses = courseService.getAll(pageable);
+        model.addAttribute("courses", courses);
     }
 
     @GetMapping("/update/{id}")

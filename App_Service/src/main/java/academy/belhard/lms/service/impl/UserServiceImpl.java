@@ -118,7 +118,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         entity.setEmail(dto.getEmail().trim());
         entity.setPassword(encodedPassword);
-        entity.setRole(User.Role.STUDENT);
+        if(entity.getRole() == null) {
+            entity.setRole(User.Role.STUDENT);
+        }
         entity.setActive(false);
         User created = userRepository.save(entity);
         String token = tokenLinkService.generateToken(REGISTER_TOKEN_ACTIVITY_SECONDS);

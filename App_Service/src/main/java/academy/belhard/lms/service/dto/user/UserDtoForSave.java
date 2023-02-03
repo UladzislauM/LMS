@@ -10,5 +10,6 @@ public class UserDtoForSave {
     private String lastName;
     private String patronymicName;
     private ContactPreferencesDto contactPreferences;
+    private RoleDto role;
     private String socialMedia;
 }

@@ -11,23 +11,74 @@
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">[[${user.firstName}]] Personal Page</h1>
-        <h2 class="subheader">Information<br> about the user</h2>
-        <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit</a>
-        <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork">Homeworks</a>
-        <a  sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/homeworks/create'" class="button-active">Create homework</a>
-        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/requests/student/__${#authentication.name}__}" class="button-active">My requests</a>
+        <h2 class="subheader">Information about the user</h2>
+        <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit personal data</a>
+        <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork"
+           sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')">Homeworks</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/homeworks/create'" class="button-active">Create
+            homework</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/requests/student/__${#authentication.name}__}"
+           class="button-active">My requests</a>
+        <a sec:authorize="hasAnyAuthority('MANAGER')" href="/users/create" class="button-active">Create new user</a>
     </div>
     <div class="main-area">
         <table>
-            <h3 class="subheader">Courses:</h3>
-            <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
+            <table class="table" sec:authorize="hasAnyAuthority('MANAGER')">
+                <h3 class="subheader">New requests:</h3>
+                <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${requests}"></div>
+                <tr class="table-header">
+                    <th></th>
+                    <th></th>
+                    <th>Users</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="request : ${requests}" class="table-data">
+                    <td>
+                        <a th:href="@{/requests/__${request.id}__}" class="button">
+                            <i class="fa-solid fa-eye" title="View"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/requests/update/__${request.id}__}" class="button">
+                            <i class="fa-solid fa-file-pen" title="Edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/users/__${request.user.id}__}"
+                           th:text="${request.user.firstName} + ' ' + ${request.user.lastName}">User</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/courses/__${request.course.id}__}" th:text="${request.course.title}">Course</a>
+                    </td>
+                    <td th:text="${request.status}"></td>
+                    <td>
+                        <form th:action="'/requests/update/' + ${request.id}" method="post">
+                            <input type="hidden" name="user.id" th:value="${request.user.id}">
+                            <input type="hidden" name="course.id" th:value="${request.course.id}">
+                            <input type="hidden" name="status" th:value="CANCELLED">
+                            <input type="submit" value="Deactivate" class="button-active"/>
+                        </form>
+                        <form th:action="'/requests/update/' + ${request.id}" method="post">
+                            <input type="hidden" name="user.id" th:value="${request.user.id}">
+                            <input type="hidden" name="course.id" th:value="${request.course.id}">
+                            <input type="hidden" name="status" th:value="APPROVED">
+                            <input type="submit" value="Confirm" class="button-active"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
             <table class="table" th:unless="${courses.empty}">
+                <h3 class="subheader">Courses:</h3>
+                <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
                 <thead>
                 <tr class="table-header">
                     <th></th>
+                    <th sec:authorize="hasAnyAuthority('MANAGER')"></th>
                     <th>Title</th>
                     <th>Start Date</th>
-                    <th>Description</th>
+                    <th sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')">Description</th>
                     <th sec:authorize="hasAnyAuthority('TRAINER')">Users on course</th>
                 </tr>
                 </thead>
@@ -39,11 +90,27 @@
                                 <i class="fa-solid fa-eye" title="View"></i>
                             </a>
                         </td>
+                        <td sec:authorize="hasAnyAuthority('MANAGER')">
+                            <a th:href="'/courses/updateForm/' + ${course.id}">
+                                <i class="fa-solid fa-file-pen" title="Edit" th:attr="title=#{Edit.text}"></i>
+                            </a>
+                        </td>
                         <td>
                             <a th:href="'/courses/' + ${course.id}" th:text="${course.title}"></a>
                         </td>
-                        <td th:text="${course.startDate}"></td>
-                        <td th:text="${course.description}"></td>
+                        <td sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')" th:text="${course.startDate}"></td>
+                        <td sec:authorize="hasAnyAuthority('MANAGER')">
+                            <form th:action="'/courses/update/' + ${course.id}" method="post">
+                                <input type="hidden" name="course.id" th:value="${course.id}">
+                                <input type="hidden" th:value=${course.title} name="title">
+                                <input type="hidden" th:value=${course.price} name="price">
+                                <input type="hidden" th:value=${course.description} name="description">
+                                <input type="hidden" th:value=${course.trainer.id} name="trainer.id">
+                                <input type="date" th:value="${course.startDate}" name="localDate">
+                                <p><input type="submit" value="Update" class="button-active"/></p>
+                            </form>
+                        </td>
+                        <td sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')" th:text="${course.description}"></td>
                         <td sec:authorize="hasAnyAuthority('TRAINER')">
                             <a th:href="'/users/' + ${request.user.id}" th:each="request: ${requests}"
                                th:if="${request.course.id == course.id}"

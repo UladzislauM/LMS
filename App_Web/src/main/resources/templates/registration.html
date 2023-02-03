@@ -23,11 +23,13 @@
                 </tr>
                 <tr>
                     <td class="text">Password</td>
-                    <td><input id="input-password" type="password" placeholder="Enter password" name="password" required></td>
+                    <td><input id="input-password" type="password" placeholder="Enter password" name="password"
+                               required></td>
                 </tr>
                 <tr>
                     <td class="text">Confirm password</td>
-                    <td><input id="input-confirm-password" type="password" placeholder="Confirm password" name="confirmPassword" required></td>
+                    <td><input id="input-confirm-password" type="password" placeholder="Confirm password"
+                               name="confirmPassword" required></td>
                 </tr>
                 <tr>
                     <td class="text">First name</td>
@@ -51,6 +53,16 @@
                             <option value="WHATSAPP">WHATSAPP
                             <option value="EMAIL">EMAIL
                             <option value="CELLPHONE">CELLPHONE
+                        </select>
+                    </td>
+                </tr>
+                <tr sec:authorize="hasAnyAuthority('MANAGER')">
+                    <td class="text">Set role</td>
+                    <td>
+                        <select name="role">
+                            <option value="STUDENT" selected>STUDENT
+                            <option value="TRAINER">TRAINER
+                            <option value="MANAGER">MANAGER
                         </select>
                     </td>
                 </tr>
