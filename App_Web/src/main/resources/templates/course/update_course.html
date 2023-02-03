@@ -29,9 +29,10 @@
                 </tr>
                 <tr>
                     <td class="text" align="right">Start date</td>
-                    <td><input type="text" th:value=${course.startDate} name="startDate"></td>
+                    <td><input type="date" th:value="${course.startDate}" name="localDate"></td>
                 </tr>
             </table>
+            <input type="hidden" th:value=${course.trainer.id} name="trainer.id">
             <button type="submit" class="button-active">Save</button>
         </form>
     </div>
