@@ -84,6 +84,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    public Page<RequestDto> getAllWithProcessingStatus(Pageable pageable) {
+        Page<Request> requests = requestRepository.findWithProcessingStatus(pageable);
+        return requests.map(requestMapper::requestDto);
+    }
+
+    @Override
     public RequestDto getById(Long id) {
         return requestRepository.findById(id)
                 .map(requestMapper::requestDto)

@@ -11,6 +11,8 @@ public interface RequestService {
 
     Page<RequestDto> getAllForStudent(Pageable pageable, Long Id);
 
+    Page<RequestDto> getAllWithProcessingStatus(Pageable pageable);
+
     RequestDto getById(Long id);
 
     RequestDto create(RequestDtoForSave dto);
