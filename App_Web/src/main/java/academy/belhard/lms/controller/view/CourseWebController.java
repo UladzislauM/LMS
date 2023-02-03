@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDate;
 
 @RequestMapping("/courses")
 @RequiredArgsConstructor
@@ -36,7 +39,7 @@ public class CourseWebController {
     @GetMapping("/student")
     public String getAllForStudent(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
         UserAppDetails userAppDetails = (UserAppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long id =  userAppDetails.getId();
+        Long id = userAppDetails.getId();
         Page<CourseDto> courses = courseService.getByStudentId(pageable, id);
         model.addAttribute("courses", courses);
         return "course/student_courses";
@@ -70,8 +73,11 @@ public class CourseWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("course") CourseDto newCourse) {
+    public String update(@PathVariable Long id,
+                         @ModelAttribute("course") CourseDto newCourse,
+                         @RequestParam("localDate") LocalDate localDate) {
         newCourse.setId(id);
+        newCourse.setStartDate(localDate);
         courseService.update(newCourse);
         return "redirect:/courses/" + id;
     }
