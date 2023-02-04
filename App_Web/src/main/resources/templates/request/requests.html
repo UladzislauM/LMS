@@ -16,8 +16,8 @@
         <h3><a th:href="@{requests/create}" class="button-active">Create request</a></h3>
     </div>
     <div class="main-area">
+        <table class="table" th:unless="${requests.empty}">
         <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${requests}"></div>
-        <table class="table">
             <tr class="table-header">
                 <th></th>
                 <th></th>
