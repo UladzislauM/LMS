@@ -51,6 +51,7 @@ public class UserPermissionsFilter extends HttpFilter {
                 || uri.equals("/users")
                 || uri.equals("/users/" + num)
                 || uri.equals("/users/update/" + num)
-                || uri.equals("/users/delete/" + num);
+                || uri.equals("/users/delete/" + num)
+                || uri.equals("/requests");
     }
 }
