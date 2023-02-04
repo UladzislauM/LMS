@@ -1,6 +1,7 @@
 package academy.belhard.lms.service.impl;
 
 import academy.belhard.lms.data.entity.User;
+import academy.belhard.lms.service.dto.user.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,5 +52,9 @@ public class UserAppDetails implements UserDetails {
 
     public Long getId(){
         return this.user.getId();
+    }
+
+    public String getRole(){
+        return this.user.getRole().toString();
     }
 }
