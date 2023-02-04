@@ -12,8 +12,7 @@
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{My_Requests.text}"
                                                          th:href="@{/requests/student/__${#authentication.name}__}">My
             requests</a></p>
-        <p><a class="text" th:text="#{Personal_Page.text}"
-                                                         th:href="@{/users/personal}">Personal Page</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER', 'STUDENT')"><a class="text" th:text="#{Personal_Page.text}" th:href="@{/users/personal}">Personal Page</a></p>
     </nav>
     <nav class="menu-right">
         <p><a class="text" href="/?language=RU" th:text="#{ru.text}"></a></p>
