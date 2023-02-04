@@ -60,8 +60,8 @@ public class UserWebController {
 
     @GetMapping("/personal")
     public String getPersonalPageById(Model model, @PageableDefault(size = SIZE_PAGE) @SortDefault(SORT_PAGE) Pageable pageable) {
-        UserAppDetails userAppDetails = (UserAppDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long id =  userAppDetails.getId();
+        UserAppDetails userAppDetails = (UserAppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id = userAppDetails.getId();
         UserDto user = userService.getById(id);
         model.addAttribute("user", user);
         switch (user.getRole()) {
@@ -101,8 +101,8 @@ public class UserWebController {
     @PostMapping("/update/{id}")
     public String update(@PathVariable(value = "id") Long id, @ModelAttribute("user") UserDtoForUpdate dto) {
         dto.setId(id);
-        UserDto updated = userService.update(dto);
-        return "redirect:/users/" + updated.getId();
+        userService.update(dto);
+        return "redirect:/users/personal";
     }
 
     @GetMapping("/delete/{id}")
