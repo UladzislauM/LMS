@@ -30,6 +30,7 @@
                         <input type="hidden" name="user.id" th:value="*{user.id}">
                         <input type="hidden" name="course.id" th:value="*{course.id}">
                         <input type="hidden" name="status" th:value="CANCELLED">
+                        <input type="hidden" name="uri" th:value=@{/requests/student/__${#authentication.name}__}>
                         <input type="submit" value="Cancel subscription" class="button-active"/>
                     </td>
                 </form>
