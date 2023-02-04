@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
@@ -11,6 +11,8 @@
     <div class="left-side-area">
         <h1 class="header">Edit Course</h1>
         <h2 class="subheader">Changing course information</h2>
+        <a sec:authorize="hasAuthority('MANAGER')" th:href="'/lessons/createForm'"
+           class="button-active">Add lesson</a>
     </div>
     <div class="main-area">
         <form th:action="'/courses/update/' + ${course.id}" method="post">
@@ -35,6 +37,41 @@
             <input type="hidden" th:value=${course.trainer.id} name="trainer.id">
             <button type="submit" class="button-active">Save</button>
         </form>
+        <table class="table" th:unless="${course.getLessons.empty}">
+            <h1 class="text">Lessons of course</h1>
+            <thead>
+            <tr class="table-header">
+                <th sec:authorize="isAuthenticated()"></th>
+                <th sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"></th>
+                <th sec:authorize="hasAuthority('MANAGER')"></th>
+                <th>Title</th>
+                <th>Start time</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="el: ${course.getLessons}">
+                <tr class="table-data">
+                    <td sec:authorize="isAuthenticated()"><a th:href="'/lessons/' + ${el.id}">
+                        <i class="fa-solid fa-eye" title="View"></i>
+                    </a>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('MANAGER')"><a
+                            th:href="'/lessons/updateForm/' + ${el.id}">
+                        <i class="fa-solid fa-file-pen" title="Edit"></i>
+                    </a>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"><a th:href="'/lessons/delete/' + ${el.id}">
+                        <i class="fa-solid fa-trash-can" title="Delete"></i>
+                    </a>
+                    </td>
+                    <td><p th:text="${el.title}"></p></td>
+                    <td><p th:text="${el.startTime}"></p></td>
+                    <td><p th:text="${el.description}"></p></td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
