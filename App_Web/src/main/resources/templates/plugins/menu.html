@@ -12,12 +12,16 @@
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{My_Requests.text}"
                                                          th:href="@{/requests/student/__${#authentication.name}__}">My
             requests</a></p>
-        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER', 'MANAGER')"><a class="text" th:text="#{Personal_Page.text}" th:href="@{/users/personal}">Personal Page</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER', 'MANAGER')"><a class="text"
+                                                                               th:text="#{Personal_Page.text}"
+                                                                               th:href="@{/users/personal}">Personal
+            Page</a></p>
     </nav>
     <nav class="menu-right">
         <p><a class="text" href="/?language=RU" th:text="#{ru.text}"></a></p>
         <p>/</p>
         <p><a class="text" href="/?language=en" th:text="#{en.text}"></a></p>
+        <p sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></p>
         <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_In.text}" href="/auth/login">Sign In</a></p>
         <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_Up.text}" href="/auth/registration">Sign Up</a>
         </p>
