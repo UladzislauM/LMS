@@ -1,6 +1,5 @@
 package academy.belhard.lms.filter;
 
-import academy.belhard.lms.service.exception.LmsException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpFilter;
@@ -11,16 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.io.IOException;
 
 public class NotAuthorizationFilter extends HttpFilter {
-
-    public static final String MESSAGE = "Please, login! Or add permissions!";
-
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {
         if (isRequireAuthorization(req)) { //FixMe Before deploy change to NOT equals!
             Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (user.toString().equals("anonymousUser")) {
-               throw new LmsException(MESSAGE);
+                res.sendRedirect("/auth/login");
             }
         }
         chain.doFilter(req, res);
