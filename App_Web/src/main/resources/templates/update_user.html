@@ -12,6 +12,7 @@
     <div class="left-side-area">
         <h1 class="header">Edit User</h1>
         <h2 class="subheader">Change user<br> information</h2>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/auth/updatePassword/' + ${user.id}" class="button-active">Change password</a>
     </div>
     <div class="main-area">
         <form th:action="'/users/update/' + ${user.id}" method="post">
