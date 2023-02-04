@@ -8,19 +8,19 @@ import academy.belhard.lms.service.dto.request.RequestDto;
 import academy.belhard.lms.service.dto.request.RequestDtoForSave;
 import academy.belhard.lms.service.dto.request.RequestDtoForUpdate;
 import academy.belhard.lms.service.dto.user.UserDto;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+@Controller
 @RequestMapping("/requests")
 @RequiredArgsConstructor
 public class RequestWebController {
@@ -72,10 +72,10 @@ public class RequestWebController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateForm(@PathVariable Long id, Model model, HttpServletRequest webRequest) {
+    public String updateForm(@PathVariable Long id, Model model, String uri) {
         RequestDto toUpdate = requestService.getById(id);
         model.addAttribute("request", toUpdate);
-        return "request/update_request";
+        return "redirect:" + uri;
     }
 
     @PostMapping("/update/{id}")
