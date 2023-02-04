@@ -16,8 +16,8 @@
         <h2 class="subheader">All your courses</h2>
     </div>
     <div class="main-area">
-        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
-        <table class="table">
+        <table class="table" th:unless="${courses.empty}">
+            <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
             <thead>
             <tr class="table-header">
                 <th></th>

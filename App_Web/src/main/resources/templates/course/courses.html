@@ -17,8 +17,8 @@
         <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active">Create</a>
     </div>
     <div class="main-area">
-        <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
-        <table class="table">
+        <table class="table" th:unless="${courses.empty}">
+            <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${courses}"></div>
             <thead>
             <tr class="table-header">
                 <th></th>
