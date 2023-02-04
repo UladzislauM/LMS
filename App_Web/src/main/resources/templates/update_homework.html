@@ -13,7 +13,7 @@
         <h2 class="subheader">Change homework<br> information</h2>
     </div>
     <div class="main-area">
-        <form th:action="'/homeworks/update/' + ${homework.id}" method="post">
+        <form th:action="'/homeworks/update/' + ${homework.id}" method="post" enctype="multipart/form-data">
             <table>
 
                 <tr>
@@ -29,14 +29,18 @@
                     <td class="text-left-column">Comment</td>
                     <td><input type="text" th:value=${homework.comment} name="comment"></td>
                 </tr>
-                <!--<tr>
+                <tr>
                     <td class="text-left-column">Filelink (temp info)</td>
-                    <td><input type="text" th:value=${homework.fileLink.link}></td>
-                </tr>FIXME: add possibility change filLink or use existing-->
+                    <td><input type="text" th:value=${homework.fileLink.link} disabled></td>
+                </tr>
+
                 <tr>
                     <td class="text">Add file</td>
-                    <td><input type="file" name="fileLink.link" value="homework.fileLink.link"></td>
+                    <td><input type="hidden" name="fileLink.link">
+                        <input type="file" name="file_upload"/>
+                    </td>
                 </tr>
+
                 <tr>
                     <td class="text-left-column">Mark</td>
                     <td><input type="text" th:value=${homework.mark} name="mark"></td>

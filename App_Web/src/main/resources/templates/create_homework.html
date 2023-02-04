@@ -14,7 +14,7 @@
         <h1 class="subheader">Enter new data</h1>
     </div>
     <div class="main-area">
-        <form action="/homeworks/create" method="post">
+        <form action="/homeworks/create" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td class="text" type="hidden"></td>
@@ -27,7 +27,9 @@
                 </tr>
                 <tr>
                     <td class="text">Add file</td>
-                    <td><input type="file" name="fileLink.link" value="homework.fileLink.link"></td>
+                    <td><input type="hidden" name="fileLink.link">
+                        <input type="file" name="file_upload"/>
+                    </td>
                 </tr>
 
             </table>

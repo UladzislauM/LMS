@@ -1,11 +1,13 @@
 package academy.belhard.lms.controller.view;
 
 import academy.belhard.lms.service.FileLinkService;
+import academy.belhard.lms.service.FileService;
 import academy.belhard.lms.service.HomeworkService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import academy.belhard.lms.service.dto.user.UserDto;
+import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.impl.UserAppDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @RequestMapping("/homeworks")
 @RequiredArgsConstructor
@@ -28,6 +36,9 @@ public class HomeworkWebController {
     private final HomeworkService homeworkService;
     private final FileLinkService fileLinkService;
     private final UserService userService;
+    private final FileService fileService;
+    public static final String FILE_UPLOAD_ERROR = "File upload error";
+    public static final String FILE_DOWNLOAD_ERROR = "File download error";
 
 
     @GetMapping
@@ -60,8 +71,17 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute HomeworkDto homeworkDto) {
+    public String create(@ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
+        String originalFilename = "";
+        try {
+            originalFilename = multipartFile.getOriginalFilename();
+            InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
+            fileService.save(stream, originalFilename);
+        } catch (IOException e) {
+            throw new NotFoundException(FILE_UPLOAD_ERROR);
+        }
         UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
+        homeworkDto.getFileLink().setLink(originalFilename);
         FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
         homeworkDto.setFileLink(fileLinkDto);
         homeworkDto.setStudent(userDto);
@@ -77,7 +97,16 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto) {
+    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
+        String originalFilename = "";
+        try {
+            originalFilename = multipartFile.getOriginalFilename();
+            InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
+            fileService.save(stream, originalFilename);
+        } catch (IOException e) {
+            throw new NotFoundException(FILE_UPLOAD_ERROR);
+        }
+        homeworkDto.getFileLink().setLink(originalFilename);
         homeworkDto.setId(id);
         FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
         homeworkDto.setFileLink(fileLinkDto);
