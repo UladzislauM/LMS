@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
 @RequestMapping("/requests")
 @RequiredArgsConstructor
@@ -72,10 +73,10 @@ public class RequestWebController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateForm(@PathVariable Long id, Model model, String uri) {
+    public String updateForm(@PathVariable Long id, Model model) {
         RequestDto toUpdate = requestService.getById(id);
         model.addAttribute("request", toUpdate);
-        return "redirect:" + uri;
+        return "request/update_request";
     }
 
     @PostMapping("/update/{id}")
