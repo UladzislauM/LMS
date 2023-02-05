@@ -2,11 +2,11 @@
      xmlns:th="http://www.thymeleaf.org">
     <div class="hidden meta"
          th:attr="first=${firstVer.first},last=${firstVer.last},total=${firstVer.totalPages},number=${firstVer.number},url=${#ctx.springRequestContext.requestUri}"></div>
-    <button class="first" th:text="#{First.text}">First</button>
-    <button class="prev" th:text="#{Prev.text}">Prev</button>
+    <button class="first" th:text="#{Pagination.First}">First</button>
+    <button class="prev" th:text="#{Pagination.Prev}">Prev</button>
     <button class="current"></button>
-    <button class="next" th:text="#{Next.text}">Next</button>
-    <button class="last" th:text="#{Last.text}">Last</button>
+    <button class="next" th:text="#{Pagination.Next}">Next</button>
+    <button class="last" th:text="#{Pagination.Last}">Last</button>
     <script defer src="/js/jquery-3.6.1.js"></script>
     <script defer src="/js/pagination.js"></script>
 </div>
