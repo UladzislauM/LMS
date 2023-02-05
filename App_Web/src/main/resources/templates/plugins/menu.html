@@ -2,29 +2,29 @@
      xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="menu-left">
         <img class="logo" th:src="@{/images/logo.jpg}" alt="logo">
-        <p><a class="text" th:text="#{Home.text}" href="/">Home</a></p>
-        <p sec:authorize="hasAuthority('MANAGER')"><a class="text" href="/users">Users</a></p>
-        <p><a class="text" th:text="#{Courses.text}" href="/courses">Courses</a></p>
-        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" th:text="#{My_Courses.text}"
+        <p><a class="text" th:text="#{Menu.Home}" href="/">Home</a></p>
+        <p sec:authorize="hasAuthority('MANAGER')"><a class="text" th:text="#{Menu.Users}" href="/users">Users</a></p>
+        <p><a class="text" th:text="#{Menu.Courses}" href="/courses">Courses</a></p>
+        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" th:text="#{Menu.MyCourses}"
                                                                     href="/courses/student">My courses</a></p>
-        <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" th:text="#{Requests.text}" href="/requests">Requests</a>
+        <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" th:text="#{Menu.Requests}" href="/requests">Requests</a>
         </p>
-        <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{My_Requests.text}"
+        <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{Menu.MyRequests}"
                                                          th:href="@{/requests/student/__${#authentication.name}__}">My
             requests</a></p>
         <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER', 'MANAGER')"><a class="text"
-                                                                               th:text="#{Personal_Page.text}"
+                                                                               th:text="#{Menu.PersonalPage}"
                                                                                th:href="@{/users/personal}">Personal
             Page</a></p>
     </nav>
     <nav class="menu-right">
-        <p><a class="text" href="/?language=RU" th:text="#{ru.text}"></a></p>
+        <p><a class="text" href="/?language=RU" th:text="#{Menu.SelectorRu}"></a></p>
         <p>/</p>
-        <p><a class="text" href="/?language=en" th:text="#{en.text}"></a></p>
+        <p><a class="text" href="/?language=en" th:text="#{Menu.SelectorEN}"></a></p>
         <p sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></p>
-        <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_In.text}" href="/auth/login">Sign In</a></p>
-        <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Sign_Up.text}" href="/auth/registration">Sign Up</a>
+        <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Menu.SignIn}" href="/auth/login">Sign In</a></p>
+        <p sec:authorize="isAnonymous()"><a class="text" th:text="#{Menu.SignUp}" href="/auth/registration">Sign Up</a>
         </p>
-        <p sec:authorize="isAuthenticated()"><a class="text" th:text="#{Log_Out.text}" href="/logout">Log Out</a></p>
+        <p sec:authorize="isAuthenticated()"><a class="text" th:text="#{Menu.LogOut}" href="/logout">Log Out</a></p>
     </nav>
 </nav>
