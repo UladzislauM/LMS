@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Update homework</title>
@@ -36,9 +36,13 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')">
                     <td class="text-left-column">Mark</td>
                     <td><input type="text" th:value=${homework.mark} name="mark"></td>
+                </tr>
+                <tr sec:authorize="hasAnyAuthority('STUDENT')">
+                    <td class="text-left-column">Mark</td>
+                    <td><input type="text" th:value=${homework.mark} name="mark" disabled></td>
                 </tr>
             </table>
             <a th:href="'/homeworks/student/' + ${homework.student.id}" class="button-active">To homeworks</a>
