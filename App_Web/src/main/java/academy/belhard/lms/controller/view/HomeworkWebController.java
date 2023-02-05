@@ -59,6 +59,8 @@ public class HomeworkWebController {
     public String getById(Model model, @PathVariable Long id) {
         HomeworkDto homework = homeworkService.getById(id);
         model.addAttribute("homework", homework);
+        String fileName = homework.getFileLink().getLink();
+        model.addAttribute("file_name", fileName);
         return "homework";
     }
 

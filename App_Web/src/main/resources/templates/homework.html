@@ -12,7 +12,6 @@
     <div class="left-side-area">
         <h1 class="header">Homework</h1>
         <h2 class="subheader">Homework Detail Info</h2>
-
     </div>
 
     <div>
@@ -23,7 +22,10 @@
             </tr>
             <tr>
                 <td class="text-left-column">Filelink (temp info)</td>
-                <td><input type="text" th:value=${homework.fileLink.link} disabled></td>
+                <td>
+                    <input type="text" th:value=${homework.fileLink.link} disabled>
+                    <a th:href="@{/file/__${file_name}__}" class="button-active" download>Download file</a>
+                </td>
             </tr>
             <tr>
                 <td class="text-left-column">Homework mark</td>

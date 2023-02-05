@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HomeworkServiceImpl implements HomeworkService {
     private static final String HOMEWORK_NOT_FOUND_MSG = "Homework with id=%s not found";
+    private static final String HOMEWORK_NOT_FOUND = "Homework not found";
     private final HomeworkRepository homeworkRepository;
     private final HomeworkMapper homeworkMapper;
 
@@ -34,6 +35,12 @@ public class HomeworkServiceImpl implements HomeworkService {
     public HomeworkDto getById(Long id) {
         return homeworkMapper.homeworkToHomeworkDto(homeworkRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(HOMEWORK_NOT_FOUND_MSG, id))));
+    }
+
+    @Override
+    public HomeworkDto getByLessonId(Long id) {
+        return homeworkMapper.homeworkToHomeworkDto(homeworkRepository.findAllByLessonId(id)
+                .orElseThrow(() -> new NotFoundException(String.format(HOMEWORK_NOT_FOUND))));
     }
 
     @Override

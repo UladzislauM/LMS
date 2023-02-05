@@ -9,6 +9,8 @@ public interface HomeworkService {
 
     HomeworkDto getById(Long id);
 
+    HomeworkDto getByLessonId(Long id);
+
     HomeworkDto create(HomeworkDto homeworkDto);
 
     HomeworkDto update(HomeworkDto homeworkDto);
