@@ -14,7 +14,8 @@
     <div class="left-side-area">
         <h1 class="header" th:text="#{Courses.Title}">Courses</h1>
         <h2 class="subheader" th:text="#{Courses.ListOfCourses}">List <br> of all courses</h2>
-        <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active">Create</a>
+        <a sec:authorize="hasAnyAuthority('MANAGER')" href="/courses/createForm" class="button-active"
+           th:text="#{Courses.LeftSideArea.Create}">Create</a>
     </div>
     <div class="main-area">
         <table class="table" th:unless="${courses.empty}">
