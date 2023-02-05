@@ -12,6 +12,7 @@ import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
 import academy.belhard.lms.service.plugin.InternalizationException;
+import academy.belhard.lms.service.plugin.InternalizationMessages;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,9 +30,12 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private static final int REGISTER_TOKEN_ACTIVITY_SECONDS = 60 * 60;
     private static final int RECOVERY_TOKEN_ACTIVITY_SECONDS = 5 * 60;
-    private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: %s/auth/activate/%s/%s";
-    private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: %s/auth/recoveryPass/%s/%s";
-    private static final String USER_CONFIRM_SUBJECT = "User confirmation";
+    private static final String ACTIVATE_LINK_PATTERN = InternalizationMessages.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceActivateLinkPattern");
+    private static final String RECOVERY_PASS_LINK_PATTERN = InternalizationMessages.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceRecoveryPassLinkPattern");
+    private static final String USER_CONFIRM_SUBJECT = InternalizationMessages.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceUserConfirmationSubject");
     private static final String USER_RECOVERY_SUBJECT = "Recovery password confirmation";
     public static final String EXCEPTION_EMAIL_EXISTS = InternalizationException.messageSource(LocaleContextHolder.getLocale(),
             "UserServiceExistingEmail");
