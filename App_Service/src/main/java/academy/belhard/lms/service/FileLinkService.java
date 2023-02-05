@@ -9,6 +9,8 @@ public interface FileLinkService {
 
     FileLinkDto getById(Long id);
 
+    FileLinkDto getByLink (String link);
+
     FileLinkDto create(FileLinkDto fileLinkDto);
 
     FileLinkDto update(FileLinkDto fileLinkDto);

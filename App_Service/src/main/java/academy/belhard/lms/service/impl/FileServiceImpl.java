@@ -1,5 +1,6 @@
 package academy.belhard.lms.service.impl;
 
+import academy.belhard.lms.data.entity.FileLink;
 import academy.belhard.lms.data.repository.FileLinkRepository;
 import academy.belhard.lms.service.FileService;
 import academy.belhard.lms.service.dto.FileLinkDto;
@@ -26,10 +27,9 @@ public class FileServiceImpl implements FileService {
             String name = System.currentTimeMillis() + "." + extension;
             Path path = Path.of(LOCAL_STORAGE_PATH, name);
             Files.copy(is, path);
-            FileLinkDto fileLinkDto = new FileLinkDto();
-            fileLinkDto.setLink(name);
-            fileLinkRepository.save(fileLinkMapper.fileLinkDtoToFileLink(fileLinkDto));
-            return fileLinkDto;
+            FileLink fileLink = new FileLink();
+            fileLink.setLink(name);
+            return fileLinkMapper.fileLinkToFileLinkDto(fileLinkRepository.save(fileLink));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

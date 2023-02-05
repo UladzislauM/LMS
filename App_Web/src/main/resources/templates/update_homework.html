@@ -30,14 +30,9 @@
                     <td><input type="text" th:value=${homework.comment} name="comment"></td>
                 </tr>
                 <tr>
-                    <td class="text-left-column">Filelink (temp info)</td>
-                    <td><input type="text" th:value=${homework.fileLink.link} disabled></td>
-                </tr>
-
-                <tr>
                     <td class="text">Add file</td>
-                    <td><input type="hidden" name="fileLink.link">
-                        <input type="file" name="file_upload"/>
+                    <td><input type="hidden" th:value=${homework.fileLink.link} name=link_name>
+                        <input type="file" th:text=${homework.fileLink.link} name="file_upload"/>
                     </td>
                 </tr>
 

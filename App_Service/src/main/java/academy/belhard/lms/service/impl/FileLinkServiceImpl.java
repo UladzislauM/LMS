@@ -32,6 +32,11 @@ public class FileLinkServiceImpl implements FileLinkService {
     }
 
     @Override
+    public FileLinkDto getByLink(String link) {
+        return fileLinkMapper.fileLinkToFileLinkDto(fileLinkRepository.findByLink(link));
+    }
+
+    @Override
     public FileLinkDto create(FileLinkDto fileLinkDto) {
         return fileLinkMapper.fileLinkToFileLinkDto(fileLinkRepository.save(fileLinkMapper.fileLinkDtoToFileLink(fileLinkDto)));
     }

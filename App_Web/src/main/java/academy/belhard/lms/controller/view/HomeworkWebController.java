@@ -72,18 +72,9 @@ public class HomeworkWebController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
-        String originalFilename = "";
-        try {
-            originalFilename = multipartFile.getOriginalFilename();
-            InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
-            fileService.save(stream, originalFilename);
-        } catch (IOException e) {
-            throw new NotFoundException(FILE_UPLOAD_ERROR);
-        }
+        FileLinkDto link = saveFile(multipartFile);
         UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
-        homeworkDto.getFileLink().setLink(originalFilename);
-        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
-        homeworkDto.setFileLink(fileLinkDto);
+        homeworkDto.setFileLink(link);
         homeworkDto.setStudent(userDto);
         HomeworkDto created = homeworkService.create(homeworkDto);
         return "redirect:/homeworks/" + created.getId();
@@ -97,21 +88,29 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
-        String originalFilename = "";
+    public String update(@PathVariable Long id, String link_name, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
+        FileLinkDto link;
+        if (!multipartFile.isEmpty()) {
+            link = saveFile(multipartFile);
+        } else {
+            link = fileLinkService.getByLink(link_name);
+        }
+        homeworkDto.setId(id);
+        UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
+        homeworkDto.setStudent(userDto);
+        homeworkDto.setFileLink(link);
+        homeworkService.update(homeworkDto);
+        return "redirect:/homeworks/" + id;
+    }
+
+    private FileLinkDto saveFile(MultipartFile multipartFile) {
         try {
-            originalFilename = multipartFile.getOriginalFilename();
+            String originalFilename = multipartFile.getOriginalFilename();
             InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
-            fileService.save(stream, originalFilename);
+            return fileService.save(stream, originalFilename);
         } catch (IOException e) {
             throw new NotFoundException(FILE_UPLOAD_ERROR);
         }
-        homeworkDto.getFileLink().setLink(originalFilename);
-        homeworkDto.setId(id);
-        FileLinkDto fileLinkDto = fileLinkService.create(homeworkDto.getFileLink());
-        homeworkDto.setFileLink(fileLinkDto);
-        homeworkService.update(homeworkDto);
-        return "redirect:/homeworks/" + id;
     }
 
     @GetMapping("/delete/{id}")
