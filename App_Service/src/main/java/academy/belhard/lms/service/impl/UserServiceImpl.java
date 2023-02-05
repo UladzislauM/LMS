@@ -11,8 +11,11 @@ import academy.belhard.lms.service.dto.user.UserDtoForUpdate;
 import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
+import academy.belhard.lms.service.plugin.InternalizationException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,19 +24,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
-    private static final String USER_NOT_FOUND_MSG = "User not found";
-    private static final String USER_NOT_ACTIVATED_MSG = "User not activated";
     private static final int REGISTER_TOKEN_ACTIVITY_SECONDS = 60 * 60;
     private static final int RECOVERY_TOKEN_ACTIVITY_SECONDS = 5 * 60;
     private static final String ACTIVATE_LINK_PATTERN = "Please, visit link: %s/auth/activate/%s/%s";
     private static final String RECOVERY_PASS_LINK_PATTERN = "Please, visit link: %s/auth/recoveryPass/%s/%s";
     private static final String USER_CONFIRM_SUBJECT = "User confirmation";
     private static final String USER_RECOVERY_SUBJECT = "Recovery password confirmation";
+    public static final String EXCEPTION_EMAIL_EXISTS = InternalizationException.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceExistingEmail");
+    public static final String EXCEPTION_WRONG_OLD_PASSWORD = InternalizationException.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceWrongOldPassword");
+    private static final String EXCEPTION_NOT_FOUND_MSG = InternalizationException.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceUserNotFound");
+    private static final String EXCEPTION_NOT_ACTIVATED_MSG = InternalizationException.messageSource(LocaleContextHolder.getLocale(),
+            "UserServiceUserNotActivated");
 
     @Value("${app.host}")
     private String host;
@@ -48,7 +55,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto create(UserDtoForSave dto) {
         Optional<User> existing = userRepository.findByEmailActive(dto.getEmail());
         if (existing.isPresent()) {
-            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+            throw new LmsException(String.format(EXCEPTION_EMAIL_EXISTS, dto.getEmail()));
         }
         User entity = userMapper.userDtoForSavingToUser(dto);
         entity.setRole(User.Role.STUDENT);
@@ -66,14 +73,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDto getById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         return userMapper.userToUserDto(user);
     }
 
     @Override
     public UserDto getByEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         return userMapper.userToUserDto(user);
     }
 
@@ -81,10 +88,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto update(UserDtoForUpdate dto) {
         Optional<User> existing = userRepository.findByEmailActive(dto.getEmail());
         if (existing.isPresent() && !existing.get().getId().equals(dto.getId())) {
-            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+            throw new LmsException(String.format(EXCEPTION_EMAIL_EXISTS, dto.getEmail()));
         }
         User oldUser = userRepository.findById(dto.getId())
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         User newUser = userMapper.userDtoForUpdatingToUser(dto);
         newUser.setActive(oldUser.isActive());
         User updated = userRepository.save(newUser);
@@ -94,9 +101,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void delete(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         if (!user.isActive()) {
-            throw new NotFoundException(USER_NOT_FOUND_MSG);
+            throw new NotFoundException(EXCEPTION_NOT_FOUND_MSG);
         }
         user.setActive(false);
         userRepository.save(user);
@@ -112,7 +119,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void registerUser(UserDtoForSave dto) {
         Optional<User> existing = userRepository.findByEmail(dto.getEmail());
         if (existing.isPresent()) {
-            throw new LmsException(String.format("Email %s already exists in the database", dto.getEmail()));
+            throw new LmsException(String.format(EXCEPTION_EMAIL_EXISTS, dto.getEmail()));
         }
         User entity = userMapper.userDtoForSavingToUser(dto);
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
@@ -131,7 +138,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void activateUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         user.setActive(true);
         userRepository.save(user);
     }
@@ -139,7 +146,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void recoveryPassword(String email) {
         User existing = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         String token = tokenLinkService.generateToken(RECOVERY_TOKEN_ACTIVITY_SECONDS);
         mailService.sendEmail(email, USER_RECOVERY_SUBJECT,
                 String.format(RECOVERY_PASS_LINK_PATTERN, host, token, existing.getId()));
@@ -148,7 +155,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void changePassword(Long userId, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
         userRepository.save(user);
@@ -157,9 +164,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void updatePassword(Long userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND_MSG));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new LmsException("Wrong old password");
+            throw new LmsException(EXCEPTION_WRONG_OLD_PASSWORD);
         }
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
@@ -170,6 +177,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return new UserAppDetails(userRepository.findByEmailActive(email)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_ACTIVATED_MSG)));
+                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_ACTIVATED_MSG)));
     }
 }
