@@ -36,6 +36,13 @@ public class LessonWebController {
         return "lesson/lesson";
     }
 
+    @GetMapping("/homework/{id}")
+    public String getByHomeworkId(Model model, @PathVariable Long id) {
+        LessonDto lesson = lessonService.getByHomeworkId(id);
+        model.addAttribute("lesson", lesson);
+        return "lesson/lesson";
+    }
+
     @GetMapping("/read/{id}")
     public String getSimpleById(Model model, @PathVariable Long id) {
         LessonSimpleDto lesson = lessonService.getSimpleById(id);
