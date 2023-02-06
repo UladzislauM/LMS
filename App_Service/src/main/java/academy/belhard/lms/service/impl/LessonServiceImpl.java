@@ -20,6 +20,7 @@ import java.util.List;
 @Service
 public class LessonServiceImpl implements LessonService {
     private static final String LESSON_NOT_FOUND_MSG = "Lesson with id=%s not found";
+    private static final String LESSON_NOT_FOUND = "Lesson not found";
     private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
     private final HomeworkRepository homeworkRepository;
@@ -40,6 +41,12 @@ public class LessonServiceImpl implements LessonService {
     public LessonDto getById(Long id) {
         return lessonMapper.lessonToLessonDto(lessonRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(LESSON_NOT_FOUND_MSG, id))));
+    }
+
+    @Override
+    public LessonDto getByHomeworkId(Long id) {
+        return lessonMapper.lessonToLessonDto(lessonRepository.findLessonByHomeworkId(id)
+                .orElseThrow(() -> new NotFoundException(String.format(LESSON_NOT_FOUND))));
     }
 
     @Override

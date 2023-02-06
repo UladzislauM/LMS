@@ -39,7 +39,7 @@ public class HomeworkServiceImpl implements HomeworkService {
 
     @Override
     public HomeworkDto getByLessonId(Long id) {
-        return homeworkMapper.homeworkToHomeworkDto(homeworkRepository.findAllByLessonId(id)
+        return homeworkMapper.homeworkToHomeworkDto(homeworkRepository.findByLessonId(id)
                 .orElseThrow(() -> new NotFoundException(String.format(HOMEWORK_NOT_FOUND))));
     }
 

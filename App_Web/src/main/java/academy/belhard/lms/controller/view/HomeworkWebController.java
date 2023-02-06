@@ -3,9 +3,11 @@ package academy.belhard.lms.controller.view;
 import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.FileService;
 import academy.belhard.lms.service.HomeworkService;
+import academy.belhard.lms.service.LessonService;
 import academy.belhard.lms.service.UserService;
 import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
+import academy.belhard.lms.service.dto.course.LessonDto;
 import academy.belhard.lms.service.dto.user.UserDto;
 import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.impl.UserAppDetails;
@@ -28,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @RequestMapping("/homeworks")
 @RequiredArgsConstructor
@@ -37,8 +40,8 @@ public class HomeworkWebController {
     private final FileLinkService fileLinkService;
     private final UserService userService;
     private final FileService fileService;
+    private final LessonService lessonService;
     public static final String FILE_UPLOAD_ERROR = "File upload error";
-    public static final String FILE_DOWNLOAD_ERROR = "File download error";
 
 
     @GetMapping
@@ -56,30 +59,49 @@ public class HomeworkWebController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable Long id) {
+    public String getById(Model model, @PathVariable Long id, Long lesson_id) {
         HomeworkDto homework = homeworkService.getById(id);
         model.addAttribute("homework", homework);
         String fileName = homework.getFileLink().getLink();
         model.addAttribute("file_name", fileName);
+        LessonDto lesson;
+        if (lesson_id != null) {
+            lesson = lessonService.getById(lesson_id);
+        } else {
+            lesson = lessonService.getByHomeworkId(id);
+        }
+        model.addAttribute("lesson", lesson);
         return "homework";
     }
 
     @GetMapping("/create")
-    public String createForm(Model model) {
+    public String createForm(Model model, @RequestParam("lesson") Long id) {
         UserAppDetails userAppDetails = (UserAppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDto userDto = userService.getById(userAppDetails.getId());
         model.addAttribute("user", userDto);
+        LessonDto lesson = lessonService.getById(id);
+        model.addAttribute("lesson", lesson);
         return "create_homework";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
-        FileLinkDto link = saveFile(multipartFile);
-        UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
+    public String create(@ModelAttribute HomeworkDto homeworkDto, Long lesson_id, @RequestParam("file_upload") MultipartFile multipartFile) {
+        FileLinkDto link;
+        if (!multipartFile.isEmpty()) {
+            link = saveFile(multipartFile);
+        } else {
+            link = fileLinkService.create(new FileLinkDto());
+        }
         homeworkDto.setFileLink(link);
+        UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
         homeworkDto.setStudent(userDto);
+        LessonDto lesson = lessonService.getById(lesson_id);
         HomeworkDto created = homeworkService.create(homeworkDto);
-        return "redirect:/homeworks/" + created.getId();
+        List<HomeworkDto> homeworks = lesson.getHomeworks();
+        homeworks.add(created);
+        lesson.setHomeworks(homeworks);
+        lessonService.update(lesson);
+        return "redirect:/homeworks/" + created.getId() + "?lesson_id=" + lesson_id;
     }
 
     @GetMapping("/update/{id}")
