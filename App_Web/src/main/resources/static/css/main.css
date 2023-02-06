@@ -216,3 +216,11 @@ input:disabled {
     overflow-x: hidden;
     background: #fff;
 }
+
+.cut-comment {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    position: relative;
+    max-width: 300px;
+}

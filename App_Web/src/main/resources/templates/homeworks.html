@@ -12,11 +12,10 @@
     <div class="left-side-area">
         <h1 class="header">Homeworks</h1>
         <h2 class="subheader">List of all homeworks</h2>
-        <h3><a  sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create}" class="button-active">Create homework</a></h3>
     </div>
     <div class="main-area">
+        <table class="table"  th:unless="${homeworks.empty}">
         <div th:insert="~{plugins/pagination::pagination}" th:with="firstVer=${homeworks}"></div>
-        <table class="table">
             <h2>Homeworks list</h2>
             <tr class="table-header">
                 <th></th>
@@ -24,7 +23,6 @@
                 <th sec:authorize="hasAnyAuthority('MANAGER', 'TRAINER')"></th>
                 <th>Users</th>
                 <th>Comment</th>
-                <th>File link</th>
                 <th>Mark</th>
             </tr>
             <tr th:each="homework : ${homeworks}" th:object="${homework}" class="table-data">
@@ -47,8 +45,7 @@
                 <td th:text="*{student.firstName} + ' ' + *{student.lastName} + ' ' + *{student.patronymicName} ">
                     Full name
                 </td>
-                <td th:text="*{comment}">comment</td>
-                <td th:text="*{fileLink}">filelink</td>
+                <td th:text="*{comment}" class="cut-comment">comment</td>
                 <td th:text="*{mark}">mark</td>
             </tr>
         </table>
