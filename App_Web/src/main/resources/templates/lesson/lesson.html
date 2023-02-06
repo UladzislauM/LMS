@@ -5,7 +5,6 @@
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
-
 <body>
 <nav th:replace="~{plugins/menu :: menu}"></nav>
 <div class="main">
@@ -14,43 +13,16 @@
         <h1 class="subheader">Information<br> about the lesson</h1>
         <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create?lesson=__${lesson.id}__}" class="button-active">Create homework</a>
     </div>
-
     <div>
-        <table>
-            <tr>
-                <td class="text-left-column" type="hidden"></td>
-                <td><input type="hidden" th:value=${lesson.id} disabled></td>
-            </tr>
-            <tr>
-                <td class="text-left-column">Title</td>
-                <td><input type="text" th:value=${lesson.title} disabled></td>
-            </tr>
-            <tr>
-                <td class="text-left-column">Start time</td>
-                <td><input type="text" th:value=${lesson.startTime} disabled></td>
-            </tr>
-            <tr>
-                <td class="text-left-column">Description</td>
-                <td>
-                    <textarea class="scrolling" th:text=${lesson.description} type="text"
-                              name="description" disabled></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-left-column">Content</td>
-                <td>
-                    <textarea class="scrolling" th:text=${lesson.content} type="text"
-                              name="content" disabled></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-left-column">Home task</td>
-                <td>
-                    <textarea class="scrolling" th:text=${lesson.homeTask} type="text"
-                              name="homeTask" disabled></textarea>
-                </td>
-            </tr>
-        </table>
+        <h1 class="subheader" th:text="${lesson.title}"></h1>
+        <h2 class="text" th:text="${lesson.description}"></h2>
+        <p>Start time:</p>
+        <h3 class="text" th:text="${lesson.startTime}"></h3>
+        <p>Content:</p>
+        <h4 class="text" th:text="${lesson.content}"></h4>
+        <p>Home task:</p>
+        <h5 class="text" th:text=${lesson.homeTask}></h5>
+        <br>
         <a th:href="'/courses/' + ${id}" class="button-active">Back</a>
         <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"
            class="button-active">Edit</a>
