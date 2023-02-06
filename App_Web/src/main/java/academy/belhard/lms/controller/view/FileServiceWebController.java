@@ -26,7 +26,6 @@ public class FileServiceWebController {
     private final FileService fileService;
     private final FileLinkService fileLinkService;
 
-
     @GetMapping("/uploader")
     public String uploadForm() {
         return "fileService";
