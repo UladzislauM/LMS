@@ -27,11 +27,11 @@
                 </tr>
                 <tr>
                     <td class="text">Comment</td>
-                    <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling" disabled></textarea></td>
+                    <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling"></textarea></td>
                 </tr>
                 <tr>
                     <td class="text">Add file</td>
-                    <td><input type="hidden" th:value=${homework.fileLink.link} name=link_name>
+                    <td><input type="hidden" th:value=${homework.fileLink.id} name="fileLink.id"/>
                         <input type="file" th:text=${homework.fileLink.link} name="file_upload"/>
                     </td>
                 </tr>

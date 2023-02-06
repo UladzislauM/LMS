@@ -112,12 +112,12 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, String link_name, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
+    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
         FileLinkDto link;
         if (!multipartFile.isEmpty()) {
             link = saveFile(multipartFile);
         } else {
-            link = fileLinkService.getByLink(link_name);
+            link = fileLinkService.getById(homeworkDto.getFileLink().getId());
         }
         homeworkDto.setId(id);
         UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
