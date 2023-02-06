@@ -18,16 +18,16 @@
 
                 <tr>
                     <td class="text-left-column">Homework of</td>
-                    <td><input type="text" th:value="${homework.student.firstName} + ' ' +
-                    ${homework.student.lastName}" disabled></td>
+                    <td><h3 type="text" th:text="${homework.student.firstName} + ' ' +
+                    ${homework.student.lastName}" disabled></h3></td>
                 </tr>
                 <tr>
                     <td class="text-left-column" hidden>Student ID</td>
                     <td><input type="text" th:value=${homework.student.id} name="student.id" hidden></td>
                 </tr>
                 <tr>
-                    <td class="text-left-column">Comment</td>
-                    <td><input type="text" th:value=${homework.comment} name="comment"></td>
+                    <td class="text">Comment</td>
+                    <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling" disabled></textarea></td>
                 </tr>
                 <tr>
                     <td class="text">Add file</td>
