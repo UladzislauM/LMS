@@ -12,6 +12,7 @@
     <div class="left-side-area">
         <h1 class="header">Lesson</h1>
         <h1 class="subheader">Information<br> about the lesson</h1>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create?lesson=__${lesson.id}__}" class="button-active">Create homework</a>
     </div>
 
     <div>
