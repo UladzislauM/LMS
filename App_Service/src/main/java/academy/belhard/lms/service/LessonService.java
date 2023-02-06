@@ -12,6 +12,8 @@ public interface LessonService {
 
     LessonDto getById(Long id);
 
+    LessonDto getByHomeworkId(Long id);
+
     LessonDto create(LessonDto lessonDto);
 
     LessonDto update(LessonDto lessonDto);
