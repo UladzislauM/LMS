@@ -17,13 +17,38 @@
         <form action="/homeworks/create" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
+                    <td class="text">Lesson</td>
+                    <td><h3 th:text="${lesson.title}"></h3></td>
+                    <input type="hidden" name="lesson_id" th:value="${lesson.id}">
+                </tr>
+                <tr>
+                    <td class="text-left-column">Description</td>
+                    <td>
+                    <textarea class="scrolling" th:text=${lesson.description} type="text"
+                              name="description" disabled></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Content</td>
+                    <td>
+                    <textarea class="scrolling" th:text=${lesson.content} type="text"
+                              name="content" disabled></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-left-column">Home task</td>
+                    <td>
+                    <textarea class="scrolling" th:text=${lesson.homeTask} type="text"
+                              name="homeTask" disabled></textarea>
+                    </td>
+                </tr>
+                <tr>
                     <td class="text" type="hidden"></td>
                     <td><input type="hidden" name="student.id" th:value="${user.id}"></td>
                 </tr>
                 <tr>
                     <td class="text">Comment</td>
                     <td><textarea type="text" name="comment" class="scrolling"></textarea></td>
-
                 </tr>
                 <tr>
                     <td class="text">Add file</td>
@@ -31,7 +56,6 @@
                         <input type="file" name="file_upload"/>
                     </td>
                 </tr>
-
             </table>
             <button type="submit" class="button-active"> Create</button>
         </form>
