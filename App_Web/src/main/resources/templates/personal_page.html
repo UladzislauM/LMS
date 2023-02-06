@@ -58,12 +58,14 @@
                             <input type="hidden" name="user.id" th:value="${request.user.id}">
                             <input type="hidden" name="course.id" th:value="${request.course.id}">
                             <input type="hidden" name="status" th:value="CANCELLED">
+                            <input type="hidden" name="uri" th:value=@{/users/personal}>
                             <input type="submit" value="Deactivate" class="button-active"/>
                         </form>
                         <form th:action="'/requests/update/' + ${request.id}" method="post">
                             <input type="hidden" name="user.id" th:value="${request.user.id}">
                             <input type="hidden" name="course.id" th:value="${request.course.id}">
                             <input type="hidden" name="status" th:value="APPROVED">
+                            <input type="hidden" name="uri" th:value=@{/users/personal}>
                             <input type="submit" value="Confirm" class="button-active"/>
                         </form>
                     </td>
