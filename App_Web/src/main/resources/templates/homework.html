@@ -17,8 +17,13 @@
     <div>
         <table>
             <tr>
-                <td class="text-left-column">Comment</td>
-                <td><input type="text" th:value=${homework.comment} disabled></td>
+                <td class="text">Lesson</td>
+                <td><h3 th:text="${lesson.title}"></h3></td>
+                <input type="hidden" name="lesson.id" th:value="${lesson.id}" disabled>
+            </tr>
+            <tr>
+                <td class="text">Comment</td>
+                <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling" disabled></textarea></td>
             </tr>
             <tr>
                 <td class="text-left-column">Filelink (temp info)</td>
