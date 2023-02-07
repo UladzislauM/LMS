@@ -33,8 +33,18 @@
                     <td class="text" align="right">Start date</td>
                     <td><input type="date" th:value="${course.startDate}" name="localDate"></td>
                 </tr>
+                <tr>
+                    <td sec:authorize="hasAuthority('MANAGER')" class="text" align="right">Trainer</td>
+                    <td>
+                        <select name="trainer.id">
+                            <option th:each="trainer: ${trainers}" th:value="${trainer.id}"
+                                    th:text="${trainer.firstName} + ' ' + ${trainer.lastName}" th:selected="${trainer.id == course.trainer.id}">trainer</option>
+                        </select>
+                    </td>
+                </tr>
             </table>
-            <input type="hidden" th:value=${course.trainer.id} name="trainer.id">
+            <input sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')" type="hidden" th:value=${course.trainer.id}
+                   name="trainer.id">
             <button type="submit" class="button-active">Save</button>
         </form>
         <table class="table" th:unless="${course.getLessons.empty}">
@@ -61,7 +71,8 @@
                         <i class="fa-solid fa-file-pen" title="Edit"></i>
                     </a>
                     </td>
-                    <td sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"><a th:href="'/lessons/delete/' + ${el.id}">
+                    <td sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"><a
+                            th:href="'/lessons/delete/' + ${el.id}">
                         <i class="fa-solid fa-trash-can" title="Delete"></i>
                     </a>
                     </td>
