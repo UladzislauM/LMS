@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users u WHERE u.id in " +
             "(SELECT r.user_id FROM requests r WHERE r.course_id=:id and status='SATISFIED')", nativeQuery = true)
     Page<User> findAllByCourseAndRequestStatus(@Param("id") Long id, Pageable pageable);
+
+    @Query(value = "SELECT * FROM users WHERE role = 'TRAINER' AND is_active = TRUE", nativeQuery = true)
+    Page<User> findAllTrainers(Pageable pageable);
 }

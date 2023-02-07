@@ -11,6 +11,8 @@ public interface UserService {
 
     Page<UserDto> getAll(Pageable pageable);
 
+    Page<UserDto> getAllTrainers(Pageable pageable);
+
     UserDto getById(Long id);
 
     UserDto getByEmail(String email);

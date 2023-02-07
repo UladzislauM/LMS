@@ -13,7 +13,9 @@ import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.mapper.UserMapper;
 import academy.belhard.lms.service.plugin.InternalizationException;
 import academy.belhard.lms.service.plugin.InternalizationMessages;
+
 import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -75,6 +77,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Page<UserDto> getAllTrainers(Pageable pageable) {
+        Page<User> users = userRepository.findAllTrainers(pageable);
+        return users.map(userMapper::userToUserDto);
+    }
+
+    @Override
     public UserDto getById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
@@ -129,7 +137,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String encodedPassword = passwordEncoder.encode(dto.getPassword());
         entity.setEmail(dto.getEmail().trim());
         entity.setPassword(encodedPassword);
-        if(entity.getRole() == null) {
+        if (entity.getRole() == null) {
             entity.setRole(User.Role.STUDENT);
         }
         entity.setActive(false);

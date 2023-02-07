@@ -69,6 +69,8 @@ public class CourseWebController {
     public String updateForm(Model model, @PathVariable Long id) {
         CourseDto courseDto = courseService.getById(id);
         model.addAttribute("course", courseDto);
+        Page<UserDto> trainers = userService.getAllTrainers(Pageable.unpaged());
+        model.addAttribute("trainers", trainers);
         return "course/update_course";
     }
 
