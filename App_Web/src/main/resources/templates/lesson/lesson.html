@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <title>Lesson</title>
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
@@ -11,17 +12,24 @@
     <div class="left-side-area">
         <h1 class="header">Lesson</h1>
         <h1 class="subheader">Information<br> about the lesson</h1>
-        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create?lesson=__${lesson.id}__}" class="button-active">Create homework</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create?lesson=__${lesson.id}__}"
+           class="button-active">Create homework</a>
     </div>
     <div>
         <h1 class="subheader" th:text="${lesson.title}"></h1>
         <h2 class="text" th:text="${lesson.description}"></h2>
         <p>Start time:</p>
         <h3 class="text" th:text="${lesson.startTime}"></h3>
-        <p>Content:</p>
-        <h4 class="text" th:text="${lesson.content}"></h4>
-        <p>Home task:</p>
-        <h5 class="text" th:text=${lesson.homeTask}></h5>
+        <table>
+            <tr>
+                <td class="text-left-column">Content</td>
+                <td><input type="text" th:value="${lesson.content}" disabled></td>
+            </tr>
+            <tr>
+                <td class="text-left-column">Home task</td>
+                <td><input type="text" th:value=${lesson.homeTask}></td>
+            </tr>
+        </table>
         <br>
         <a th:href="'/courses/' + ${id}" class="button-active">Back</a>
         <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"
