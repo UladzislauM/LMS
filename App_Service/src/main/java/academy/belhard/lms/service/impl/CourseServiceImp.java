@@ -3,9 +3,11 @@ package academy.belhard.lms.service.impl;
 import academy.belhard.lms.data.entity.Course;
 import academy.belhard.lms.data.entity.Homework;
 import academy.belhard.lms.data.entity.Lesson;
+import academy.belhard.lms.data.entity.Request;
 import academy.belhard.lms.data.repository.CourseRepository;
 import academy.belhard.lms.data.repository.HomeworkRepository;
 import academy.belhard.lms.data.repository.LessonRepository;
+import academy.belhard.lms.data.repository.RequestRepository;
 import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.exception.NotFoundException;
@@ -26,6 +28,7 @@ public class CourseServiceImp implements CourseService {
     private final CourseMapper courseMapper;
     private final LessonRepository lessonRepository;
     private final HomeworkRepository homeworkRepository;
+    private final RequestRepository requestRepository;
 
     @Override
     public Page<CourseDto> getAll(Pageable pageable) {
@@ -73,6 +76,11 @@ public class CourseServiceImp implements CourseService {
             for (Homework homework : homeworks) {
                 homeworkRepository.deleteById(homework.getId());
             }
+        }
+        Page<Request> requests = requestRepository.findByCourse(Pageable.unpaged(), id);
+        for (Request request : requests){
+            request.setStatus(Request.Status.CANCELLED);
+            requestRepository.save(request);
         }
         courseRepository.deleteCourseById(id);
     }
