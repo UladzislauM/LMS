@@ -3,14 +3,15 @@ package academy.belhard.lms.controller.view;
 import academy.belhard.lms.service.FileLinkService;
 import academy.belhard.lms.service.FileService;
 import academy.belhard.lms.service.dto.FileLinkDto;
+import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
@@ -31,17 +32,20 @@ public class FileServiceWebController {
         return "fileService";
     }
 
-    @PostMapping("/uploader")
-    public String upload(@RequestParam("file_upload") MultipartFile multipartFile, Model model) {
+    static FileLinkDto saveFile(MultipartFile multipartFile, FileService fileService) {
         try {
             String originalFilename = multipartFile.getOriginalFilename();
             InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
-            FileLinkDto fileLinkDto = fileService.save(stream, originalFilename);
-            model.addAttribute("file_name", fileLinkDto);
+            return fileService.save(stream, originalFilename);
         } catch (IOException e) {
             throw new NotFoundException(FILE_UPLOAD_ERROR);
         }
-        return "redirect:/";
+    }
+
+    @PostMapping("/uploader")
+    @ResponseBody
+    public String upload(@RequestParam("file_upload") MultipartFile multipartFile) {
+        return saveFile(multipartFile, fileService).getLink();
     }
 
     @GetMapping("/file/{fileLink}")
@@ -52,7 +56,7 @@ public class FileServiceWebController {
             byte[] a = inputStream.readAllBytes();
             outputStream.write(a);
         } catch (IOException e) {
-            throw new NotFoundException(FILE_DOWNLOAD_ERROR);
+            throw new LmsException(FILE_DOWNLOAD_ERROR);
         }
     }
 }

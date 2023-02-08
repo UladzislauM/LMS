@@ -9,7 +9,6 @@ import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.dto.course.HomeworkDto;
 import academy.belhard.lms.service.dto.course.LessonDto;
 import academy.belhard.lms.service.dto.user.UserDto;
-import academy.belhard.lms.service.exception.NotFoundException;
 import academy.belhard.lms.service.impl.UserAppDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @RequestMapping("/homeworks")
@@ -86,13 +82,10 @@ public class HomeworkWebController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute HomeworkDto homeworkDto, Long lesson_id, @RequestParam("file_upload") MultipartFile multipartFile) {
-        FileLinkDto link;
         if (!multipartFile.isEmpty()) {
-            link = saveFile(multipartFile);
-        } else {
-            link = fileLinkService.create(new FileLinkDto());
+            FileLinkDto link = FileServiceWebController.saveFile(multipartFile, fileService);
+            homeworkDto.setFileLink(link);
         }
-        homeworkDto.setFileLink(link);
         UserDto userDto = userService.getById(homeworkDto.getStudent().getId());
         homeworkDto.setStudent(userDto);
         LessonDto lesson = lessonService.getById(lesson_id);
@@ -115,7 +108,7 @@ public class HomeworkWebController {
     public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
         FileLinkDto link;
         if (!multipartFile.isEmpty()) {
-            link = saveFile(multipartFile);
+            link = FileServiceWebController.saveFile(multipartFile, fileService);
         } else {
             link = fileLinkService.getById(homeworkDto.getFileLink().getId());
         }
@@ -125,16 +118,6 @@ public class HomeworkWebController {
         homeworkDto.setFileLink(link);
         homeworkService.update(homeworkDto);
         return "redirect:/homeworks/" + id;
-    }
-
-    private FileLinkDto saveFile(MultipartFile multipartFile) {
-        try {
-            String originalFilename = multipartFile.getOriginalFilename();
-            InputStream stream = new ByteArrayInputStream(multipartFile.getBytes());
-            return fileService.save(stream, originalFilename);
-        } catch (IOException e) {
-            throw new NotFoundException(FILE_UPLOAD_ERROR);
-        }
     }
 
     @GetMapping("/delete/{id}")
