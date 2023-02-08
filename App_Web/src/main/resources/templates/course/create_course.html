@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
@@ -13,7 +13,7 @@
         <h2 class="subheader">Complete your course</h2>
     </div>
     <div class="main-area">
-        <form action="/courses/create" method="post">
+        <form action="/courses/create" method="post" sec:authorize="hasAuthority('MANAGER')">
             <table>
                 <tr>
                     <td class="text" align="right" wight="20%">Title</td>
@@ -25,11 +25,21 @@
                 </tr>
                 <tr>
                     <td class="text" align="right">Start date</td>
-                    <td><input type="text" placeholder="Enter start date" name="startDate"></td>
+                    <td><input type="date" name="startDate"></td>
                 </tr>
                 <tr>
                     <td class="text" align="right">Price</td>
                     <td><input type="text" placeholder="Enter price" name="price"></td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Trainer</td>
+                    <td>
+                        <select name="trainer.id">
+                            <option th:each="trainer: ${trainers}" th:value="${trainer.id}"
+                                    th:text="${trainer.firstName} + ' ' + ${trainer.lastName}">trainer
+                            </option>
+                        </select>
+                    </td>
                 </tr>
             </table>
             <button type="submit" class="button-active">Create</button>

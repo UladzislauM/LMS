@@ -55,14 +55,17 @@ public class CourseWebController {
     }
 
     @GetMapping("/createForm")
-    public String createForm() {
+    public String createForm(Model model) {
+        Page<UserDto> trainers = userService.getAllTrainers(Pageable.unpaged());
+        model.addAttribute("trainers", trainers);
         return "course/create_course";
     }
 
     @PostMapping("/create")
     public String create(@ModelAttribute("course") CourseDto course) {
-        courseService.create(course);
-        return "course/course";
+        course.setTrainer(userService.getById(course.getTrainer().getId()));
+        CourseDto newCourse = courseService.create(course);
+        return "redirect:/courses/" + newCourse.getId();
     }
 
     @GetMapping("/updateForm/{id}")
