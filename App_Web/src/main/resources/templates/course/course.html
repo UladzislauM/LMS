@@ -44,7 +44,7 @@
             </tr>
         </table>
 
-        <table class="table" th:unless="${course.getLessons.empty}">
+        <table class="table" th:unless="${course.getLessons} == null or ${course.getLessons.empty}">
             <h1 class="text">Lessons of course</h1>
             <thead>
             <tr class="table-header">
@@ -75,7 +75,7 @@
             </tbody>
         </table>
         <br>
-        <table sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')" class="table" th:unless="${users.empty}">
+        <table sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')" class="table" th:unless="${users} == null or ${users.empty}">
             <h1 sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')" class="text">Users of course</h1>
             <thead>
             <tr class="table-header">
