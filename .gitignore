@@ -39,6 +39,3 @@ out/
 ### MapStruct ###
 **/src/main/generated
 **/src/test/generated
-
-### Files ###
-files/
