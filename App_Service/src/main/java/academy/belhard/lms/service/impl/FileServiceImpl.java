@@ -6,6 +6,7 @@ import academy.belhard.lms.service.FileService;
 import academy.belhard.lms.service.dto.FileLinkDto;
 import academy.belhard.lms.service.mapper.FileLinkMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,7 +17,8 @@ import java.nio.file.Path;
 @RequiredArgsConstructor
 @Service("fileService")
 public class FileServiceImpl implements FileService {
-    private static final String LOCAL_STORAGE_PATH = "files";
+    @Value("${app.files.localStorage}")
+    private String localStoragePath;
     private final FileLinkRepository fileLinkRepository;
     private final FileLinkMapper fileLinkMapper;
 
@@ -25,7 +27,7 @@ public class FileServiceImpl implements FileService {
             String[] strings = originalFilename.split("\\.");
             String extension = strings[strings.length - 1];
             String name = System.currentTimeMillis() + "." + extension;
-            Path path = Path.of(LOCAL_STORAGE_PATH, name);
+            Path path = Path.of(localStoragePath, name);
             Files.copy(is, path);
             FileLink fileLink = new FileLink();
             fileLink.setLink(name);
@@ -37,7 +39,7 @@ public class FileServiceImpl implements FileService {
 
     public InputStream get(FileLinkDto fileLinkDto) {
         try {
-            return Files.newInputStream(Path.of(LOCAL_STORAGE_PATH, fileLinkDto.getLink()));
+            return Files.newInputStream(Path.of(localStoragePath, fileLinkDto.getLink()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

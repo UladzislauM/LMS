@@ -24,6 +24,8 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
     min-response-size: 10240
 app:
+  files:
+    localStorage: files
   host: http://localhost:8080
 ---
 spring:
