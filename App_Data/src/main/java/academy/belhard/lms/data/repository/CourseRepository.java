@@ -22,4 +22,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "select c from Course c where c.trainer.id =:id and c.deleted = false")
     Page<Course> findCourseByTrainerId(Pageable pageable, @Param("id") Long id);
+
+    @Query(value = "SELECT c.id, c.title, c.deleted, c.description, c.price, c.start_date, c.trainer_id FROM courses c JOIN lessons l ON l.course_id = c.id WHERE l.id = :id AND c.deleted = FALSE", nativeQuery = true)
+    Course findCourseByLessonId(@Param("id") Long id);
 }

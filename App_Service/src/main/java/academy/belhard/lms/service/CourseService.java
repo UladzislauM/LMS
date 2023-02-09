@@ -9,6 +9,8 @@ public interface CourseService {
 
     CourseDto getById(Long id);
 
+    CourseDto getByLessonId(Long id);
+
     Page<CourseDto> getByStudentId(Pageable pageable, Long id);
 
     Page<CourseDto> getByTrainerId(Pageable pageable, Long id);

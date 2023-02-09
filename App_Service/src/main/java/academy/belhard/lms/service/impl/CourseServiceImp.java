@@ -43,6 +43,11 @@ public class CourseServiceImp implements CourseService {
     }
 
     @Override
+    public CourseDto getByLessonId(Long id) {
+        return courseMapper.courseToCourseDto(courseRepository.findCourseByLessonId(id));
+    }
+
+    @Override
     public Page<CourseDto> getByStudentId(Pageable pageable, Long id) {
         Page<Course> courses = courseRepository.findCourseByStudentId(pageable, id);
         return courses
@@ -78,7 +83,7 @@ public class CourseServiceImp implements CourseService {
             }
         }
         Page<Request> requests = requestRepository.findByCourse(Pageable.unpaged(), id);
-        for (Request request : requests){
+        for (Request request : requests) {
             request.setStatus(Request.Status.CANCELLED);
             requestRepository.save(request);
         }

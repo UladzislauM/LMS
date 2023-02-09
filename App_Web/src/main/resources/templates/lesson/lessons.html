@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Lessons</title>
@@ -8,15 +8,14 @@
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
 <body>
-
 <nav th:replace="~{plugins/menu :: menu}" class="menu"></nav>
-
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Show</h1>
         <h2>Lessons</h2>
+        <a sec:authorize="hasAnyAuthority('MANAGER', 'TRAINER')" th:href="'/lessons/createForm'"
+           class="button-active">Add lesson</a>
     </div>
-
     <div class="main-area">
         <div th:insert="~{plugins/pagination :: pagination}" th:with="firstVer=${lessons}"></div>
         <table class="table">
@@ -27,7 +26,6 @@
                 <th>Title</th>
                 <th>Start time</th>
                 <th>Description</th>
-
             </tr>
             <tbody>
             <th:block th:each="lesson : ${lessons}" th:object="${lesson}" class="table-data">
@@ -50,7 +48,6 @@
                     <td th:text="${lesson.title}"></td>
                     <td th:text="${lesson.startTime}"></td>
                     <td th:text="${lesson.description}"></td>
-
                 </tr>
             </th:block>
             </tbody>

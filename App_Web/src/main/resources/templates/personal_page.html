@@ -15,6 +15,8 @@
         <a th:href="'/users/update/' + ${user.id}" class="button-active">Edit personal data</a>
         <a th:href="'/homeworks/student/' + ${user.id}" class="button-active" title="Go to hWork"
            sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')">Homeworks</a>
+        <a sec:authorize="hasAnyAuthority('MANAGER', 'TRAINER')" href="/lessons"
+           class="button-active">Lessons</a>
         <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="'/homeworks/create'" class="button-active">Create
             homework</a>
         <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/requests/student/__${#authentication.name}__}"

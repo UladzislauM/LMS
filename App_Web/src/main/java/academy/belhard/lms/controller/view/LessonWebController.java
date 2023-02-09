@@ -1,6 +1,8 @@
 package academy.belhard.lms.controller.view;
 
+import academy.belhard.lms.service.CourseService;
 import academy.belhard.lms.service.LessonService;
+import academy.belhard.lms.service.dto.course.CourseDto;
 import academy.belhard.lms.service.dto.course.LessonDto;
 import academy.belhard.lms.service.dto.course.LessonSimpleDto;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LessonWebController {
     private final LessonService lessonService;
+    private final CourseService courseService;
 
     @GetMapping
     public String getAll(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
@@ -33,6 +36,8 @@ public class LessonWebController {
     public String getById(Model model, @PathVariable Long id) {
         LessonDto lesson = lessonService.getById(id);
         model.addAttribute("lesson", lesson);
+        CourseDto course = courseService.getByLessonId(id);
+        model.addAttribute("course", course);
         return "lesson/lesson";
     }
 
