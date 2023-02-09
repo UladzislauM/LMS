@@ -99,8 +99,11 @@ public class UserWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable(value = "id") Long id, @ModelAttribute("user") UserDtoForUpdate dto) {
+    public String update(@PathVariable(value = "id") Long id,
+                         @ModelAttribute("user") UserDtoForUpdate dto,
+                         @ModelAttribute("isActive") Boolean isActive) {
         dto.setId(id);
+        dto.setActive(isActive);
         userService.update(dto);
         return "redirect:/users/personal";
     }

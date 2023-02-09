@@ -102,10 +102,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (existing.isPresent() && !existing.get().getId().equals(dto.getId())) {
             throw new LmsException(String.format(EXCEPTION_EMAIL_EXISTS, dto.getEmail()));
         }
-        User oldUser = userRepository.findById(dto.getId())
-                .orElseThrow(() -> new NotFoundException(EXCEPTION_NOT_FOUND_MSG));
         User newUser = userMapper.userDtoForUpdatingToUser(dto);
-        newUser.setActive(oldUser.isActive());
         User updated = userRepository.save(newUser);
         return userMapper.userToUserDto(updated);
     }

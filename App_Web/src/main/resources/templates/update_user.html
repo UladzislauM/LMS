@@ -12,7 +12,8 @@
     <div class="left-side-area">
         <h1 class="header">Edit User</h1>
         <h2 class="subheader">Change user<br> information</h2>
-        <a sec:authorize="hasAnyAuthority('STUDENT', 'MANAGER')" th:href="'/auth/updatePassword/' + ${user.id}" class="button-active">Change password</a>
+        <a sec:authorize="hasAnyAuthority('STUDENT', 'MANAGER')" th:href="'/auth/updatePassword/' + ${user.id}"
+           class="button-active">Change password</a>
     </div>
     <div class="main-area">
         <form th:action="'/users/update/' + ${user.id}" method="post">
@@ -102,21 +103,51 @@
                 </tr>
                 <tr sec:authorize="hasAnyAuthority('MANAGER')">
                     <td class="text-left-column">Role</td>
-                    <td><input type="text" th:value=${user.role} name="role"></td>
+                    <td th:if="${#strings.toString(user.role)} == 'STUDENT'">
+                        <select name="role">
+                            <option value="STUDENT" selected>STUDENT
+                            <option value="TRAINER">TRAINER
+                            <option value="MANAGER">MANAGER
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.role)} == 'TRAINER'">
+                        <select name="role">
+                            <option value="STUDENT">STUDENT
+                            <option value="TRAINER" selected>TRAINER
+                            <option value="MANAGER">MANAGER
+                        </select>
+                    </td>
+                    <td th:if="${#strings.toString(user.role)} == 'MANAGER'">
+                        <select name="role">
+                            <option value="STUDENT">STUDENT
+                            <option value="TRAINER">TRAINER
+                            <option value="MANAGER" selected>MANAGER
+                        </select>
+                    </td>
                 </tr>
                 <tr sec:authorize="hasAnyAuthority('MANAGER')">
                     <td class="text-left-column">Is active</td>
-                    <td><input type="text" th:value=${user.isActive} disabled></td>
+                    <td th:if="${user.isActive} == true">
+                        <select name="isActive">
+                            <option name="isActive" value="1" selected>True
+                            <option name="isActive" value="0">False
+                        </select>
+                    </td>
+                    <td th:if="${user.isActive} == false">
+                        <select name="isActive">
+                            <option name="isActive" value="1">True
+                            <option name="isActive" value="0" selected>False
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text-left-column" hidden>Password</td>
                     <td><input type="text" th:value=${user.password} name="password" hidden></td>
                 </tr>
-                <tr sec:authorize="hasAnyAuthority('STUDENT')">
-                    <td><input type="text" th:value=${user.role} name="role" hidden></td>
-                    <td><input type="text" th:value=${user.isActive} hidden></td>
-                </tr>
-
+                <!--                <tr sec:authorize="hasAnyAuthority('STUDENT')">-->
+                <!--                    <td><input type="text" th:value=${user.role} name="role" hidden></td>-->
+                <!--                    <td><input type="text" th:value=${user.isActive} hidden></td>-->
+                <!--                </tr>-->
             </table>
             <button type="submit" class="button-active">Save</button>
         </form>

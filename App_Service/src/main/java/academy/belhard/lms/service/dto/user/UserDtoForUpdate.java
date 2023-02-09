@@ -13,4 +13,5 @@ public class UserDtoForUpdate {
     private ContactPreferencesDto contactPreferences;
     private String socialMedia;
     private RoleDto role;
+    private boolean isActive;
 }
