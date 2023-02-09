@@ -5,8 +5,10 @@
         <p><a class="text" th:text="#{Menu.Home}" href="/">Home</a></p>
         <p sec:authorize="hasAuthority('MANAGER')"><a class="text" th:text="#{Menu.Users}" href="/users">Users</a></p>
         <p><a class="text" th:text="#{Menu.Courses}" href="/courses">Courses</a></p>
-        <p sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')"><a class="text" th:text="#{Menu.MyCourses}"
+        <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{Menu.MyCourses}"
                                                                     href="/courses/student">My courses</a></p>
+        <p sec:authorize="hasAnyAuthority('TRAINER')"><a class="text" th:text="#{Menu.MyCourses}"
+                                                                    href="/courses/trainer">My courses</a></p>
         <p sec:authorize="hasAnyAuthority('MANAGER')"><a class="text" th:text="#{Menu.Requests}" href="/requests">Requests</a>
         </p>
         <p sec:authorize="hasAnyAuthority('STUDENT')"><a class="text" th:text="#{Menu.MyRequests}"

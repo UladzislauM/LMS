@@ -45,6 +45,15 @@ public class CourseWebController {
         return "course/student_courses";
     }
 
+    @GetMapping("/trainer")
+    public String getAllForTrainer(Model model, @PageableDefault @SortDefault("id") Pageable pageable) {
+        UserAppDetails userAppDetails = (UserAppDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long id = userAppDetails.getId();
+        Page<CourseDto> courses = courseService.getByTrainerId(pageable, id);
+        model.addAttribute("courses", courses);
+        return "course/student_courses";
+    }
+
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable Long id, @PageableDefault @SortDefault("id") Pageable pageable) {
         CourseDto course = courseService.getById(id);
