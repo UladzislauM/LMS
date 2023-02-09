@@ -32,4 +32,6 @@ public interface UserService {
     void changePassword(Long userId, String newPassword);
 
     void updatePassword(Long userId, String oldPassword, String newPassword);
+
+    void updatePasswordManager(Long userId, String newPassword);
 }
