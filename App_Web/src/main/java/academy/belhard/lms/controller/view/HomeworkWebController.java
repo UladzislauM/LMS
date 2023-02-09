@@ -81,7 +81,7 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute HomeworkDto homeworkDto, Long lesson_id, @RequestParam("file_upload") MultipartFile multipartFile) {
+    public String create(@ModelAttribute HomeworkDto homeworkDto, Long lesson_id, @RequestParam("fileUpload") MultipartFile multipartFile) {
         if (!multipartFile.isEmpty()) {
             FileLinkDto link = FileServiceWebController.saveFile(multipartFile, fileService);
             homeworkDto.setFileLink(link);
@@ -105,7 +105,7 @@ public class HomeworkWebController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("file_upload") MultipartFile multipartFile) {
+    public String update(@PathVariable Long id, @ModelAttribute HomeworkDto homeworkDto, @RequestParam("fileUpload") MultipartFile multipartFile) {
         FileLinkDto link;
         if (!multipartFile.isEmpty()) {
             link = FileServiceWebController.saveFile(multipartFile, fileService);
