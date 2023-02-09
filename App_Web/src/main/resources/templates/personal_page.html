@@ -115,7 +115,7 @@
                         <td sec:authorize="hasAnyAuthority('STUDENT', 'TRAINER')" th:text="${course.description}"></td>
                         <td sec:authorize="hasAnyAuthority('TRAINER')">
                             <a th:href="'/users/' + ${request.user.id}" th:each="request: ${requests}"
-                               th:if="${request.course.id == course.id}"
+                               th:if="${request.course.id == course.id} and ${request.status.toString()} == 'SATISFIED'"
                                th:text="${request.user.firstName} + ' ' + ${request.user.lastName} + ' | '"></a>
                         </td>
                     </tr>

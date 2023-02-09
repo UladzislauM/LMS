@@ -13,21 +13,21 @@
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Course</h1>
-        <h2 class="subheader">Information<br> about the course</h2>
+        <h2 class="subheader">Information about the course</h2>
         <a sec:authorize="hasAuthority('MANAGER')" th:href="'/courses/updateForm/' + ${course.id}"
            class="button-active">Edit course</a>
-        <h1 class="text" sec:authorize="hasAuthority('STUDENT')">Enroll in a course</h1>
+        <h2 class="text" sec:authorize="hasAuthority('STUDENT')">Enroll in a course</h2>
         <form action="/requests/create" method="post" sec:authorize="hasAuthority('STUDENT')">
             <input type="hidden" name="user.email" th:value="${#authentication.name}">
             <input type="hidden" name="course.id" th:value="${course.id}">
             <input type="hidden" value="PROCESSING">
             <button type="submit" class="button-active">Enroll</button>
         </form>
+
     </div>
     <div class="main-area">
         <h1 class="subheader" th:text="${course.title}"></h1>
         <h1 class="text" th:text="${course.description}"></h1>
-
         <table>
             <tr>
                 <td class="text-left-column">Start</td>
