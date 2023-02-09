@@ -10,7 +10,7 @@
 <div class="main">
     <div class="left-side-area">
         <h1 class="header">Update Homework</h1>
-        <h2 class="subheader">Change homework<br> information</h2>
+        <h2 class="subheader">Change homework information</h2>
     </div>
     <div class="main-area">
         <form th:action="'/homeworks/update/' + ${homework.id}" method="post" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
                 <tr>
                     <td class="text">Add file</td>
                     <td><input type="hidden" th:value=${homework.fileLink.id} name="fileLink.id"/>
-                        <input type="file" th:text=${homework.fileLink.link} name="file_upload"/>
+                        <input type="file" th:text=${homework.fileLink.link} name="fileUpload"/>
                     </td>
                 </tr>
 
