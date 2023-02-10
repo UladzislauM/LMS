@@ -37,8 +37,6 @@
         <br>
         <a th:href="'/lessons/updateForm/' + ${lesson.id}" sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"
            class="button-active">Edit</a>
-        <a href="/lessons" sec:authorize="hasAnyAuthority('TRAINER', 'MANAGER')"
-           class="button-active">All lessons</a>
     </div>
 </div>
 </body>
