@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Please Log In</title>
+    <title th:text="#{Login.Title}">Log In Page</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" th:href="@{/css/main.css}">
 </head>
@@ -9,25 +9,28 @@
 <nav th:replace="~{plugins/menu::menu}"></nav>
 <div class="main">
     <div class="left-side-area">
-        <h1 class="header">Sing In</h1>
-        <h2 class="subheader">Enter your account credentials to log in to the system</h2>
+        <h1 class="header" th:text="#{Login.LeftSideArea.SingIn}">Sing In</h1>
+        <h2 class="subheader" th:text="#{Login.LeftSideArea.CredentialsMessage}">Enter your account credentials to log
+            in to the system</h2>
     </div>
     <div class="main-area">
         <form th:action="@{/login}" method="POST">
             <div>
-                <input type="email" name="username" placeholder="Email" required/>
+                <input type="email" name="username" placeholder="Email"
+                       th:attr="placeholder=#{Login.MainArea.EmailPlaceHolder}" required/>
             </div>
             <div>
-                <input type="password" name="password" placeholder="Password" required/>
+                <input type="password" name="password" placeholder="Password"
+                       th:attr="placeholder=#{Login.MainArea.PasswordPlaceHolder}" required/>
             </div>
-            <input type="submit" value="Log in"/>
+            <input type="submit" value="Log in" th:attr="value=#{Login.MainArea.LogInButton}"/>
 
             <div th:if="${param.error}" style="color: red">
                 Bad credentials
             </div>
         </form>
         <form th:action="@{/auth/recoveryPass}" method="GET">
-            <button>Forgot your password?</button>
+            <button th:text="#{Login.MainArea.FogotPasswButton}">Forgot your password?</button>
         </form>
     </div>
 </div>
