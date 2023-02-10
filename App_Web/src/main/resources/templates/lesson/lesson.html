@@ -17,6 +17,7 @@
             Course)</h1>
         <a sec:authorize="hasAnyAuthority('STUDENT')" th:href="@{/homeworks/create?lesson=__${lesson.id}__}"
            class="button-active">Create homework</a>
+        <a href="/lessons" class="button-active">To lessons</a>
     </div>
     <div>
         <h1 class="subheader" th:text="${lesson.title}"></h1>
