@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @RequestMapping("/lessons")
 @RequiredArgsConstructor
@@ -56,13 +59,20 @@ public class LessonWebController {
     }
 
     @GetMapping("/createForm")
-    public String createForm() {
+    public String createForm(Model model) {
+        Page<CourseDto> courses = courseService.getAll(Pageable.unpaged());
+        model.addAttribute("courses", courses);
         return "lesson/create_lesson";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute("lesson") LessonDto newLesson) {
-        lessonService.create(newLesson);
+    public String create(@ModelAttribute("lesson") LessonDto newLesson, @RequestParam(value = "courseId") Long courseId) {
+        LessonDto created = lessonService.create(newLesson);
+        CourseDto course = courseService.getById(courseId);
+        List<LessonDto> lessons = course.getLessons();
+        lessons.add(created);
+        course.setLessons(lessons);
+        courseService.update(course);
         return "lesson/lesson";
     }
 

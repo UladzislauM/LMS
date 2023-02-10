@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="/css/main.css" rel="stylesheet">
@@ -15,16 +15,40 @@
     </div>
     <div class="main-area">
         <form method="post" action="/lessons/create">
-            <b>Form for create new lesson:</b><br>
-            <p><b>Enter new data</b><br>
-                <input type="text" name="title"> Title<br>
-                <input type="datetime-local" name="startTime"> Start time<br>
-                <input type="text" name="description"> Description<br>
-                <input type="text" name="content"> Content<br>
-                <input type="text" name="homeTask"> Home task<br>
-            <p><input type="submit" value="Create">
+            <table>
+                <tr>
+                    <td class="text" align="right">Title</td>
+                    <td><input type="text" name="title"> Title</td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Start time</td>
+                    <td><input type="datetime-local" name="startTime">Start time</td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Description</td>
+                    <td><input type="text" name="description"> Description</td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Content</td>
+                    <td><input type="text" name="content"> Content</td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Home task</td>
+                    <td><input type="text" name="homeTask">Home task</td>
+                </tr>
+                <tr>
+                    <td class="text" align="right">Lesson on Course</td>
+                    <td>
+                        <select name="courseId">
+                            <option th:each="course: ${courses}" th:value="${course.id}"
+                                    th:text="${course.title}">Course
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <input type="submit" value="Create">
                 <input type="reset" value="Reset">
-            </p>
+            </table>
         </form>
     </div>
 </div>
