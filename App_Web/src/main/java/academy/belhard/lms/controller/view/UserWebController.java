@@ -105,7 +105,7 @@ public class UserWebController {
         dto.setId(id);
         dto.setActive(isActive);
         userService.update(dto);
-        return "redirect:/users/personal";
+        return "redirect:/users";
     }
 
     @GetMapping("/delete/{id}")
