@@ -27,12 +27,17 @@
                 </tr>
                 <tr>
                     <td class="text">Comment</td>
-                    <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling"></textarea></td>
+                    <td><textarea type="text" th:text=${homework.comment} name="comment" class="scrolling"></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td class="text">Add file</td>
-                    <td><input type="hidden" th:value=${homework.fileLink.id} name="fileLink.id"/>
+                    <td th:unless="${homework.fileLink} == null">
+                        <input type="hidden" th:value=${homework.fileLink.id} name="fileLink.id"/>
                         <input type="file" th:text=${homework.fileLink.link} name="fileUpload"/>
+                    </td>
+                    <td th:if="${homework.fileLink} == null">
+                        <input type="file" name="fileUpload"/>
                     </td>
                 </tr>
 
