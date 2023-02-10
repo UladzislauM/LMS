@@ -22,18 +22,39 @@
                     <td class="text-left-column">Email</td>
                     <td><input type="text" th:value=${user.email} name="email"></td>
                 </tr>
-                <tr>
-                    <td class="text-left-column">First name</td>
-                    <td><input type="text" th:value=${user.firstName} name="firstName"></td>
-                </tr>
-                <tr>
-                    <td class="text-left-column">Last name</td>
-                    <td><input type="text" th:value=${user.lastName} name="lastName"></td>
-                </tr>
-                <tr>
-                    <td class="text-left-column">Patronymic name</td>
-                    <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
-                </tr>
+                <div sec:authorize="hasAnyAuthority('STUDENT')">
+                    <tr>
+                        <td class="text-left-column">First name</td>
+                        <td><input type="text" th:value=${user.firstName} name="firstName" disabled></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left-column">Last name</td>
+                        <td><input type="text" th:value=${user.lastName} name="lastName" disabled></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left-column">Patronymic name</td>
+                        <td>
+                            <input type="text" th:unless="${user.patronymicName.isEmpty}"
+                                   th:value=${user.patronymicName} name="patronymicName" disabled>
+                            <input type="text" th:if="${user.patronymicName.isEmpty}" th:value=${user.patronymicName}
+                                   name="patronymicName">
+                        </td>
+                    </tr>
+                </div>
+                <div sec:authorize="hasAnyAuthority('MANAGER')">
+                    <tr>
+                        <td class="text-left-column">First name</td>
+                        <td><input type="text" th:value=${user.firstName} name="firstName"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left-column">Last name</td>
+                        <td><input type="text" th:value=${user.lastName} name="lastName"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left-column">Patronymic name</td>
+                        <td><input type="text" th:value=${user.patronymicName} name="patronymicName"></td>
+                    </tr>
+                </div>
                 <tr>
                     <td class="text">Contact preferences</td>
                     <td th:if="${#strings.toString(user.contactPreferences)} == 'TELEGRAM'">
@@ -144,10 +165,10 @@
                     <td class="text-left-column" hidden>Password</td>
                     <td><input type="text" th:value=${user.password} name="password" hidden></td>
                 </tr>
-                <!--                <tr sec:authorize="hasAnyAuthority('STUDENT')">-->
-                <!--                    <td><input type="text" th:value=${user.role} name="role" hidden></td>-->
-                <!--                    <td><input type="text" th:value=${user.isActive} hidden></td>-->
-                <!--                </tr>-->
+                <tr sec:authorize="hasAnyAuthority('STUDENT')">
+                    <td><input type="text" th:value=${user.role} name="role" hidden></td>
+                    <td><input type="text" th:value=${user.isActive} hidden></td>
+                </tr>
             </table>
             <button type="submit" class="button-active">Save</button>
         </form>
