@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <title>Edit course</title>
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/fontawesome/icons.css" rel="stylesheet">
 </head>
@@ -23,11 +24,11 @@
                 </tr>
                 <tr>
                     <td class="text" align="right">Description</td>
-                    <td><input type="text" th:value=${course.description} name="description"></td>
+                    <td><textarea type="text" th:text=${course.description} name="description" class="scrolling"></textarea></td>
                 </tr>
                 <tr>
                     <td class="text" align="right">Price</td>
-                    <td><input type="text" th:value=${course.price} name="price"></td>
+                    <td><input type="number" th:value=${course.price} name="price"></td>
                 </tr>
                 <tr>
                     <td class="text" align="right">Start date</td>
