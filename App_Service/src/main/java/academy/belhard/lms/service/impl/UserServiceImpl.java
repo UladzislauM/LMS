@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         mailService.sendEmail(created.getEmail(), InternalizationMessageManagerConfig
                         .getMessage(KEY_FOR_EMAIL_USER_CONFIRMATION_SUBJECT),
                 String.format(InternalizationMessageManagerConfig
-                        .getExceptionMessage(KEY_FOR_EXCEPTION_ACTIVATE_LINK_PATTERN), host, token, created.getId()));
+                        .getMessage(KEY_FOR_EXCEPTION_ACTIVATE_LINK_PATTERN), host, token, created.getId()));
     }
 
     @Override
