@@ -4,6 +4,7 @@ import academy.belhard.lms.service.exception.LmsException;
 import academy.belhard.lms.service.exception.NotFoundException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.Map;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,13 +24,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class LmsErrorController implements ErrorViewResolver {
 
 
+    public static final String ERROR = "Ooops... Error...";
+
     @GetMapping
     public String error() {
         return "error";
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(value = {LmsException.class})
+    @ExceptionHandler(LmsException.class)
     public String internalServerErrorLms(LmsException e, Model model) {
         model.addAttribute("message", e.getMessage());
         return "error";
@@ -59,6 +62,9 @@ public class LmsErrorController implements ErrorViewResolver {
 
     @Override
     public ModelAndView resolveErrorView(HttpServletRequest request, HttpStatus status, Map<String, Object> model) {
-        return null;  //FIXME ?//This method must be configured for others exceptions
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        modelAndView.addObject("message", ERROR);
+        return modelAndView;
     }
 }
