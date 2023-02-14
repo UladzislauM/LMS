@@ -22,9 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 @ControllerAdvice
 @RequestMapping("/error")
 public class LmsErrorController implements ErrorViewResolver {
-
-
-    public static final String ERROR = "Ooops... Error...";
+    public static final String ERROR = "LmsErrorController.error";
 
     @GetMapping
     public String error() {
