@@ -1,16 +1,29 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="START" type="Application" factoryName="Application">
     <envs>
+      <env name="DRIVER_DB" value="org.postgresql.Driver" />
+      <env name="LOGIN_DB" value="postgres" />
+      <env name="MAIL_HOST" value="mail.javaclass.online" />
+      <env name="MAIL_PORT" value="2525" />
+      <env name="MAIL_UNAME" value="lms@javaclass.online" />
+      <env name="PASSWORD_DB" value="root" />
       <env name="SPRING_MAIL_PASSWORD" value="Wcs7v5Q()S" />
+      <env name="URL_DB" value="jdbc:postgresql://localhost:5432/lms" />
+      <env name="APP_HOST" value="http://185.203.153.109" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="academy.belhard.lms.LmsApplication" />
-    <module name="lms.App_Launcher.main" />
+    <module name="LMS" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=development" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="academy.belhard.lms.*" />
         <option name="ENABLED" value="true" />
       </pattern>
+    </extension>
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
     </extension>
     <method v="2">
       <option name="Make" enabled="true" />

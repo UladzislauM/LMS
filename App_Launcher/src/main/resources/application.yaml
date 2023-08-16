@@ -3,18 +3,18 @@ spring:
     activate:
       on-profile: development
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/lms
-    username: postgres
-    password: root
+    driver-class-name: ${DRIVER_DB}
+    url: ${URL_DB}
+    username: ${LOGIN_DB}
+    password: ${PASSWORD_DB}
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
   mail:
-    host: mail.javaclass.online
-    port: 2525
-    username: lms@javaclass.online
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_UNAME}
 server:
   port: 8080
   error:
@@ -33,16 +33,18 @@ spring:
     activate:
       on-profile: production
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/lms
+    driver-class-name:
+    url:
+    username:
+    password:
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: validate
   mail:
-    host: mail.javaclass.online
-    port: 2525
-    username: noreply.lms@javaclass.online
+    host:
+    port:
+    username:
 server:
   port: 8080
   error:
@@ -52,4 +54,4 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
     min-response-size: 10240
 app:
-  host: http://185.203.153.109
+  host: ${APP_HOST}
