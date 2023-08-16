@@ -1,4 +1,4 @@
-rootProject.name = 'lms'
+rootProject.name = 'LMS'
 
 include ':App_Launcher'
 include ':App_Platform'
